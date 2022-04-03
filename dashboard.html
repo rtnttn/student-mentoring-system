@@ -14,11 +14,76 @@
   <body>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
 
+    <!-- NAVBAR -->
+    <div class="container">
+      <nav class="navbar navbar-expand-lg navbar-light bg-light nav nav-pills">
+        <div class="container-fluid">
+          <a class="navbar-brand ps-2" href="#">
+            <h1>Computer and IT Mentoring</h1>
+          </a>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="nav nav-pills nav-fill ms-auto mt-2 mb-2 mb-lg-0">
+              <li class="nav-item ps-2 pe-2">
+                <a class="nav-link active" aria-current="page" href="#">Home</a>
+              </li>
+              <li class="nav-item ps-2 pe-2">
+                <a class="nav-link" href="#">Subjects</a>
+              </li>
+              <li class="nav-item ps-2 pe-2">
+                <a class="nav-link" href="#">Logout</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </nav>
+    </div>
+
+
+
+    <!-- COLUMNS CONTENT -->
     <div class="container">
       <div class="row">
         <!-- column 1 -->
         <div class="col-md card m-1 columnColor">
-          <h3 class="text-center">Users</h3>
+          <a class="navbar-brand" href="#">
+            <h3 class="text-center">Users</h3>
+          </a>
+
+          <!-- SEARCH USERS -->
+          <form>
+            <div class="row g-2 mb-1">
+              <div class="col-sm-4">
+                <label for="exampleInputEmail1" class="col-form-label">Name</label>
+              </div>
+              <div class="col-sm-8">
+                <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Teacher/Student Name">                
+              </div>
+            </div>
+            <div class="row g-2 mb-1">
+              <div class="col-sm-4">
+                <label for="exampleInputEmail1" class="col-form-label">Subject</label>
+              </div>
+              <div class="col-sm-8">
+                <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Subject Name">                
+              </div>
+            </div>
+            <div class="row g-2 mb-1">
+              <div class="col-sm-4">
+                <label for="exampleInputEmail1" class="col-form-label">Groups</label>
+              </div>
+              <div class="col-sm-8">
+                <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Number of active groups">                
+              </div>
+            </div>
+            <div class="text-center mb-2">
+              <button type="submit" class="btn btn-primary justify-content-center">Search</button>              
+            </div>
+          </form>
+
+          <!-- USER NUMBERS -->
           <h5 class="align-self-center">
             <!--  TODO Dynamic numbers -->
             <table>
@@ -37,6 +102,7 @@
             </table>
           </h5>
 
+          <!-- USER CONTENT -->
           <div class="card card-body columnMainListColor">
             <!-- TODO Dynamic data -->
             <!-- TEACHERS -->
@@ -117,7 +183,7 @@
                   </h6>
                   <li class="list-group-item bg-transparent fst-italic">&ensp;Email:</li>
                   <li class="list-group-item bg-transparent">tdactyl@holmesglen.edu.au</li>
-                  <li class="list-group-item bg-transparent fst-italic">Groups:</li>
+                  <li class="list-group-item bg-transparent fst-italic">&ensp;Groups:</li>
                   <li class="list-group-item bg-transparent">1</li>
                   <li class="list-group-item bg-transparent fst-italic">&ensp;Current Subjects:</li>
                   <li class="list-group-item bg-transparent">Advanced Databases</li>
@@ -180,7 +246,7 @@
                   </h6>
                   <li class="list-group-item bg-transparent fst-italic">&ensp;Email:</li>
                   <li class="list-group-item bg-transparent">tdactyl@holmesglen.edu.au</li>
-                  <li class="list-group-item bg-transparent fst-italic">Groups:</li>
+                  <li class="list-group-item bg-transparent fst-italic">&ensp;Groups:</li>
                   <li class="list-group-item bg-transparent">1</li>
                   <li class="list-group-item bg-transparent fst-italic">&ensp;Current Subjects:</li>
                   <li class="list-group-item bg-transparent">Advanced Databases</li>
@@ -222,15 +288,42 @@
                 </ul>
               </li>              
             </ul>
-
-
           </div>
-
         </div>
+        <!-- end of column 1 -->
 
         <!-- column 2 -->
         <div class="col-md card m-1 columnColor">
-          <h3 class="text-center">Applications</h3>
+          <a class="navbar-brand" href="#">
+            <h3 class="text-center">Applications</h3>
+          </a>
+          
+
+          <!-- SEARCH APPLICATIONS -->
+          <form>
+            <div class="row g-2 mb-1">
+              <div class="col-sm-4">
+                <label for="exampleInputEmail1" class="col-form-label">Name</label>
+              </div>
+              <div class="col-sm-8">
+                <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Student Name">                
+              </div>
+            </div>
+            <div class="row g-2 mb-1">
+              <div class="col-sm-4">
+                <label for="exampleInputEmail1" class="col-form-label">Subject</label>
+              </div>
+              <div class="col-sm-8">
+                <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Subject Name">                
+              </div>
+            </div>
+            <div class="text-center mb-2">
+              <button type="submit" class="btn btn-primary justify-content-center">Search</button>              
+            </div>
+          </form>
+
+
+          <!-- APPLICATION NUMBERS -->
           <h5 class="align-self-center">
             <!--  TODO Dynamic -->
             <table>
@@ -245,11 +338,160 @@
             </table>            
           </h5>
 
+          <!-- APPLICATION CONTENT -->
+          <div class="card card-body columnMainListColor">
+            <!-- TODO Dynamic data -->
+            <!-- MENTORS -->
+            <h5 class="text-center">
+              Mentors
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-caret-down-fill" viewBox="0 0 16 16">
+                <path d="M7.247 11.14 2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z"/>
+              </svg>
+            </h5>
+            <ul class="list-group columnSubListColor">
+              <li class="list-group-item columnSubListColor">
+                
+                <ul class="list-group">
+                  <h6>
+                    Teri Dactyl
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-eye-fill float-end" viewBox="0 0 16 16">
+                      <path d="M10.5 8a2.5 2.5 0 1 1-5 0 2.5 2.5 0 0 1 5 0z"/>
+                      <path d="M0 8s3-5.5 8-5.5S16 8 16 8s-3 5.5-8 5.5S0 8 0 8zm8 3.5a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7z"/>
+                    </svg>
+                  </h6>
+                  <li class="list-group-item bg-transparent fst-italic">&ensp;Email:</li>
+                  <li class="list-group-item bg-transparent">tdactyl@holmesglen.edu.au</li>
+                  <li class="list-group-item bg-transparent fst-italic">&ensp;Subject:</li>
+                  <li class="list-group-item bg-transparent">Intro to Java</li>
+                </ul>
+              </li>
+
+              <li class="list-group-item columnSubListColor">
+                <h6>
+                  Peg Legge
+                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-eye-fill float-end" viewBox="0 0 16 16">
+                    <path d="M10.5 8a2.5 2.5 0 1 1-5 0 2.5 2.5 0 0 1 5 0z"/>
+                    <path d="M0 8s3-5.5 8-5.5S16 8 16 8s-3 5.5-8 5.5S0 8 0 8zm8 3.5a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7z"/>
+                  </svg>
+                </h6>
+                <ul class="list-group">
+                  <li class="list-group-item bg-transparent fst-italic">&ensp;Email:</li>
+                  <li class="list-group-item bg-transparent">tdactyl@holmesglen.edu.au</li>
+                  <li class="list-group-item bg-transparent fst-italic">&ensp;Subject:</li>
+                  <li class="list-group-item bg-transparent">Advanced Databases</li>
+                </ul>
+              </li>
+
+              <li class="list-group-item columnSubListColor">
+                <h6>
+                  Allie Grater
+                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-eye-fill float-end" viewBox="0 0 16 16">
+                    <path d="M10.5 8a2.5 2.5 0 1 1-5 0 2.5 2.5 0 0 1 5 0z"/>
+                    <path d="M0 8s3-5.5 8-5.5S16 8 16 8s-3 5.5-8 5.5S0 8 0 8zm8 3.5a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7z"/>
+                  </svg>
+                </h6>
+                <ul class="list-group">
+                  <li class="list-group-item bg-transparent fst-italic">&ensp;Email:</li>
+                  <li class="list-group-item bg-transparent">tdactyl@holmesglen.edu.au</li>
+                  <li class="list-group-item bg-transparent fst-italic">&ensp;Subject:</li>
+                  <li class="list-group-item bg-transparent">User Interfaces</li>
+                </ul>
+              </li>              
+            </ul>
+
+            <!-- MENTEES -->
+            <h5 class="text-center mt-5">
+              Mentees
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-caret-down-fill" viewBox="0 0 16 16">
+                <path d="M7.247 11.14 2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z"/>
+              </svg>
+            </h5>
+            <ul class="list-group columnSubListColor">
+              <li class="list-group-item columnSubListColor">
+                
+                <ul class="list-group">
+                  <h6>
+                    Teri Dactyl
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-eye-fill float-end" viewBox="0 0 16 16">
+                      <path d="M10.5 8a2.5 2.5 0 1 1-5 0 2.5 2.5 0 0 1 5 0z"/>
+                      <path d="M0 8s3-5.5 8-5.5S16 8 16 8s-3 5.5-8 5.5S0 8 0 8zm8 3.5a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7z"/>
+                    </svg>
+                  </h6>
+                  <li class="list-group-item bg-transparent fst-italic">&ensp;Email:</li>
+                  <li class="list-group-item bg-transparent">tdactyl@holmesglen.edu.au</li>
+                  <li class="list-group-item bg-transparent fst-italic">&ensp;Subject:</li>
+                  <li class="list-group-item bg-transparent">Intro to Java</li>
+                </ul>
+              </li>
+
+              <li class="list-group-item columnSubListColor">
+                <h6>
+                  Peg Legge
+                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-eye-fill float-end" viewBox="0 0 16 16">
+                    <path d="M10.5 8a2.5 2.5 0 1 1-5 0 2.5 2.5 0 0 1 5 0z"/>
+                    <path d="M0 8s3-5.5 8-5.5S16 8 16 8s-3 5.5-8 5.5S0 8 0 8zm8 3.5a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7z"/>
+                  </svg>
+                </h6>
+                <ul class="list-group">
+                  <li class="list-group-item bg-transparent fst-italic">&ensp;Email:</li>
+                  <li class="list-group-item bg-transparent">tdactyl@holmesglen.edu.au</li>
+                  <li class="list-group-item bg-transparent fst-italic">&ensp;Subject:</li>
+                  <li class="list-group-item bg-transparent">Advanced Databases</li>
+                </ul>
+              </li>
+
+              <li class="list-group-item columnSubListColor">
+                <h6>
+                  Allie Grater
+                  <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-eye-fill float-end" viewBox="0 0 16 16">
+                    <path d="M10.5 8a2.5 2.5 0 1 1-5 0 2.5 2.5 0 0 1 5 0z"/>
+                    <path d="M0 8s3-5.5 8-5.5S16 8 16 8s-3 5.5-8 5.5S0 8 0 8zm8 3.5a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7z"/>
+                  </svg>
+                </h6>
+                <ul class="list-group">
+                  <li class="list-group-item bg-transparent fst-italic">&ensp;Email:</li>
+                  <li class="list-group-item bg-transparent">tdactyl@holmesglen.edu.au</li>
+                  <li class="list-group-item bg-transparent fst-italic">&ensp;Subject:</li>
+                  <li class="list-group-item bg-transparent">User Interfaces</li>
+                </ul>
+              </li>              
+            </ul>
+          </div>
         </div>
+        <!-- end of column 2 -->
 
         <!-- column 3 -->
         <div class="col-md card m-1 columnColor">
-          <h3 class="text-center">Groups</h3>
+          <a class="navbar-brand" href="#">
+            <h3 class="text-center">Groups</h3>
+          </a>
+          
+
+          <!-- SEARCH GROUPS -->
+          <form>
+            <div class="row g-2 mb-1">
+              <div class="col-sm-4">
+                <label for="exampleInputEmail1" class="col-form-label">Student Name</label>
+              </div>
+              <div class="col-sm-8">
+                <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Student Name">                
+              </div>
+            </div>
+            <div class="row g-2 mb-1">
+              <div class="col-sm-4">
+                <label for="exampleInputEmail1" class="col-form-label">Last Met Before</label>
+              </div>
+              <div class="col-sm-8">
+                <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" placeholder="Date to check before">                
+              </div>
+            </div>
+            <div class="text-center mb-2">
+              <button type="submit" class="btn btn-primary justify-content-center">Search</button>              
+            </div>
+          </form>
+
+
+          <!-- GROUP NUMBERS -->
           <h5 class="align-self-center">
             <!--  TODO Dynamic -->
             <table>
@@ -259,6 +501,203 @@
               </tr>
             </table>            
           </h5>
+
+
+          <!-- GROUP CONTENT -->
+          <div class="card card-body columnMainListColor">
+            <!-- TODO Dynamic data -->
+            <!-- SUBJECT 1 -->
+            <h5 class="text-center">
+              Advanced Databases
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-caret-down-fill" viewBox="0 0 16 16">
+                <path d="M7.247 11.14 2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z"/>
+              </svg>
+            </h5>
+            <ul class="list-group columnSubListColor">
+              <li class="list-group-item columnSubListColor">
+                <ul class="list-group">
+                  <h6>
+                    Group 1
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-eye-fill float-end" viewBox="0 0 16 16">
+                      <path d="M10.5 8a2.5 2.5 0 1 1-5 0 2.5 2.5 0 0 1 5 0z"/>
+                      <path d="M0 8s3-5.5 8-5.5S16 8 16 8s-3 5.5-8 5.5S0 8 0 8zm8 3.5a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7z"/>
+                    </svg>
+                  </h6>
+                  <li class="list-group-item bg-transparent fst-italic">&ensp;Mentor:</li>
+                  <li class="list-group-item bg-transparent">Liz Erd</li>
+                  <li class="list-group-item bg-transparent fst-italic">&ensp;Mentee:</li>
+                  <li class="list-group-item bg-transparent">Lynn OLeeum</li>
+                  <li class="list-group-item bg-transparent fst-italic">&ensp;Last Met:</li>
+                  <li class="list-group-item bg-transparent">03/04/2022</li>
+                </ul>
+              </li>
+
+              <li class="list-group-item columnSubListColor">
+                <ul class="list-group">
+                  <h6>
+                    Group 2
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-eye-fill float-end" viewBox="0 0 16 16">
+                      <path d="M10.5 8a2.5 2.5 0 1 1-5 0 2.5 2.5 0 0 1 5 0z"/>
+                      <path d="M0 8s3-5.5 8-5.5S16 8 16 8s-3 5.5-8 5.5S0 8 0 8zm8 3.5a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7z"/>
+                    </svg>
+                  </h6>
+                  <li class="list-group-item bg-transparent fst-italic">&ensp;Mentor:</li>
+                  <li class="list-group-item bg-transparent">Liz Erd</li>
+                  <li class="list-group-item bg-transparent fst-italic">&ensp;Mentee:</li>
+                  <li class="list-group-item bg-transparent">Lynn OLeeum</li>
+                  <li class="list-group-item bg-transparent fst-italic">&ensp;Last Met:</li>
+                  <li class="list-group-item bg-transparent">03/04/2022</li>
+                </ul>
+              </li>
+
+              <li class="list-group-item columnSubListColor">
+                <ul class="list-group">
+                  <h6>
+                    Group 3
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-eye-fill float-end" viewBox="0 0 16 16">
+                      <path d="M10.5 8a2.5 2.5 0 1 1-5 0 2.5 2.5 0 0 1 5 0z"/>
+                      <path d="M0 8s3-5.5 8-5.5S16 8 16 8s-3 5.5-8 5.5S0 8 0 8zm8 3.5a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7z"/>
+                    </svg>
+                  </h6>
+                  <li class="list-group-item bg-transparent fst-italic">&ensp;Mentor:</li>
+                  <li class="list-group-item bg-transparent">Liz Erd</li>
+                  <li class="list-group-item bg-transparent fst-italic">&ensp;Mentee:</li>
+                  <li class="list-group-item bg-transparent">Lynn OLeeum</li>
+                  <li class="list-group-item bg-transparent fst-italic">&ensp;Last Met:</li>
+                  <li class="list-group-item bg-transparent">03/04/2022</li>
+                </ul>
+              </li>              
+            </ul>
+
+            <!-- SUBJECT 2 -->
+            <h5 class="text-center mt-5">
+              Intro to Java
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-caret-down-fill" viewBox="0 0 16 16">
+                <path d="M7.247 11.14 2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z"/>
+              </svg>
+            </h5>
+            <ul class="list-group columnSubListColor">
+              <li class="list-group-item columnSubListColor">
+                <ul class="list-group">
+                  <h6>
+                    Group 1
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-eye-fill float-end" viewBox="0 0 16 16">
+                      <path d="M10.5 8a2.5 2.5 0 1 1-5 0 2.5 2.5 0 0 1 5 0z"/>
+                      <path d="M0 8s3-5.5 8-5.5S16 8 16 8s-3 5.5-8 5.5S0 8 0 8zm8 3.5a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7z"/>
+                    </svg>
+                  </h6>
+                  <li class="list-group-item bg-transparent fst-italic">&ensp;Mentor:</li>
+                  <li class="list-group-item bg-transparent">Liz Erd</li>
+                  <li class="list-group-item bg-transparent fst-italic">&ensp;Mentee:</li>
+                  <li class="list-group-item bg-transparent">Lynn OLeeum</li>
+                  <li class="list-group-item bg-transparent fst-italic">&ensp;Last Met:</li>
+                  <li class="list-group-item bg-transparent">03/04/2022</li>
+                </ul>
+              </li>
+
+              <li class="list-group-item columnSubListColor">
+                <ul class="list-group">
+                  <h6>
+                    Group 2
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-eye-fill float-end" viewBox="0 0 16 16">
+                      <path d="M10.5 8a2.5 2.5 0 1 1-5 0 2.5 2.5 0 0 1 5 0z"/>
+                      <path d="M0 8s3-5.5 8-5.5S16 8 16 8s-3 5.5-8 5.5S0 8 0 8zm8 3.5a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7z"/>
+                    </svg>
+                  </h6>
+                  <li class="list-group-item bg-transparent fst-italic">&ensp;Mentor:</li>
+                  <li class="list-group-item bg-transparent">Liz Erd</li>
+                  <li class="list-group-item bg-transparent fst-italic">&ensp;Mentee:</li>
+                  <li class="list-group-item bg-transparent">Lynn OLeeum</li>
+                  <li class="list-group-item bg-transparent fst-italic">&ensp;Last Met:</li>
+                  <li class="list-group-item bg-transparent">03/04/2022</li>
+                </ul>
+              </li>
+
+              <li class="list-group-item columnSubListColor">
+                <ul class="list-group">
+                  <h6>
+                    Group 3
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-eye-fill float-end" viewBox="0 0 16 16">
+                      <path d="M10.5 8a2.5 2.5 0 1 1-5 0 2.5 2.5 0 0 1 5 0z"/>
+                      <path d="M0 8s3-5.5 8-5.5S16 8 16 8s-3 5.5-8 5.5S0 8 0 8zm8 3.5a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7z"/>
+                    </svg>
+                  </h6>
+                  <li class="list-group-item bg-transparent fst-italic">&ensp;Mentor:</li>
+                  <li class="list-group-item bg-transparent">Liz Erd</li>
+                  <li class="list-group-item bg-transparent fst-italic">&ensp;Mentee:</li>
+                  <li class="list-group-item bg-transparent">Lynn OLeeum</li>
+                  <li class="list-group-item bg-transparent fst-italic">&ensp;Last Met:</li>
+                  <li class="list-group-item bg-transparent">03/04/2022</li>
+                </ul>
+              </li>              
+            </ul>
+
+
+            <!-- SUBJECT 3 -->
+            <h5 class="text-center mt-5">
+              User Interfaces
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-caret-down-fill" viewBox="0 0 16 16">
+                <path d="M7.247 11.14 2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z"/>
+              </svg>
+            </h5>
+            <ul class="list-group columnSubListColor">
+              <li class="list-group-item columnSubListColor">
+                <ul class="list-group">
+                  <h6>
+                    Group 1
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-eye-fill float-end" viewBox="0 0 16 16">
+                      <path d="M10.5 8a2.5 2.5 0 1 1-5 0 2.5 2.5 0 0 1 5 0z"/>
+                      <path d="M0 8s3-5.5 8-5.5S16 8 16 8s-3 5.5-8 5.5S0 8 0 8zm8 3.5a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7z"/>
+                    </svg>
+                  </h6>
+                  <li class="list-group-item bg-transparent fst-italic">&ensp;Mentor:</li>
+                  <li class="list-group-item bg-transparent">Liz Erd</li>
+                  <li class="list-group-item bg-transparent fst-italic">&ensp;Mentee:</li>
+                  <li class="list-group-item bg-transparent">Lynn OLeeum</li>
+                  <li class="list-group-item bg-transparent fst-italic">&ensp;Last Met:</li>
+                  <li class="list-group-item bg-transparent">03/04/2022</li>
+                </ul>
+              </li>
+
+              <li class="list-group-item columnSubListColor">
+                <ul class="list-group">
+                  <h6>
+                    Group 2
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-eye-fill float-end" viewBox="0 0 16 16">
+                      <path d="M10.5 8a2.5 2.5 0 1 1-5 0 2.5 2.5 0 0 1 5 0z"/>
+                      <path d="M0 8s3-5.5 8-5.5S16 8 16 8s-3 5.5-8 5.5S0 8 0 8zm8 3.5a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7z"/>
+                    </svg>
+                  </h6>
+                  <li class="list-group-item bg-transparent fst-italic">&ensp;Mentor:</li>
+                  <li class="list-group-item bg-transparent">Liz Erd</li>
+                  <li class="list-group-item bg-transparent fst-italic">&ensp;Mentee:</li>
+                  <li class="list-group-item bg-transparent">Lynn OLeeum</li>
+                  <li class="list-group-item bg-transparent fst-italic">&ensp;Last Met:</li>
+                  <li class="list-group-item bg-transparent">03/04/2022</li>
+                </ul>
+              </li>
+
+              <li class="list-group-item columnSubListColor">
+                <ul class="list-group">
+                  <h6>
+                    Group 3
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-eye-fill float-end" viewBox="0 0 16 16">
+                      <path d="M10.5 8a2.5 2.5 0 1 1-5 0 2.5 2.5 0 0 1 5 0z"/>
+                      <path d="M0 8s3-5.5 8-5.5S16 8 16 8s-3 5.5-8 5.5S0 8 0 8zm8 3.5a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7z"/>
+                    </svg>
+                  </h6>
+                  <li class="list-group-item bg-transparent fst-italic">&ensp;Mentor:</li>
+                  <li class="list-group-item bg-transparent">Liz Erd</li>
+                  <li class="list-group-item bg-transparent fst-italic">&ensp;Mentee:</li>
+                  <li class="list-group-item bg-transparent">Lynn OLeeum</li>
+                  <li class="list-group-item bg-transparent fst-italic">&ensp;Last Met:</li>
+                  <li class="list-group-item bg-transparent">03/04/2022</li>
+                </ul>
+              </li>              
+            </ul>
+          </div>
+
+
         </div>
       </div>
     </div>
