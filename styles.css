@@ -1,0 +1,15 @@
+.columnColor {
+  background-color: rgba(20, 36, 255, 0.05);
+}
+
+.columnMainListColor {
+  background-color: rgba(20, 36, 255, 0.05);
+}
+
+.columnSubListColor {
+  background-color: rgba(20, 36, 255, 0.04);
+}
+
+.columnSubListColor:nth-child(odd) {
+  background-color: rgba(20, 36, 255, 0.08);
+}
