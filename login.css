@@ -1,0 +1,50 @@
+.main-head{
+    height: 150px;
+    background: #FFF;
+   
+}
+.sidenav {
+    height: 100%;
+    background-color: #A80086;
+    overflow-x: hidden;
+    padding-top: 30px;
+}
+.main {
+    padding: 0px 50px;
+}
+.main-heading{
+    margin-top: 20%;
+    padding: 60px;
+    color: #fff;
+}
+/* Responsive breakpoints */
+@media screen and (max-height: 450px) {
+    .sidenav {padding-top: 15px;}
+}
+@media screen and (max-width: 450px) {
+    .login-form{
+        margin-top: 10%;
+    }
+}
+@media screen and (min-width: 768px){
+    .main{
+        margin-left: 40%; 
+    }
+
+    .sidenav{
+        width: 40%;
+        position: fixed;
+        z-index: 1;
+        top: 0 ;
+        left: 0;
+    }
+
+    .login-form{
+        margin-top: 80%;
+    }
+}
+.btn-black{
+    background-color: #b11a92 !important;
+    color: #fff;
+    margin-top: 20px;
+}
