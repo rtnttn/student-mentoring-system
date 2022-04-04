@@ -48,3 +48,13 @@
     color: #fff;
     margin-top: 20px;
 }
+.forgot-password-link {
+    font-size: 14px;
+    color: #080808;
+    text-decoration: underline
+}
+.create-account-link {
+    font-size: 14px;
+    color: #080808;
+    text-decoration: underline
+}
