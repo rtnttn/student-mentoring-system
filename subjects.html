@@ -44,13 +44,13 @@
       </nav>
     </div>
 
-    <!-- COLUMNS CONTENT -->
+    <!-- SUBJECTS PAGE CONTENT -->
     <div class="container">
       <div class="row">
         <div class="col-md card mt-1 columnColor">
           <h3 class="text-center mt-2">Subjects</h3>
 
-          <!-- SEARCH -->
+          <!-- SUBJECTS SEARCH -->
           <form>
             <div class="row g-2 mb-1">
               <div class="col-sm-4">
@@ -65,10 +65,109 @@
               <div>
                 <input type="text" class="form-control" id="exampleInputSupervisor" aria-describedBy="" placeholder="Supervisor Name">
               </div>
+              <div class="Test-center mb-2">
+                <button type="submit" class="btn btn-primary justify-content-center">Search</button>
+              </div>
             </div>
           </form>
+
+          <!-- COUNT -->
+          <h5 class="align-self-center">
+            <!-- TODO DYNAMIC -->
+            <table>
+              <tr>
+                <td>Subjects: </td>
+                <td>3</td>
+              </tr>
+              <tr>
+                <td>Supervisors: </td>
+                <td>2</td>
+              </tr>
+            </table>
+          </h5>
+
+          
+          
         </div>
-      </div>
+        <!-- SUBJECTS CONTENT -->
+        <!-- TODO DYNAMIC -->
+        <div class="row">
+          <div class="col-md card mt-1 columnColor">
+            <h5 class="text-center">
+              Networking
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-caret-down-fill" viewBox="0 0 16 16">
+                <path d="M7.247 11.14 2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z"/>
+              </svg>
+            </h5>
+            <ul class="list-group columnSubListColor">
+              <li class="list-group-item columnSubListColor">
+                <ul class="list-group">
+                  <h6 class="fw-bold">
+                    Supervisor
+                  </h6>
+                  <li class="list-group-item bg-transparent">Joe Median</li>
+                </ul>
+                <ul class="list-group">
+                  <h6 class="fw-bold">
+                    Groups (1)
+                  </h6>
+                  <li class="list-group-item bg-transparent">Group 1</li>
+                </ul>
+              </li>
+            </ul>
+          </div>
+
+          <div class="col-md card mt-1 columnColor">
+            <h5 class="text-center">
+              Databases
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-caret-down-fill" viewBox="0 0 16 16">
+                <path d="M7.247 11.14 2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z"/>
+              </svg>
+            </h5>
+            <ul class="list-group columnSubListColor">
+              <li class="list-group-item columnSubListColor">
+                <ul class="list-group">
+                  <h6 class="fw-bold">
+                    Supervisor
+                  </h6>
+                  <li class="list-group-item bg-transparent">Ed Teach</li>
+                </ul>
+                <ul class="list-group">
+                  <h6 class="fw-bold">
+                    Groups (2)
+                  </h6>
+                  <li class="list-group-item bg-transparent">Group 1</li>
+                  <li class="list-group-item bg-transparent">Group 2</li>
+                </ul>
+              </li>
+            </ul>
+          </div>
+
+          <div class="col-md card mt-1 columnColor">
+            <h5 class="text-center">
+              OOP
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-caret-down-fill" viewBox="0 0 16 16">
+                <path d="M7.247 11.14 2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z"/>
+              </svg>
+            </h5>
+            <ul class="list-group columnSubListColor">
+              <li class="list-group-item columnSubListColor">
+                <ul class="list-group">
+                  <h6 class="fw-bold">
+                    Supervisor
+                  </h6>
+                  <li class="list-group-item bg-transparent">Sue Zann</li>
+                </ul>
+                <ul class="list-group">
+                  <h6 class="fw-bold">
+                    Groups (1)
+                  </h6>
+                  <li class="list-group-item bg-transparent">Group 1</li>
+                </ul>
+              </li>
+            </ul>
+          </div>
+        </div>
     </div>
   </body>
 </html>
