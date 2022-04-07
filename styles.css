@@ -17,15 +17,3 @@
 .columnSubListColor:nth-child(odd) {
   background-color: rgba(20, 36, 255, 0.08);
 }
-/* CreateAccount.html style */
-.create-account-body{
-  height: 100%;
-  padding: 0px 50px;
-}
-.create-account-form {
-  width: 60%;
-  margin: 60px auto;
-  background-color: rgba(20, 36, 255, 0.08);
-  padding: 60px 120px 80px 120px;
-  box-shadow: 2px 2px 3px rgba(0,0,0,0.1);
-}
