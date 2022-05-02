@@ -199,6 +199,92 @@ app.delete('/api/staff/:id', (req, res) => {
   res.send(`ID: ${id} deleted`);
 });
 
+// Subject routes
+// Find all subjects
+app.get('/api/subjects', async (req, res) => {
+  console.log('/subjects - get');
+  const list = await Subject.findAll();
+  console.log(list);
+  res.send(list);
+});
+
+// Find subject by id
+app.get('/api/subject/:id', async (req, res) => {
+  console.log('/subject/:id - get');
+  let { id } = req.params;
+  id = parseInt(id);
+  console.log(id);
+  const subject = await Subject.findByPk(id);
+  res.send(subject);
+});
+
+// Add a subject
+app.post('/api/subject/add', async (req, res) => {
+  console.log('/subject/add - post');
+  console.log(req.body);
+  const { subjectName } = req.body;
+  const subject = await Subject.create({ subjectName });
+  console.log(subject.toJSON());
+  res.send(subject);
+});
+
+// Edit a subject
+app.put('/api/subject/edit/:id', async (req, res) => {
+  console.log('/subject/edit/:id - put');
+  let { id } = req.params;
+  id = parseInt(id);
+  console.log(id);
+  console.log(req.body);
+  const { subjectName } = req.body;
+  const subject = await Subject.update({ subjectName }, { where: { subjectId: id } });
+  res.send(subject);
+});
+
+// Delete a subject
+app.delete('/api/subject/:id', (req, res) => {
+  console.log('/subject/:id - delete');
+  let { id } = req.params;
+  id = parseInt(id);
+  console.log(id);
+  Subject.destroy({ where: { subjectId: id } });
+  res.send(`ID: ${id} deleted`);
+});
+// Application routes
+// Find all applications
+
+// Find application by id
+
+// Create an application
+
+// Edit an application
+
+// Delete an application
+
+// Group routes
+// Find all groups
+
+// Find group by id
+
+// Create a group
+
+// Edit a group
+
+// Delete a group
+
+// Member routes
+// Find all members of a group
+
+// Find all groups of a member
+
+// Find group mentor
+
+// Find group students
+
+// Attendance routes
+// Find all meetings of a group
+
+// Find most recent group meeting
+
 // Start server
 db.sequelize.sync().then(() => {
   app.listen(config.port, () => console.log(`Server is running on: ${config.port}`));
