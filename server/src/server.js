@@ -251,14 +251,108 @@ app.delete('/api/subject/:id', (req, res) => {
 });
 // Application routes
 // Find all applications
+app.get('/api/applications', async (req, res) => {
+  console.log('/applications - get');
+  const list = await Application.findAll();
+  console.log(list);
+  res.send(list);
+});
 
 // Find application by id
+app.get('/api/application/:id', async (req, res) => {
+  console.log('/application/:id - get');
+  let { id } = req.params;
+  id = parseInt(id);
+  console.log(id);
+  const application = await Application.findByPk(id);
+  console.log(application);
+  res.send(application);
+});
+
+// Find all applications by student
+app.get('/api/applications/:id', async (req, res) => {
+  console.log('/applications/:id - get');
+  let { id } = req.params;
+  id = parseInt(id);
+  console.log(id);
+  const list = await Application.findAll({ where: { studentId: id } });
+  console.log(list);
+  res.send(list);
+});
+
+// Find all mentee applications BROKEN
+// app.get('/api/applications/mentees', async (req, res) => {
+//   console.log('/applications/mentees - get');
+//   const list = await Application.findAll({ where: { forMentor: false } });
+//   console.log(list);
+//   res.send(list);
+// });
+
+// Find all mentee applications by student
+app.get('/api/applications/mentee/:id', async (req, res) => {
+  console.log('/applications/mentee/:id - get');
+  let { id } = req.params;
+  id = parseInt(id);
+  console.log(id);
+  const list = await Application.findAll({ where: { studentId: id, forMentor: false } });
+  console.log(list);
+  res.send(list);
+});
+
+// Find all mentor applications BROKEN
+// app.get('/api/applications/mentors', async (req, res) => {
+//   console.log('/applications/mentors - get');
+//   const list = await Application.findAll({ where: { forMentor: true } });
+//   console.log(list);
+//   res.send(list);
+// });
+
+// Find all mentor applications by student
+app.get('/api/applications/mentor/:id', async (req, res) => {
+  console.log('/applications/mentor/:id - get');
+  let { id } = req.params;
+  id = parseInt(id);
+  console.log(id);
+  const list = await Application.findAll({ where: { studentId: id, forMentor: true } });
+  console.log(list);
+  res.send(list);
+});
 
 // Create an application
+app.post('/api/application/add', async (req, res) => {
+  console.log('/application/add - post');
+  console.log(req.body);
+  const { studentId, subjectId, forMentor } = req.body;
+  const application = await Application.create({ studentId, subjectId, forMentor });
+  console.log(application.toJSON());
+  res.send(application);
+});
 
 // Edit an application
+app.put('/api/application/edit/:id', async (req, res) => {
+  console.log('/application/edit/:id - put');
+  let { id } = req.params;
+  id = parseInt(id);
+  console.log(id);
+  console.log(req.body);
+  const { studentId, subjectId, forMentor } = req.body;
+  const application = await Application.update(
+    { studentId, subjectId, forMentor },
+    { where: { applicationId: id } }
+  );
+  console.log(application);
+  res.send(application);
+});
 
 // Delete an application
+app.delete('/api/application/:id', (req, res) => {
+  console.log('/application/:id - delete');
+  let { id } = req.params;
+  id = parseInt(id);
+  console.log(id);
+  Application.destroy({ where: { applicationId: id } });
+  res.send(`ID: ${id} deleted`);
+});
 
 // Group routes
 // Find all groups
@@ -284,6 +378,16 @@ app.delete('/api/subject/:id', (req, res) => {
 // Find all meetings of a group
 
 // Find most recent group meeting
+
+// Timeslot routes
+// List timeslots
+
+// Availability routes
+// List availability by student
+
+// Create availability
+
+// Edit student availability
 
 // Start server
 db.sequelize.sync().then(() => {
