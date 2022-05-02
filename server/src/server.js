@@ -8,7 +8,8 @@ const db = require('./models');
 const app = express();
 
 // eslint-disable-next-line no-unused-vars
-const { Student, Staff, Subject, Application, Group, Members, Attendance } = db.sequelize.models;
+const { Student, Staff, Subject, Application, Group, Member, Attendance, Timeslot, Availability } =
+  db.sequelize.models;
 
 // Data handling middleware
 app.use(express.json());
@@ -249,6 +250,7 @@ app.delete('/api/subject/:id', (req, res) => {
   Subject.destroy({ where: { subjectId: id } });
   res.send(`ID: ${id} deleted`);
 });
+
 // Application routes
 // Find all applications
 app.get('/api/applications', async (req, res) => {
@@ -356,19 +358,81 @@ app.delete('/api/application/:id', (req, res) => {
 
 // Group routes
 // Find all groups
+app.get('/api/groups', async (req, res) => {
+  console.log('/groups - get');
+  const list = await Group.findAll();
+  console.log(list);
+  res.send(list);
+});
 
 // Find group by id
+app.get('/api/group/:id', async (req, res) => {
+  console.log('/group/:id - get');
+  let { id } = req.params;
+  id = parseInt(id);
+  console.log(id);
+  const group = await Group.findByPk(id);
+  console.log(group);
+  res.send(group);
+});
 
 // Create a group
+app.post('/api/group/add', async (req, res) => {
+  console.log('/group/add - post');
+  console.log(req.body);
+  const { supervisorId, subjectId, semesterCode } = req.body;
+  const group = await Group.create({ supervisorId, subjectId, semesterCode });
+  console.log(group);
+  res.send(group);
+});
 
 // Edit a group
+app.put('/api/group/edit/:id', async (req, res) => {
+  console.log('/group/edit/:id - put');
+  let { id } = req.params;
+  id = parseInt(id);
+  console.log(id);
+  console.log(req.body);
+  const { supervisorId, subjectId, semesterCode } = req.body;
+  const group = await Group.update(
+    { supervisorId, subjectId, semesterCode },
+    { where: { groupId: id } }
+  );
+  console.log(group);
+  res.send(group);
+});
 
+// BROKEN
 // Delete a group
+// app.delete('/api/group/:id', (req, res) => {
+//   console.log('/group/:id - delete');
+//   let { id } = req.params;
+//   id = parseInt(id);
+//   console.log(id);
+//   Group.destroy({ where: { groupId: id } });
+//   res.send(`ID ${id} deleted`);
+// });
 
 // Member routes
 // Find all members of a group
+// app.get('/api/members/groupid/:id', async (req, res) => {
+//   console.log('/members/group/:id - get');
+//   let { id } = req.params;
+//   id = parseInt(id);
+//   console.log(id);
+//   const list = await Member.findAll({ where: { groupId: id } });
+//   console.log(list);
+//   res.send(list);
+// });
 
 // Find all groups of a member
+// app.get('/api/member/:id', async (req, res) => {
+//   console.log('/member/:id - get')
+//   let {id} = req.params;
+//   id = parseInt(id);
+//   console.log(id);
+//   const list = await Group.findAll()
+// })
 
 // Find group mentor
 
@@ -381,6 +445,39 @@ app.delete('/api/application/:id', (req, res) => {
 
 // Timeslot routes
 // List timeslots
+
+// Initialize timeslots
+app.post('/api/timeslots/init', async (req, res) => {
+  console.log('/timeslots/init - post');
+  const { flag } = req.body;
+  if (flag) {
+    const timeslots = await Timeslot.bulkCreate([
+      { timeslotId: 1, timeslotName: 'Monday Morning' },
+      { timeslotId: 2, timeslotName: 'Monday Afternoon' },
+      { timeslotId: 3, timeslotName: 'Monday Evening' },
+      { timeslotId: 4, timeslotName: 'Tuesday Morning' },
+      { timeslotId: 5, timeslotName: 'Tuesday Afternoon' },
+      { timeslotId: 6, timeslotName: 'Tuesday Evening' },
+      { timeslotId: 7, timeslotName: 'Wednesday Morning' },
+      { timeslotId: 8, timeslotName: 'Wednesday Afternoon' },
+      { timeslotId: 9, timeslotName: 'Wednesday Evening' },
+      { timeslotId: 10, timeslotName: 'Thursday Morning' },
+      { timeslotId: 11, timeslotName: 'Thursday Afternoon' },
+      { timeslotId: 12, timeslotName: 'Thursday Evening' },
+      { timeslotId: 13, timeslotName: 'Friday Morning' },
+      { timeslotId: 14, timeslotName: 'Friday Afternoon' },
+      { timeslotId: 15, timeslotName: 'Friday Evening' },
+      { timeslotId: 16, timeslotName: 'Saturday Morning' },
+      { timeslotId: 17, timeslotName: 'Saturday Afternoon' },
+      { timeslotId: 18, timeslotName: 'Saturday Evening' },
+      { timeslotId: 19, timeslotName: 'Sunday Morning' },
+      { timeslotId: 20, timeslotName: 'Sunday Afternoon' },
+      { timeslotId: 21, timeslotName: 'Sunday Evening' },
+    ]);
+    // console.log(timeslots.toJSON());
+    res.send(timeslots);
+  }
+});
 
 // Availability routes
 // List availability by student
