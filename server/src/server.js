@@ -31,7 +31,7 @@ app.get('/', (req, res) => {
 // Student routes
 // Find all students
 app.get('/api/students', async (req, res) => {
-  console.log('/api/students - get');
+  console.log('/students - get');
   // res.send('students, get');
   const list = await Student.findAll();
   console.log(list);
@@ -40,14 +40,14 @@ app.get('/api/students', async (req, res) => {
 
 // Find all mentors
 app.get('/api/students/mentors', async (req, res) => {
-  console.log('/api/students/mentors - get');
+  console.log('/students/mentors - get');
   const list = await Student.findAll({ where: { isMentor: true } });
   res.send(list);
 });
 
 // Find student by id
 app.get('/api/student/:id', async (req, res) => {
-  console.log('/api/student/:id - get');
+  console.log('/student/:id - get');
   let { id } = req.params;
   id = parseInt(id);
   console.log(id);
@@ -58,7 +58,7 @@ app.get('/api/student/:id', async (req, res) => {
 
 // Add a student
 app.post('/api/student/add', async (req, res) => {
-  console.log('/api/student/add - post');
+  console.log('/student/add - post');
   console.log(req.body);
   // isMentor left out: default to false, change within UI
   const { studentName, email, password, courseName, courseStage } = req.body;
@@ -112,11 +112,90 @@ app.put('/api/student/edit/priv/:id', async (req, res) => {
 
 // Delete student
 app.delete('/api/student/:id', (req, res) => {
-  console.log('/api/student/:id - delete');
+  console.log('/student/:id - delete');
   let { id } = req.params;
   id = parseInt(id);
   console.log(id);
   Student.destroy({ where: { studentId: id } });
+  res.send(`ID: ${id} deleted`);
+});
+
+// Staff routes
+// Find all staff
+app.get('/api/staff', async (req, res) => {
+  console.log('/staff - get');
+  const list = await Staff.findAll();
+  console.log(list);
+  res.send(list);
+});
+
+// Find a staff member by ID
+app.get('/api/staff/:id', async (req, res) => {
+  console.log('/staff/:id - get');
+  let { id } = req.params;
+  id = parseInt(id);
+  console.log(id);
+  const staff = await Staff.findByPk(id);
+  console.log(staff);
+  res.send(staff);
+});
+
+// Add a staff member
+app.post('/api/staff/add', async (req, res) => {
+  console.log('/staff/add - post');
+  console.log(req.body);
+  const { staffName, email, password } = req.body;
+  const staff = await Staff.create({
+    staffName,
+    email,
+    password,
+  });
+  console.log(staff.toJSON());
+  res.send(staff);
+});
+
+// Edit staff member details
+app.put('/api/staff/edit/:id', async (req, res) => {
+  console.log('/staff/edit/:id - put');
+  let { id } = req.params;
+  id = parseInt(id);
+  console.log(id);
+  console.log(req.body);
+  const { staffName, email, password } = req.body;
+  const staff = await Staff.update(
+    {
+      staffName,
+      email,
+      password,
+    },
+    {
+      where: { staffId: id },
+    }
+  );
+  console.log(staff);
+  res.send(staff);
+});
+
+// Elevate staff privileges
+app.put('/api/staff/edit/priv/:id', async (req, res) => {
+  console.log('/staff/edit/priv/:id - put');
+  let { id } = req.params;
+  id = parseInt(id);
+  console.log(id);
+  console.log(req.body);
+  const { isCoordinator } = req.body;
+  const staff = await Staff.update({ isCoordinator }, { where: { staffId: id } });
+  console.log(staff);
+  res.send(staff);
+});
+
+// Delete a staff member
+app.delete('/api/staff/:id', (req, res) => {
+  console.log('/staff/:id - delete');
+  let { id } = req.params;
+  id = parseInt(id);
+  console.log(id);
+  Staff.destroy({ where: { staffId: id } });
   res.send(`ID: ${id} deleted`);
 });
 

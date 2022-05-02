@@ -28,13 +28,19 @@ const Student = sequelize.define('Student', {
 });
 
 // Staff model
-const Staff = sequelize.define('Faculty', {
-  staffId: { type: DataTypes.INTEGER, autoIncrement: true, primaryKey: true },
-  staffName: { type: DataTypes.STRING, allowNull: false },
-  email: { type: DataTypes.STRING, allowNull: false, unique: true },
-  password: { type: DataTypes.STRING, allowNull: false },
-  isCoordinator: { type: DataTypes.BOOLEAN, defaultValue: false },
-});
+const Staff = sequelize.define(
+  'Staff',
+  {
+    staffId: { type: DataTypes.INTEGER, autoIncrement: true, primaryKey: true },
+    staffName: { type: DataTypes.STRING, allowNull: false },
+    email: { type: DataTypes.STRING, allowNull: false, unique: true },
+    password: { type: DataTypes.STRING, allowNull: false },
+    isCoordinator: { type: DataTypes.BOOLEAN, defaultValue: false },
+  },
+  {
+    freezeTableName: true,
+  }
+);
 
 // Subjects model
 const Subject = sequelize.define('Subject', {
@@ -42,7 +48,7 @@ const Subject = sequelize.define('Subject', {
   subjectName: { type: DataTypes.STRING, allowNull: false, unique: true },
 });
 
-// Session application model
+// Application model
 const Application = sequelize.define('Application', {
   applicationId: { type: DataTypes.INTEGER, autoIncrement: true, primaryKey: true },
   studentId: { type: DataTypes.INTEGER, references: { model: Student, key: 'studentId' } },
@@ -74,20 +80,26 @@ const Members = sequelize.define('Members', {
 });
 
 // Attendance model
-const Attendance = sequelize.define('Attendance', {
-  groupId: {
-    type: DataTypes.INTEGER,
-    primaryKey: true,
-    references: { model: Members, key: 'groupId' },
+const Attendance = sequelize.define(
+  'Attendance',
+  {
+    groupId: {
+      type: DataTypes.INTEGER,
+      primaryKey: true,
+      references: { model: Members, key: 'groupId' },
+    },
+    studentId: {
+      type: DataTypes.INTEGER,
+      primaryKey: true,
+      references: { model: Members, key: 'studentId' },
+    },
+    date: { type: DataTypes.DATEONLY },
+    confirmed: { type: DataTypes.BOOLEAN },
   },
-  studentId: {
-    type: DataTypes.INTEGER,
-    primaryKey: true,
-    references: { model: Members, key: 'studentId' },
-  },
-  date: { type: DataTypes.DATEONLY },
-  confirmed: { type: DataTypes.BOOLEAN },
-});
+  {
+    freezeTableName: true,
+  }
+);
 
 // object
 db.sequelize = sequelize;
