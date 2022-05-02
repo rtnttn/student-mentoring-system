@@ -281,12 +281,12 @@ app.get('/api/applications/:id', async (req, res) => {
 });
 
 // Find all mentee applications BROKEN
-// app.get('/api/applications/mentees', async (req, res) => {
-//   console.log('/applications/mentees - get');
-//   const list = await Application.findAll({ where: { forMentor: false } });
-//   console.log(list);
-//   res.send(list);
-// });
+app.get('/api/applications/mentees/all', async (req, res) => {
+  console.log('/applications/mentees - get');
+  const list = await Application.findAll({ where: { forMentor: false } });
+  console.log(list);
+  res.send(list);
+});
 
 // Find all mentee applications by student
 app.get('/api/applications/mentee/:id', async (req, res) => {
@@ -300,12 +300,12 @@ app.get('/api/applications/mentee/:id', async (req, res) => {
 });
 
 // Find all mentor applications BROKEN
-// app.get('/api/applications/mentors', async (req, res) => {
-//   console.log('/applications/mentors - get');
-//   const list = await Application.findAll({ where: { forMentor: true } });
-//   console.log(list);
-//   res.send(list);
-// });
+app.get('/api/applications/mentors/all', async (req, res) => {
+  console.log('/applications/mentors - get');
+  const list = await Application.findAll({ where: { forMentor: true } });
+  console.log(list);
+  res.send(list);
+});
 
 // Find all mentor applications by student
 app.get('/api/applications/mentor/:id', async (req, res) => {
