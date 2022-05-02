@@ -8,7 +8,7 @@ const db = require('./models');
 const app = express();
 
 // eslint-disable-next-line no-unused-vars
-const { Student, Staff, Subject, Application, Group, Members, Attendance, Timeslot, Availability } =
+const { Student, Staff, Subject, Application, Group, Member, Attendance, Timeslot, Availability } =
   db.sequelize.models;
 
 // Data handling middleware
@@ -404,20 +404,35 @@ app.put('/api/group/edit/:id', async (req, res) => {
 
 // BROKEN
 // Delete a group
-app.delete('/api/group/:id', (req, res) => {
-  console.log('/group/:id - delete');
-  let { id } = req.params;
-  id = parseInt(id);
-  console.log(id);
-  Group.destroy({ where: { groupId: id } });
-  res.send(`ID ${id} deleted`);
-});
+// app.delete('/api/group/:id', (req, res) => {
+//   console.log('/group/:id - delete');
+//   let { id } = req.params;
+//   id = parseInt(id);
+//   console.log(id);
+//   Group.destroy({ where: { groupId: id } });
+//   res.send(`ID ${id} deleted`);
+// });
 
 // Member routes
 // Find all members of a group
-// app.get('/api/members/')
+// app.get('/api/members/groupid/:id', async (req, res) => {
+//   console.log('/members/group/:id - get');
+//   let { id } = req.params;
+//   id = parseInt(id);
+//   console.log(id);
+//   const list = await Member.findAll({ where: { groupId: id } });
+//   console.log(list);
+//   res.send(list);
+// });
 
 // Find all groups of a member
+// app.get('/api/member/:id', async (req, res) => {
+//   console.log('/member/:id - get')
+//   let {id} = req.params;
+//   id = parseInt(id);
+//   console.log(id);
+//   const list = await Group.findAll()
+// })
 
 // Find group mentor
 
