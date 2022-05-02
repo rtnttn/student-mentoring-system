@@ -93,3 +93,6 @@ const Attendance = sequelize.define('Attendance', {
 db.sequelize = sequelize;
 // class
 db.Sequelize = Sequelize;
+
+module.exports = db;
+module.exports.Op = Sequelize.Op;
