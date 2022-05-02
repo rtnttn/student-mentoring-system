@@ -16,6 +16,7 @@ const sequelize = new Sequelize(
   config.db.options
 );
 
+// Models
 // Student model
 const Student = sequelize.define('Student', {
   studentId: { type: DataTypes.INTEGER, autoIncrement: true, primaryKey: true },
@@ -65,7 +66,7 @@ const Group = sequelize.define('Group', {
 });
 
 // Group members model
-const Members = sequelize.define('Members', {
+const Member = sequelize.define('Member', {
   groupId: {
     type: DataTypes.INTEGER,
     primaryKey: true,
@@ -86,12 +87,12 @@ const Attendance = sequelize.define(
     groupId: {
       type: DataTypes.INTEGER,
       primaryKey: true,
-      references: { model: Members, key: 'groupId' },
+      references: { model: Member, key: 'groupId' },
     },
     studentId: {
       type: DataTypes.INTEGER,
       primaryKey: true,
-      references: { model: Members, key: 'studentId' },
+      references: { model: Member, key: 'studentId' },
     },
     date: { type: DataTypes.DATEONLY, primaryKey: true },
     confirmed: { type: DataTypes.BOOLEAN },
@@ -100,6 +101,69 @@ const Attendance = sequelize.define(
     freezeTableName: true,
   }
 );
+
+// Timeslot model
+const Timeslot = sequelize.define('Timeslot', {
+  timeslotId: {
+    type: DataTypes.INTEGER,
+    primaryKey: true,
+  },
+  timeslotName: {
+    type: DataTypes.STRING,
+    allowNull: false,
+    unique: true,
+  },
+});
+
+// Availability model
+const Availability = sequelize.define('Availabily', {
+  studentId: {
+    type: DataTypes.INTEGER,
+    primaryKey: true,
+    references: { model: Student, key: 'studentId' },
+  },
+  timeslotId: {
+    type: DataTypes.INTEGER,
+    primaryKey: true,
+    references: {
+      model: Timeslot,
+      key: 'timeslotId',
+    },
+  },
+});
+
+// Associations
+Student.belongsToMany(Timeslot, { through: Availability });
+
+Timeslot.belongsToMany(Student, { through: Availability });
+
+Student.hasMany(Application, { foreignKey: 'studentId' });
+
+Application.belongsTo(Student, { foreignKey: 'studentId' });
+
+Subject.hasMany(Application, { foreignKey: 'subjectId' });
+
+Application.belongsTo(Subject, { foreignKey: 'subjectId' });
+
+Subject.hasMany(Group, { foreignKey: 'subjectId' });
+
+Group.belongsTo(Subject, { foreignKey: 'subjectId' });
+
+Staff.hasMany(Group, { foreignKey: 'supervisorId' });
+
+Group.belongsTo(Staff, { foreignKey: 'supervisorId' });
+
+Subject.hasMany(Member, { foreignKey: 'studentId' });
+
+Member.belongsTo(Student, { foreignKey: 'studentId' });
+
+Group.hasMany(Member, { foreignKey: 'groupId' });
+
+Member.belongsTo(Group, { foreignKey: 'groupId' });
+
+Member.hasMany(Attendance);
+
+Attendance.belongsTo(Attendance);
 
 // object
 db.sequelize = sequelize;
