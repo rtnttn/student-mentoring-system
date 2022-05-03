@@ -26,17 +26,17 @@ module.exports = () => {
   // eslint-disable-next-line consistent-return
   router.post('/login/student', async (req, res) => {
     console.log('/auth/login/student - post');
-    const { email, password } = req.body;
+    const { studentEmail, studentPassword } = req.body;
 
     try {
-      const student = await Student.findOne({ where: { email } });
+      const student = await Student.findOne({ where: { studentEmail } });
 
       if (!student) {
         // CHANGE THIS
         return res.status(400).json({ errors: [{ msg: 'No such account' }] });
       }
 
-      const isMatch = await bcrypt.compare(password, student.password);
+      const isMatch = await bcrypt.compare(studentPassword, student.studentPassword);
 
       if (!isMatch) {
         // CHANGE THIS
@@ -47,7 +47,7 @@ module.exports = () => {
         student: {
           studentId: student.studentId,
           name: student.name,
-          email: student.email,
+          studentEmail: student.studentEmail,
           isMentor: student.isMentor,
         },
       };
@@ -66,17 +66,17 @@ module.exports = () => {
   // eslint-disable-next-line consistent-return
   router.post('/login/staff', async (req, res) => {
     console.log('/auth/login/staff - post');
-    const { email, password } = req.body;
+    const { staffEmail, staffPassword } = req.body;
 
     try {
-      const staff = await Staff.findOne({ where: { email } });
+      const staff = await Staff.findOne({ where: { staffEmail } });
 
       if (!staff) {
         // CHANGE THIS
         return res.status(400).json({ errors: [{ msg: 'No such account' }] });
       }
 
-      const isMatch = await bcrypt.compare(password, staff.password);
+      const isMatch = await bcrypt.compare(staffPassword, staff.staffPassword);
 
       if (!isMatch) {
         // CHANGE THIS
@@ -87,7 +87,7 @@ module.exports = () => {
         staff: {
           staffId: staff.staffId,
           name: staff.name,
-          email: staff.email,
+          staffEmail: staff.staffEmail,
           isCoordinator: staff.isCoordinator,
         },
       };

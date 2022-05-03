@@ -67,13 +67,13 @@ module.exports = () => {
 
   // BROKEN
   // Delete a group
-  // router.delete('/:id', (req, res) => {
-  //   console.log('/groups/:id - delete');
-  //   let { id } = req.params;
-  //   id = parseInt(id);
-  //   console.log(id);
-  //   Group.destroy({ where: { groupId: id } });
-  //   res.send(`ID ${id} deleted`);
-  // });
+  router.delete('/:id', (req, res) => {
+    console.log('/groups/:id - delete');
+    let { id } = req.params;
+    id = parseInt(id);
+    console.log(id);
+    Group.destroy({ where: { groupId: id } });
+    res.send(`ID ${id} deleted`);
+  });
   return router;
 };

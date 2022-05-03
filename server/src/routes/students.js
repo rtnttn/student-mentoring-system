@@ -56,31 +56,31 @@ module.exports = () => {
     console.log('/students/add - post');
     console.log(req.body);
     // isMentor left out: default to false, change within UI
-    const { studentName, email, password, courseName, courseStage } = req.body;
+    const { studentName, studentEmail, studentPassword, courseName, courseStage } = req.body;
     try {
-      const student = await Student.findOne({ where: { email } });
+      const student = await Student.findOne({ where: { studentEmail } });
       if (student) {
         return res.status(400).json({ errors: [{ msg: 'User already exists' }] });
       }
 
       const newStudent = {
         studentName,
-        email,
-        password,
+        studentEmail,
+        studentPassword,
         courseName,
         courseStage,
       };
 
       const salt = await bcrypt.genSalt(10);
 
-      newStudent.password = await bcrypt.hash(password, salt);
+      newStudent.studentPassword = await bcrypt.hash(studentPassword, salt);
       console.log(newStudent);
 
       // Save to database
       const studentRes = await Student.create({
         studentName: newStudent.studentName,
-        email: newStudent.email,
-        password: newStudent.password,
+        studentEmail: newStudent.studentEmail,
+        studentPassword: newStudent.studentPassword,
         courseName: newStudent.courseName,
         courseStage: newStudent.courseStage,
       });
@@ -90,7 +90,7 @@ module.exports = () => {
         student: {
           studentId: studentRes.studentId,
           studentName: studentRes.studentName,
-          email: studentRes.email,
+          studentEmail: studentRes.studentEmail,
           isMentor: studentRes.isMentor,
         },
       };
@@ -107,8 +107,8 @@ module.exports = () => {
     // Pre-auth implementation
     // const student = await Student.create({
     //   studentName,
-    //   email,
-    //   password,
+    //   studentEmail,
+    //   studentPassword,
     //   courseName,
     //   courseStage,
     // });
@@ -123,12 +123,12 @@ module.exports = () => {
     id = parseInt(id);
     console.log(id);
     console.log(req.body);
-    const { studentName, email, password, courseName, courseStage } = req.body;
+    const { studentName, studentEmail, studentPassword, courseName, courseStage } = req.body;
     const student = await Student.update(
       {
         studentName,
-        email,
-        password,
+        studentEmail,
+        studentPassword,
         courseName,
         courseStage,
       },
@@ -154,13 +154,13 @@ module.exports = () => {
   });
 
   // Delete student BROKEN
-  // router.delete('/:id', (req, res) => {
-  //   console.log('/students/:id - delete');
-  //   let { id } = req.params;
-  //   id = parseInt(id);
-  //   console.log(id);
-  //   Student.destroy({ where: { studentId: id } });
-  //   res.send(`ID: ${id} deleted`);
-  // });
+  router.delete('/:id', (req, res) => {
+    console.log('/students/:id - delete');
+    let { id } = req.params;
+    id = parseInt(id);
+    console.log(id);
+    Student.destroy({ where: { studentId: id } });
+    res.send(`ID: ${id} deleted`);
+  });
   return router;
 };

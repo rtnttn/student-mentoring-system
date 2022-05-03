@@ -21,8 +21,8 @@ const sequelize = new Sequelize(
 const Student = sequelize.define('Student', {
   studentId: { type: DataTypes.INTEGER, autoIncrement: true, primaryKey: true },
   studentName: { type: DataTypes.STRING, allowNull: false },
-  email: { type: DataTypes.STRING, allowNull: false, unique: true },
-  password: { type: DataTypes.STRING, allowNull: false },
+  studentEmail: { type: DataTypes.STRING, allowNull: false, unique: true },
+  studentPassword: { type: DataTypes.STRING, allowNull: false },
   courseName: { type: DataTypes.STRING },
   courseStage: { type: DataTypes.STRING },
   isMentor: { type: DataTypes.BOOLEAN, defaultValue: false },
@@ -34,8 +34,8 @@ const Staff = sequelize.define(
   {
     staffId: { type: DataTypes.INTEGER, autoIncrement: true, primaryKey: true },
     staffName: { type: DataTypes.STRING, allowNull: false },
-    email: { type: DataTypes.STRING, allowNull: false, unique: true },
-    password: { type: DataTypes.STRING, allowNull: false },
+    staffEmail: { type: DataTypes.STRING, allowNull: false, unique: true },
+    staffPassword: { type: DataTypes.STRING, allowNull: false },
     isCoordinator: { type: DataTypes.BOOLEAN, defaultValue: false },
   },
   {
@@ -87,12 +87,12 @@ const Attendance = sequelize.define(
     groupId: {
       type: DataTypes.INTEGER,
       primaryKey: true,
-      references: { model: Member, key: 'groupId' },
+      references: { model: Group, key: 'groupId' },
     },
     studentId: {
       type: DataTypes.INTEGER,
       primaryKey: true,
-      references: { model: Member, key: 'studentId' },
+      references: { model: Student, key: 'studentId' },
     },
     date: { type: DataTypes.DATEONLY, primaryKey: true },
     confirmed: { type: DataTypes.BOOLEAN },
@@ -161,9 +161,13 @@ Group.hasMany(Member, { foreignKey: 'groupId' });
 
 Member.belongsTo(Group, { foreignKey: 'groupId' });
 
-Member.hasMany(Attendance);
+Student.hasMany(Attendance, { foreignKey: 'studentId' });
 
-Attendance.belongsTo(Attendance);
+Attendance.belongsTo(Student, { foreignKey: 'studentId' });
+
+Group.hasMany(Attendance, { foreignKey: 'groupId' });
+
+Attendance.belongsTo(Group, { foreignKey: 'groupId' });
 
 // object
 db.sequelize = sequelize;

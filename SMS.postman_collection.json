@@ -207,7 +207,7 @@
 					"response": []
 				},
 				{
-					"name": "Delete BROKEN",
+					"name": "Delete",
 					"request": {
 						"method": "DELETE",
 						"header": [],
@@ -383,7 +383,7 @@
 					"response": []
 				},
 				{
-					"name": "Delete BROKEN",
+					"name": "Delete",
 					"request": {
 						"method": "DELETE",
 						"header": [],
@@ -515,7 +515,7 @@
 					"response": []
 				},
 				{
-					"name": "Delete BROKEN",
+					"name": "Delete",
 					"request": {
 						"method": "DELETE",
 						"header": [],
@@ -963,15 +963,14 @@
 							]
 						},
 						"url": {
-							"raw": "localhost:5000/api/group/2",
+							"raw": "localhost:5000/groups/3",
 							"host": [
 								"localhost"
 							],
 							"port": "5000",
 							"path": [
-								"api",
-								"group",
-								"2"
+								"groups",
+								"3"
 							]
 						}
 					},
