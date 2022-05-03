@@ -6,7 +6,7 @@
 	},
 	"item": [
 		{
-			"name": "Student",
+			"name": "Students",
 			"item": [
 				{
 					"name": "Find all",
@@ -14,14 +14,14 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "localhost:5000/api/students",
+							"raw": "localhost:5000/students/all",
 							"host": [
 								"localhost"
 							],
 							"port": "5000",
 							"path": [
-								"api",
-								"students"
+								"students",
+								"all"
 							]
 						}
 					},
@@ -33,13 +33,12 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "localhost:5000/api/students/mentors",
+							"raw": "localhost:5000/students/mentors",
 							"host": [
 								"localhost"
 							],
 							"port": "5000",
 							"path": [
-								"api",
 								"students",
 								"mentors"
 							]
@@ -53,14 +52,14 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "localhost:5000/api/student/2",
+							"raw": "localhost:5000/students/id/2",
 							"host": [
 								"localhost"
 							],
 							"port": "5000",
 							"path": [
-								"api",
-								"student",
+								"students",
+								"id",
 								"2"
 							]
 						}
@@ -82,7 +81,7 @@
 								},
 								{
 									"key": "email",
-									"value": "delet@this.com",
+									"value": "delet@test.com",
 									"type": "text"
 								},
 								{
@@ -108,14 +107,13 @@
 							]
 						},
 						"url": {
-							"raw": "localhost:5000/api/student/add",
+							"raw": "localhost:5000/students/add",
 							"host": [
 								"localhost"
 							],
 							"port": "5000",
 							"path": [
-								"api",
-								"student",
+								"students",
 								"add"
 							]
 						}
@@ -132,7 +130,7 @@
 							"urlencoded": [
 								{
 									"key": "studentName",
-									"value": "old mate",
+									"value": "deletpls",
 									"type": "text"
 								},
 								{
@@ -162,16 +160,16 @@
 							]
 						},
 						"url": {
-							"raw": "localhost:5000/api/student/edit/1",
+							"raw": "localhost:5000/students/edit/id/6",
 							"host": [
 								"localhost"
 							],
 							"port": "5000",
 							"path": [
-								"api",
-								"student",
+								"students",
 								"edit",
-								"1"
+								"id",
+								"6"
 							]
 						}
 					},
@@ -193,37 +191,35 @@
 							]
 						},
 						"url": {
-							"raw": "localhost:5000/api/student/edit/priv/3",
+							"raw": "localhost:5000/students/edit/priv/6",
 							"host": [
 								"localhost"
 							],
 							"port": "5000",
 							"path": [
-								"api",
-								"student",
+								"students",
 								"edit",
 								"priv",
-								"3"
+								"6"
 							]
 						}
 					},
 					"response": []
 				},
 				{
-					"name": "Delete",
+					"name": "Delete BROKEN",
 					"request": {
 						"method": "DELETE",
 						"header": [],
 						"url": {
-							"raw": "localhost:5000/api/student/4",
+							"raw": "localhost:5000/students/6",
 							"host": [
 								"localhost"
 							],
 							"port": "5000",
 							"path": [
-								"api",
-								"student",
-								"4"
+								"students",
+								"6"
 							]
 						}
 					},
@@ -240,14 +236,14 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "localhost:5000/api/staff",
+							"raw": "localhost:5000/staff/all",
 							"host": [
 								"localhost"
 							],
 							"port": "5000",
 							"path": [
-								"api",
-								"staff"
+								"staff",
+								"all"
 							]
 						}
 					},
@@ -259,14 +255,14 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "localhost:5000/api/staff/1",
+							"raw": "localhost:5000/staff/id/1",
 							"host": [
 								"localhost"
 							],
 							"port": "5000",
 							"path": [
-								"api",
 								"staff",
+								"id",
 								"1"
 							]
 						}
@@ -283,12 +279,12 @@
 							"urlencoded": [
 								{
 									"key": "staffName",
-									"value": "Mr Miyagi",
+									"value": "reroute",
 									"type": "text"
 								},
 								{
 									"key": "email",
-									"value": "ka@ra.te",
+									"value": "re@rout.e",
 									"type": "text"
 								},
 								{
@@ -299,13 +295,12 @@
 							]
 						},
 						"url": {
-							"raw": "localhost:5000/api/staff/add",
+							"raw": "localhost:5000/staff/add",
 							"host": [
 								"localhost"
 							],
 							"port": "5000",
 							"path": [
-								"api",
 								"staff",
 								"add"
 							]
@@ -324,13 +319,13 @@
 								{
 									"key": "staffName",
 									"value": "Mr Miyagi",
-									"type": "text"
+									"type": "text",
+									"disabled": true
 								},
 								{
 									"key": "email",
-									"value": "ka@ra.te",
-									"type": "text",
-									"disabled": true
+									"value": "re@route.r",
+									"type": "text"
 								},
 								{
 									"key": "password",
@@ -341,16 +336,16 @@
 							]
 						},
 						"url": {
-							"raw": "localhost:5000/api/staff/edit/1",
+							"raw": "localhost:5000/staff/edit/id/4",
 							"host": [
 								"localhost"
 							],
 							"port": "5000",
 							"path": [
-								"api",
 								"staff",
 								"edit",
-								"1"
+								"id",
+								"4"
 							]
 						}
 					},
@@ -372,24 +367,23 @@
 							]
 						},
 						"url": {
-							"raw": "localhost:5000/api/staff/edit/priv/2",
+							"raw": "localhost:5000/staff/edit/priv/4",
 							"host": [
 								"localhost"
 							],
 							"port": "5000",
 							"path": [
-								"api",
 								"staff",
 								"edit",
 								"priv",
-								"2"
+								"4"
 							]
 						}
 					},
 					"response": []
 				},
 				{
-					"name": "Delete",
+					"name": "Delete BROKEN",
 					"request": {
 						"method": "DELETE",
 						"header": [],
@@ -404,15 +398,14 @@
 							]
 						},
 						"url": {
-							"raw": "localhost:5000/api/staff/2",
+							"raw": "localhost:5000/staff/4",
 							"host": [
 								"localhost"
 							],
 							"port": "5000",
 							"path": [
-								"api",
 								"staff",
-								"2"
+								"4"
 							]
 						}
 					},
@@ -429,14 +422,14 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "localhost:5000/api/subjects",
+							"raw": "localhost:5000/subjects/all",
 							"host": [
 								"localhost"
 							],
 							"port": "5000",
 							"path": [
-								"api",
-								"subjects"
+								"subjects",
+								"all"
 							]
 						}
 					},
@@ -448,14 +441,14 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "localhost:5000/api/subject/1",
+							"raw": "localhost:5000/subjects/id/1",
 							"host": [
 								"localhost"
 							],
 							"port": "5000",
 							"path": [
-								"api",
-								"subject",
+								"subjects",
+								"id",
 								"1"
 							]
 						}
@@ -478,14 +471,13 @@
 							]
 						},
 						"url": {
-							"raw": "localhost:5000/api/subject/add",
+							"raw": "localhost:5000/subjects/add",
 							"host": [
 								"localhost"
 							],
 							"port": "5000",
 							"path": [
-								"api",
-								"subject",
+								"subjects",
 								"add"
 							]
 						}
@@ -502,29 +494,28 @@
 							"urlencoded": [
 								{
 									"key": "subjectName",
-									"value": "Detele",
+									"value": "Delete",
 									"type": "text"
 								}
 							]
 						},
 						"url": {
-							"raw": "localhost:5000/api/subject/edit/1",
+							"raw": "localhost:5000/subjects/edit/3",
 							"host": [
 								"localhost"
 							],
 							"port": "5000",
 							"path": [
-								"api",
-								"subject",
+								"subjects",
 								"edit",
-								"1"
+								"3"
 							]
 						}
 					},
 					"response": []
 				},
 				{
-					"name": "Delete",
+					"name": "Delete BROKEN",
 					"request": {
 						"method": "DELETE",
 						"header": [],
@@ -539,15 +530,14 @@
 							]
 						},
 						"url": {
-							"raw": "localhost:5000/api/subject/1",
+							"raw": "localhost:5000/subjects/3",
 							"host": [
 								"localhost"
 							],
 							"port": "5000",
 							"path": [
-								"api",
-								"subject",
-								"1"
+								"subjects",
+								"3"
 							]
 						}
 					},
@@ -556,7 +546,7 @@
 			]
 		},
 		{
-			"name": "Application",
+			"name": "Applications",
 			"item": [
 				{
 					"name": "Find all",
@@ -564,14 +554,14 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "localhost:5000/api/applications",
+							"raw": "localhost:5000/applications/all",
 							"host": [
 								"localhost"
 							],
 							"port": "5000",
 							"path": [
-								"api",
-								"applications"
+								"applications",
+								"all"
 							]
 						}
 					},
@@ -583,14 +573,14 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "localhost:5000/api/application/2",
+							"raw": "localhost:5000/applications/id/2",
 							"host": [
 								"localhost"
 							],
 							"port": "5000",
 							"path": [
-								"api",
-								"application",
+								"applications",
+								"id",
 								"2"
 							]
 						}
@@ -603,15 +593,15 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "localhost:5000/api/applications/1",
+							"raw": "localhost:5000/applications/student/2",
 							"host": [
 								"localhost"
 							],
 							"port": "5000",
 							"path": [
-								"api",
 								"applications",
-								"1"
+								"student",
+								"2"
 							]
 						}
 					},
@@ -623,13 +613,12 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "localhost:5000/api/applications/mentees/all",
+							"raw": "localhost:5000/applications/mentees/all",
 							"host": [
 								"localhost"
 							],
 							"port": "5000",
 							"path": [
-								"api",
 								"applications",
 								"mentees",
 								"all"
@@ -644,13 +633,12 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "localhost:5000/api/applications/mentors/all",
+							"raw": "localhost:5000/applications/mentors/all",
 							"host": [
 								"localhost"
 							],
 							"port": "5000",
 							"path": [
-								"api",
 								"applications",
 								"mentors",
 								"all"
@@ -665,16 +653,16 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "localhost:5000/api/applications/mentor/1",
+							"raw": "localhost:5000/applications/mentors/student/3",
 							"host": [
 								"localhost"
 							],
 							"port": "5000",
 							"path": [
-								"api",
 								"applications",
-								"mentor",
-								"1"
+								"mentors",
+								"student",
+								"3"
 							]
 						}
 					},
@@ -686,16 +674,16 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "localhost:5000/api/applications/mentee/2",
+							"raw": "localhost:5000/applications/mentees/student/4",
 							"host": [
 								"localhost"
 							],
 							"port": "5000",
 							"path": [
-								"api",
 								"applications",
-								"mentee",
-								"2"
+								"mentees",
+								"student",
+								"4"
 							]
 						}
 					},
@@ -711,12 +699,12 @@
 							"urlencoded": [
 								{
 									"key": "studentId",
-									"value": "2",
+									"value": "1",
 									"type": "text"
 								},
 								{
 									"key": "subjectId",
-									"value": "3",
+									"value": "2",
 									"type": "text"
 								},
 								{
@@ -727,32 +715,14 @@
 							]
 						},
 						"url": {
-							"raw": "localhost:5000/api/application/add",
+							"raw": "localhost:5000/applications/add",
 							"host": [
 								"localhost"
 							],
 							"port": "5000",
 							"path": [
-								"api",
-								"application",
+								"applications",
 								"add"
-							],
-							"query": [
-								{
-									"key": "studentId",
-									"value": "1",
-									"disabled": true
-								},
-								{
-									"key": "subjectId",
-									"value": "2",
-									"disabled": true
-								},
-								{
-									"key": "forMentor",
-									"value": "true",
-									"disabled": true
-								}
 							]
 						}
 					},
@@ -769,12 +739,14 @@
 								{
 									"key": "studentId",
 									"value": "3",
-									"type": "text"
+									"type": "text",
+									"disabled": true
 								},
 								{
 									"key": "subjectId",
 									"value": "2",
-									"type": "text"
+									"type": "text",
+									"disabled": true
 								},
 								{
 									"key": "forMentor",
@@ -784,16 +756,15 @@
 							]
 						},
 						"url": {
-							"raw": "localhost:5000/api/application/edit/6",
+							"raw": "localhost:5000/applications/edit/5",
 							"host": [
 								"localhost"
 							],
 							"port": "5000",
 							"path": [
-								"api",
-								"application",
+								"applications",
 								"edit",
-								"6"
+								"5"
 							]
 						}
 					},
@@ -825,15 +796,14 @@
 							]
 						},
 						"url": {
-							"raw": "localhost:5000/api/application/6",
+							"raw": "localhost:5000/applications/5",
 							"host": [
 								"localhost"
 							],
 							"port": "5000",
 							"path": [
-								"api",
-								"application",
-								"6"
+								"applications",
+								"5"
 							]
 						}
 					},
@@ -842,7 +812,7 @@
 			]
 		},
 		{
-			"name": "Group",
+			"name": "Groups",
 			"item": [
 				{
 					"name": "Find all",
@@ -850,14 +820,14 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "localhost:5000/api/groups",
+							"raw": "localhost:5000/groups/all",
 							"host": [
 								"localhost"
 							],
 							"port": "5000",
 							"path": [
-								"api",
-								"groups"
+								"groups",
+								"all"
 							]
 						}
 					},
@@ -869,14 +839,14 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "localhost:5000/api/group/1",
+							"raw": "localhost:5000/groups/id/1",
 							"host": [
 								"localhost"
 							],
 							"port": "5000",
 							"path": [
-								"api",
-								"group",
+								"groups",
+								"id",
 								"1"
 							]
 						}
@@ -909,14 +879,13 @@
 							]
 						},
 						"url": {
-							"raw": "localhost:5000/api/group/add",
+							"raw": "localhost:5000/groups/add",
 							"host": [
 								"localhost"
 							],
 							"port": "5000",
 							"path": [
-								"api",
-								"group",
+								"groups",
 								"add"
 							]
 						}
@@ -945,20 +914,19 @@
 								},
 								{
 									"key": "semesterCode",
-									"value": "2",
+									"value": "1",
 									"type": "text"
 								}
 							]
 						},
 						"url": {
-							"raw": "localhost:5000/api/group/edit/1",
+							"raw": "localhost:5000/groups/edit/1",
 							"host": [
 								"localhost"
 							],
 							"port": "5000",
 							"path": [
-								"api",
-								"group",
+								"groups",
 								"edit",
 								"1"
 							]
@@ -1012,7 +980,7 @@
 			]
 		},
 		{
-			"name": "Member",
+			"name": "Members",
 			"item": []
 		},
 		{
@@ -1020,7 +988,7 @@
 			"item": []
 		},
 		{
-			"name": "Timeslot",
+			"name": "Timeslots",
 			"item": [
 				{
 					"name": "Init",
@@ -1038,13 +1006,12 @@
 							]
 						},
 						"url": {
-							"raw": "localhost:5000/api/timeslots/init",
+							"raw": "localhost:5000/timeslots/init",
 							"host": [
 								"localhost"
 							],
 							"port": "5000",
 							"path": [
-								"api",
 								"timeslots",
 								"init"
 							]
@@ -1057,6 +1024,164 @@
 		{
 			"name": "Availability",
 			"item": []
+		},
+		{
+			"name": "Dash",
+			"item": [
+				{
+					"name": "Find and count applications by mentor/mentee",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:5000/dash/applications",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"dash",
+								"applications"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Find and count users by type",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:5000/dash/users",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"dash",
+								"users"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "F&C applications optimized",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:5000/dash/opti/applications",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"dash",
+								"opti",
+								"applications"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "F&C users optimized",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:5000/dash/opti/users",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"dash",
+								"opti",
+								"users"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Auth",
+			"item": [
+				{
+					"name": "Student login",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "email",
+									"value": "delet@this.com",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "3",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "localhost:5000/auth/login/student",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"auth",
+								"login",
+								"student"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Staff login",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "email",
+									"value": "auth@test.com",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "1",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "localhost:5000/auth/login/staff",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"auth",
+								"login",
+								"staff"
+							]
+						}
+					},
+					"response": []
+				}
+			]
 		}
 	]
 }
