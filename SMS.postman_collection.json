@@ -736,23 +736,6 @@
 								"api",
 								"application",
 								"add"
-							],
-							"query": [
-								{
-									"key": "studentId",
-									"value": "1",
-									"disabled": true
-								},
-								{
-									"key": "subjectId",
-									"value": "2",
-									"disabled": true
-								},
-								{
-									"key": "forMentor",
-									"value": "true",
-									"disabled": true
-								}
 							]
 						}
 					},
@@ -1057,6 +1040,51 @@
 		{
 			"name": "Availability",
 			"item": []
+		},
+		{
+			"name": "Dash",
+			"item": [
+				{
+					"name": "Find and count applications by mentor/mentee",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:5000/api/dash/applications",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"api",
+								"dash",
+								"applications"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Find and count users by type",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:5000/api/dash/users",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"api",
+								"dash",
+								"users"
+							]
+						}
+					},
+					"response": []
+				}
+			]
 		}
 	]
 }
