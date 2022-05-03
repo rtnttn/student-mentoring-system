@@ -479,6 +479,40 @@ app.post('/api/timeslots/init', async (req, res) => {
   }
 });
 
+// Dash routes
+// Find and count mentors and mentees
+app.get('/api/dash/applications', async (req, res) => {
+  console.log('/applications/dash/all - get');
+  const mentors = await Application.findAndCountAll({
+    where: { forMentor: true },
+    include: [Student, Subject],
+  });
+  console.log(mentors);
+  // res.send(mentors);
+  const mentees = await Application.findAndCountAll({
+    where: { forMentor: false },
+    include: [Student, Subject],
+  });
+  console.log(mentees);
+  res.send({ mentors, mentees });
+});
+
+// Find and count mentors, mentees and staff
+app.get('/api/dash/users', async (req, res) => {
+  console.log('/applications/dash/all - get');
+  const mentors = await Student.findAndCountAll({
+    where: { isMentor: true },
+  });
+  console.log(mentors);
+  const mentees = await Student.findAndCountAll({
+    where: { isMentor: false },
+  });
+  console.log(mentees);
+  const staff = await Staff.findAndCountAll();
+  console.log(staff);
+  res.send({ mentors, mentees, staff });
+});
+
 // Availability routes
 // List availability by student
 
