@@ -927,14 +927,14 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "localhost:5000/api/groups",
+							"raw": "localhost:5000/groups/all",
 							"host": [
 								"localhost"
 							],
 							"port": "5000",
 							"path": [
-								"api",
-								"groups"
+								"groups",
+								"all"
 							]
 						}
 					},
@@ -946,14 +946,14 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "localhost:5000/api/group/1",
+							"raw": "localhost:5000/groups/id/1",
 							"host": [
 								"localhost"
 							],
 							"port": "5000",
 							"path": [
-								"api",
-								"group",
+								"groups",
+								"id",
 								"1"
 							]
 						}
@@ -986,14 +986,13 @@
 							]
 						},
 						"url": {
-							"raw": "localhost:5000/api/group/add",
+							"raw": "localhost:5000/groups/add",
 							"host": [
 								"localhost"
 							],
 							"port": "5000",
 							"path": [
-								"api",
-								"group",
+								"groups",
 								"add"
 							]
 						}
@@ -1022,20 +1021,19 @@
 								},
 								{
 									"key": "semesterCode",
-									"value": "2",
+									"value": "1",
 									"type": "text"
 								}
 							]
 						},
 						"url": {
-							"raw": "localhost:5000/api/group/edit/1",
+							"raw": "localhost:5000/groups/edit/1",
 							"host": [
 								"localhost"
 							],
 							"port": "5000",
 							"path": [
-								"api",
-								"group",
+								"groups",
 								"edit",
 								"1"
 							]

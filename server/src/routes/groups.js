@@ -21,16 +21,16 @@ module.exports = () => {
   // ROUTES HERE
   // Group routes
   // Find all groups
-  router.get('/api/groups', async (req, res) => {
-    console.log('/groups - get');
+  router.get('/all', async (req, res) => {
+    console.log('/groups/all - get');
     const list = await Group.findAll();
     console.log(list);
     res.send(list);
   });
 
   // Find group by id
-  router.get('/api/group/:id', async (req, res) => {
-    console.log('/group/:id - get');
+  router.get('/id/:id', async (req, res) => {
+    console.log('/groups/:id - get');
     let { id } = req.params;
     id = parseInt(id);
     console.log(id);
@@ -40,8 +40,8 @@ module.exports = () => {
   });
 
   // Create a group
-  router.post('/api/group/add', async (req, res) => {
-    console.log('/group/add - post');
+  router.post('/add', async (req, res) => {
+    console.log('/groups/add - post');
     console.log(req.body);
     const { supervisorId, subjectId, semesterCode } = req.body;
     const group = await Group.create({ supervisorId, subjectId, semesterCode });
@@ -50,8 +50,8 @@ module.exports = () => {
   });
 
   // Edit a group
-  router.put('/api/group/edit/:id', async (req, res) => {
-    console.log('/group/edit/:id - put');
+  router.put('/edit/:id', async (req, res) => {
+    console.log('/groups/edit/:id - put');
     let { id } = req.params;
     id = parseInt(id);
     console.log(id);
@@ -67,8 +67,8 @@ module.exports = () => {
 
   // BROKEN
   // Delete a group
-  // router.delete('/api/group/:id', (req, res) => {
-  //   console.log('/group/:id - delete');
+  // router.delete('/:id', (req, res) => {
+  //   console.log('/groups/:id - delete');
   //   let { id } = req.params;
   //   id = parseInt(id);
   //   console.log(id);
