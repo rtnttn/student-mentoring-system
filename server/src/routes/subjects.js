@@ -21,16 +21,16 @@ module.exports = () => {
   // ROUTES HERE
   // Subject routes
   // Find all subjects
-  router.get('/api/subjects', async (req, res) => {
-    console.log('/subjects - get');
+  router.get('/all', async (req, res) => {
+    console.log('/subjects/all - get');
     const list = await Subject.findAll();
     console.log(list);
     res.send(list);
   });
 
   // Find subject by id
-  router.get('/api/subject/:id', async (req, res) => {
-    console.log('/subject/:id - get');
+  router.get('/id/:id', async (req, res) => {
+    console.log('/subjects/id/:id - get');
     let { id } = req.params;
     id = parseInt(id);
     console.log(id);
@@ -39,8 +39,8 @@ module.exports = () => {
   });
 
   // Add a subject
-  router.post('/api/subject/add', async (req, res) => {
-    console.log('/subject/add - post');
+  router.post('/add', async (req, res) => {
+    console.log('/subjects/add - post');
     console.log(req.body);
     const { subjectName } = req.body;
     const subject = await Subject.create({ subjectName });
@@ -49,8 +49,8 @@ module.exports = () => {
   });
 
   // Edit a subject
-  router.put('/api/subject/edit/:id', async (req, res) => {
-    console.log('/subject/edit/:id - put');
+  router.put('/edit/:id', async (req, res) => {
+    console.log('/subjects/edit/:id - put');
     let { id } = req.params;
     id = parseInt(id);
     console.log(id);
@@ -60,14 +60,14 @@ module.exports = () => {
     res.send(subject);
   });
 
-  // Delete a subject
-  router.delete('/api/subject/:id', (req, res) => {
-    console.log('/subject/:id - delete');
-    let { id } = req.params;
-    id = parseInt(id);
-    console.log(id);
-    Subject.destroy({ where: { subjectId: id } });
-    res.send(`ID: ${id} deleted`);
-  });
+  // Delete a subject BROKEN
+  // router.delete('/:id', (req, res) => {
+  //   console.log('/subjects/:id - delete');
+  //   let { id } = req.params;
+  //   id = parseInt(id);
+  //   console.log(id);
+  //   Subject.destroy({ where: { subjectId: id } });
+  //   res.send(`ID: ${id} deleted`);
+  // });
   return router;
 };
