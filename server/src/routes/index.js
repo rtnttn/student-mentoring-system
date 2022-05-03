@@ -10,6 +10,7 @@ const membersRoute = require('./members');
 const availabilityRoute = require('./availability');
 const attendanceRoute = require('./attendance');
 const timeslotsRoute = require('./timeslots');
+const authRoute = require('./auth');
 
 const router = express.Router();
 
@@ -29,6 +30,7 @@ module.exports = () => {
   router.use('/availability', availabilityRoute());
   router.use('/attendance', attendanceRoute());
   router.use('/timeslots', timeslotsRoute());
+  router.use('/auth', authRoute());
 
   return router;
 };
