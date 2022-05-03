@@ -24,8 +24,8 @@ module.exports = () => {
   // ROUTES HERE
   // Student routes
   // Find all students
-  router.get('/api/students', async (req, res) => {
-    console.log('/students - get');
+  router.get('/all', async (req, res) => {
+    console.log('/students/all - get');
     // res.send('students, get');
     const list = await Student.findAll();
     console.log(list);
@@ -33,15 +33,15 @@ module.exports = () => {
   });
 
   // Find all mentors
-  router.get('/api/students/mentors', async (req, res) => {
+  router.get('/mentors', async (req, res) => {
     console.log('/students/mentors - get');
     const list = await Student.findAll({ where: { isMentor: true } });
     res.send(list);
   });
 
   // Find student by id
-  router.get('/api/student/:id', async (req, res) => {
-    console.log('/student/:id - get');
+  router.get('/id/:id', async (req, res) => {
+    console.log('/students/id/:id - get');
     let { id } = req.params;
     id = parseInt(id);
     console.log(id);
@@ -52,8 +52,8 @@ module.exports = () => {
 
   // Add a student
   // eslint-disable-next-line consistent-return
-  router.post('/api/student/add', async (req, res) => {
-    console.log('/student/add - post');
+  router.post('/add', async (req, res) => {
+    console.log('/students/add - post');
     console.log(req.body);
     // isMentor left out: default to false, change within UI
     const { studentName, email, password, courseName, courseStage } = req.body;
@@ -117,8 +117,8 @@ module.exports = () => {
   });
 
   // Edit student details
-  router.put('/api/student/edit/:id', async (req, res) => {
-    console.log('/student/edit/:id - put');
+  router.put('/edit/id/:id', async (req, res) => {
+    console.log('/students/edit/id/:id - put');
     let { id } = req.params;
     id = parseInt(id);
     console.log(id);
@@ -141,8 +141,8 @@ module.exports = () => {
   });
 
   // Change student privileges
-  router.put('/api/student/edit/priv/:id', async (req, res) => {
-    console.log('/student/edit/priv/:id - put');
+  router.put('/edit/priv/:id', async (req, res) => {
+    console.log('/students/edit/priv/:id - put');
     let { id } = req.params;
     id = parseInt(id);
     console.log(id);
@@ -153,14 +153,14 @@ module.exports = () => {
     res.send(student);
   });
 
-  // Delete student
-  router.delete('/api/student/:id', (req, res) => {
-    console.log('/student/:id - delete');
-    let { id } = req.params;
-    id = parseInt(id);
-    console.log(id);
-    Student.destroy({ where: { studentId: id } });
-    res.send(`ID: ${id} deleted`);
-  });
+  // Delete student BROKEN
+  // router.delete('/:id', (req, res) => {
+  //   console.log('/students/:id - delete');
+  //   let { id } = req.params;
+  //   id = parseInt(id);
+  //   console.log(id);
+  //   Student.destroy({ where: { studentId: id } });
+  //   res.send(`ID: ${id} deleted`);
+  // });
   return router;
 };

@@ -14,14 +14,14 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "localhost:5000/api/students",
+							"raw": "localhost:5000/students/all",
 							"host": [
 								"localhost"
 							],
 							"port": "5000",
 							"path": [
-								"api",
-								"students"
+								"students",
+								"all"
 							]
 						}
 					},
@@ -33,13 +33,12 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "localhost:5000/api/students/mentors",
+							"raw": "localhost:5000/students/mentors",
 							"host": [
 								"localhost"
 							],
 							"port": "5000",
 							"path": [
-								"api",
 								"students",
 								"mentors"
 							]
@@ -53,14 +52,14 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "localhost:5000/api/student/2",
+							"raw": "localhost:5000/students/id/2",
 							"host": [
 								"localhost"
 							],
 							"port": "5000",
 							"path": [
-								"api",
-								"student",
+								"students",
+								"id",
 								"2"
 							]
 						}
@@ -82,7 +81,7 @@
 								},
 								{
 									"key": "email",
-									"value": "delet@this.com",
+									"value": "delet@test.com",
 									"type": "text"
 								},
 								{
@@ -108,14 +107,13 @@
 							]
 						},
 						"url": {
-							"raw": "localhost:5000/api/student/add",
+							"raw": "localhost:5000/students/add",
 							"host": [
 								"localhost"
 							],
 							"port": "5000",
 							"path": [
-								"api",
-								"student",
+								"students",
 								"add"
 							]
 						}
@@ -132,7 +130,7 @@
 							"urlencoded": [
 								{
 									"key": "studentName",
-									"value": "old mate",
+									"value": "deletpls",
 									"type": "text"
 								},
 								{
@@ -162,16 +160,16 @@
 							]
 						},
 						"url": {
-							"raw": "localhost:5000/api/student/edit/1",
+							"raw": "localhost:5000/students/edit/id/6",
 							"host": [
 								"localhost"
 							],
 							"port": "5000",
 							"path": [
-								"api",
-								"student",
+								"students",
 								"edit",
-								"1"
+								"id",
+								"6"
 							]
 						}
 					},
@@ -193,93 +191,35 @@
 							]
 						},
 						"url": {
-							"raw": "localhost:5000/api/student/edit/priv/3",
-							"host": [
-								"localhost"
-							],
-							"port": "5000",
-							"path": [
-								"api",
-								"student",
-								"edit",
-								"priv",
-								"3"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Delete",
-					"request": {
-						"method": "DELETE",
-						"header": [],
-						"url": {
-							"raw": "localhost:5000/api/student/4",
-							"host": [
-								"localhost"
-							],
-							"port": "5000",
-							"path": [
-								"api",
-								"student",
-								"4"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Add auth'd",
-					"request": {
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "urlencoded",
-							"urlencoded": [
-								{
-									"key": "studentName",
-									"value": "DELETE THIS",
-									"type": "text"
-								},
-								{
-									"key": "email",
-									"value": "delet@this.com",
-									"type": "text"
-								},
-								{
-									"key": "password",
-									"value": "3",
-									"type": "text"
-								},
-								{
-									"key": "courseName",
-									"value": "course",
-									"type": "text"
-								},
-								{
-									"key": "courseStage",
-									"value": "2",
-									"type": "text"
-								},
-								{
-									"key": "isMentor",
-									"value": "false",
-									"type": "text"
-								}
-							]
-						},
-						"url": {
-							"raw": "localhost:5000/students/api/student/add",
+							"raw": "localhost:5000/students/edit/priv/6",
 							"host": [
 								"localhost"
 							],
 							"port": "5000",
 							"path": [
 								"students",
-								"api",
-								"student",
-								"add"
+								"edit",
+								"priv",
+								"6"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete BROKEN",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "localhost:5000/students/6",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"students",
+								"6"
 							]
 						}
 					},
