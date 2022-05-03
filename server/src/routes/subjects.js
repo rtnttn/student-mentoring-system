@@ -61,13 +61,13 @@ module.exports = () => {
   });
 
   // Delete a subject BROKEN
-  // router.delete('/:id', (req, res) => {
-  //   console.log('/subjects/:id - delete');
-  //   let { id } = req.params;
-  //   id = parseInt(id);
-  //   console.log(id);
-  //   Subject.destroy({ where: { subjectId: id } });
-  //   res.send(`ID: ${id} deleted`);
-  // });
+  router.delete('/:id', (req, res) => {
+    console.log('/subjects/:id - delete');
+    let { id } = req.params;
+    id = parseInt(id);
+    console.log(id);
+    Subject.destroy({ where: { subjectId: id } });
+    res.send(`ID: ${id} deleted`);
+  });
   return router;
 };

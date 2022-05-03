@@ -154,13 +154,13 @@ module.exports = () => {
   });
 
   // Delete student BROKEN
-  // router.delete('/:id', (req, res) => {
-  //   console.log('/students/:id - delete');
-  //   let { id } = req.params;
-  //   id = parseInt(id);
-  //   console.log(id);
-  //   Student.destroy({ where: { studentId: id } });
-  //   res.send(`ID: ${id} deleted`);
-  // });
+  router.delete('/:id', (req, res) => {
+    console.log('/students/:id - delete');
+    let { id } = req.params;
+    id = parseInt(id);
+    console.log(id);
+    Student.destroy({ where: { studentId: id } });
+    res.send(`ID: ${id} deleted`);
+  });
   return router;
 };

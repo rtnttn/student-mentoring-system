@@ -140,13 +140,13 @@ module.exports = () => {
   });
 
   // Delete a staff member BROKEN
-  //   router.delete('/:id', (req, res) => {
-  //     console.log('/staff/:id - delete');
-  //     let { id } = req.params;
-  //     id = parseInt(id);
-  //     console.log(id);
-  //     Staff.destroy({ where: { staffId: id } });
-  //     res.send(`ID: ${id} deleted`);
-  //   });
+  router.delete('/:id', (req, res) => {
+    console.log('/staff/:id - delete');
+    let { id } = req.params;
+    id = parseInt(id);
+    console.log(id);
+    Staff.destroy({ where: { staffId: id } });
+    res.send(`ID: ${id} deleted`);
+  });
   return router;
 };

@@ -87,12 +87,12 @@ const Attendance = sequelize.define(
     groupId: {
       type: DataTypes.INTEGER,
       primaryKey: true,
-      references: { model: Member, key: 'groupId' },
+      references: { model: Group, key: 'groupId' },
     },
     studentId: {
       type: DataTypes.INTEGER,
       primaryKey: true,
-      references: { model: Member, key: 'studentId' },
+      references: { model: Student, key: 'studentId' },
     },
     date: { type: DataTypes.DATEONLY, primaryKey: true },
     confirmed: { type: DataTypes.BOOLEAN },
@@ -161,9 +161,13 @@ Group.hasMany(Member, { foreignKey: 'groupId' });
 
 Member.belongsTo(Group, { foreignKey: 'groupId' });
 
-Member.hasMany(Attendance);
+Student.hasMany(Attendance, { foreignKey: 'studentId' });
 
-Attendance.belongsTo(Attendance);
+Attendance.belongsTo(Student, { foreignKey: 'studentId' });
+
+Group.hasMany(Attendance, { foreignKey: 'groupId' });
+
+Attendance.belongsTo(Group, { foreignKey: 'groupId' });
 
 // object
 db.sequelize = sequelize;
