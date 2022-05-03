@@ -296,14 +296,14 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "localhost:5000/api/staff",
+							"raw": "localhost:5000/staff/all",
 							"host": [
 								"localhost"
 							],
 							"port": "5000",
 							"path": [
-								"api",
-								"staff"
+								"staff",
+								"all"
 							]
 						}
 					},
@@ -315,14 +315,14 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "localhost:5000/api/staff/1",
+							"raw": "localhost:5000/staff/id/1",
 							"host": [
 								"localhost"
 							],
 							"port": "5000",
 							"path": [
-								"api",
 								"staff",
+								"id",
 								"1"
 							]
 						}
@@ -339,12 +339,12 @@
 							"urlencoded": [
 								{
 									"key": "staffName",
-									"value": "Mr Miyagi",
+									"value": "reroute",
 									"type": "text"
 								},
 								{
 									"key": "email",
-									"value": "ka@ra.te",
+									"value": "re@rout.e",
 									"type": "text"
 								},
 								{
@@ -355,13 +355,12 @@
 							]
 						},
 						"url": {
-							"raw": "localhost:5000/api/staff/add",
+							"raw": "localhost:5000/staff/add",
 							"host": [
 								"localhost"
 							],
 							"port": "5000",
 							"path": [
-								"api",
 								"staff",
 								"add"
 							]
@@ -380,13 +379,13 @@
 								{
 									"key": "staffName",
 									"value": "Mr Miyagi",
-									"type": "text"
+									"type": "text",
+									"disabled": true
 								},
 								{
 									"key": "email",
-									"value": "ka@ra.te",
-									"type": "text",
-									"disabled": true
+									"value": "re@route.r",
+									"type": "text"
 								},
 								{
 									"key": "password",
@@ -397,16 +396,16 @@
 							]
 						},
 						"url": {
-							"raw": "localhost:5000/api/staff/edit/1",
+							"raw": "localhost:5000/staff/edit/id/4",
 							"host": [
 								"localhost"
 							],
 							"port": "5000",
 							"path": [
-								"api",
 								"staff",
 								"edit",
-								"1"
+								"id",
+								"4"
 							]
 						}
 					},
@@ -428,24 +427,23 @@
 							]
 						},
 						"url": {
-							"raw": "localhost:5000/api/staff/edit/priv/2",
+							"raw": "localhost:5000/staff/edit/priv/4",
 							"host": [
 								"localhost"
 							],
 							"port": "5000",
 							"path": [
-								"api",
 								"staff",
 								"edit",
 								"priv",
-								"2"
+								"4"
 							]
 						}
 					},
 					"response": []
 				},
 				{
-					"name": "Delete",
+					"name": "Delete BROKEN",
 					"request": {
 						"method": "DELETE",
 						"header": [],
@@ -460,56 +458,14 @@
 							]
 						},
 						"url": {
-							"raw": "localhost:5000/api/staff/2",
-							"host": [
-								"localhost"
-							],
-							"port": "5000",
-							"path": [
-								"api",
-								"staff",
-								"2"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Add auth'd",
-					"request": {
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "urlencoded",
-							"urlencoded": [
-								{
-									"key": "staffName",
-									"value": "authtest",
-									"type": "text"
-								},
-								{
-									"key": "email",
-									"value": "auth@test.com",
-									"type": "text"
-								},
-								{
-									"key": "password",
-									"value": "1",
-									"type": "text"
-								}
-							]
-						},
-						"url": {
-							"raw": "localhost:5000/staff/api/staff/add",
+							"raw": "localhost:5000/staff/4",
 							"host": [
 								"localhost"
 							],
 							"port": "5000",
 							"path": [
 								"staff",
-								"api",
-								"staff",
-								"add"
+								"4"
 							]
 						}
 					},

@@ -24,16 +24,16 @@ module.exports = () => {
   // ROUTES HERE
   // Staff routes
   // Find all staff
-  router.get('/api/staff', async (req, res) => {
-    console.log('/staff - get');
+  router.get('/all', async (req, res) => {
+    console.log('/staff/all - get');
     const list = await Staff.findAll();
     console.log(list);
     res.send(list);
   });
 
   // Find a staff member by ID
-  router.get('/api/staff/:id', async (req, res) => {
-    console.log('/staff/:id - get');
+  router.get('/id/:id', async (req, res) => {
+    console.log('/staff/id/:id - get');
     let { id } = req.params;
     id = parseInt(id);
     console.log(id);
@@ -44,7 +44,7 @@ module.exports = () => {
 
   // Add a staff member
   // eslint-disable-next-line consistent-return
-  router.post('/api/staff/add', async (req, res) => {
+  router.post('/add', async (req, res) => {
     console.log('/staff/add - post');
     console.log(req.body);
     // isMentor left out: default to false, change within UI
@@ -105,8 +105,8 @@ module.exports = () => {
   });
 
   // Edit staff member details
-  router.put('/api/staff/edit/:id', async (req, res) => {
-    console.log('/staff/edit/:id - put');
+  router.put('/edit/id/:id', async (req, res) => {
+    console.log('/staff/edit/id/:id - put');
     let { id } = req.params;
     id = parseInt(id);
     console.log(id);
@@ -127,7 +127,7 @@ module.exports = () => {
   });
 
   // Elevate staff privileges
-  router.put('/api/staff/edit/priv/:id', async (req, res) => {
+  router.put('/edit/priv/:id', async (req, res) => {
     console.log('/staff/edit/priv/:id - put');
     let { id } = req.params;
     id = parseInt(id);
@@ -139,14 +139,14 @@ module.exports = () => {
     res.send(staff);
   });
 
-  // Delete a staff member
-  router.delete('/api/staff/:id', (req, res) => {
-    console.log('/staff/:id - delete');
-    let { id } = req.params;
-    id = parseInt(id);
-    console.log(id);
-    Staff.destroy({ where: { staffId: id } });
-    res.send(`ID: ${id} deleted`);
-  });
+  // Delete a staff member BROKEN
+  //   router.delete('/:id', (req, res) => {
+  //     console.log('/staff/:id - delete');
+  //     let { id } = req.params;
+  //     id = parseInt(id);
+  //     console.log(id);
+  //     Staff.destroy({ where: { staffId: id } });
+  //     res.send(`ID: ${id} deleted`);
+  //   });
   return router;
 };
