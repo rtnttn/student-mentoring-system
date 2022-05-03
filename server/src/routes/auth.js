@@ -24,7 +24,7 @@ module.exports = () => {
   // ROUTES HERE
   // Student login
   // eslint-disable-next-line consistent-return
-  router.get('/login/student', async (req, res) => {
+  router.post('/login/student', async (req, res) => {
     console.log('/auth/login/student - post');
     const { email, password } = req.body;
 
@@ -32,13 +32,15 @@ module.exports = () => {
       const student = await Student.findOne({ where: { email } });
 
       if (!student) {
-        return res.status(400).json({ errors: [{ msg: 'Invalid credentials' }] });
+        // CHANGE THIS
+        return res.status(400).json({ errors: [{ msg: 'No such account' }] });
       }
 
       const isMatch = await bcrypt.compare(password, student.password);
 
       if (!isMatch) {
-        return res.status(400).json({ errors: [{ msg: 'Invalid credentials' }] });
+        // CHANGE THIS
+        return res.status(400).json({ errors: [{ msg: 'Invalid password' }] });
       }
 
       const payload = {
@@ -70,13 +72,15 @@ module.exports = () => {
       const staff = await Staff.findOne({ where: { email } });
 
       if (!staff) {
-        return res.status(400).json({ errors: [{ msg: 'Invalid credentials' }] });
+        // CHANGE THIS
+        return res.status(400).json({ errors: [{ msg: 'No such account' }] });
       }
 
       const isMatch = await bcrypt.compare(password, staff.password);
 
       if (!isMatch) {
-        return res.status(400).json({ errors: [{ msg: 'Invalid credentials' }] });
+        // CHANGE THIS
+        return res.status(400).json({ errors: [{ msg: 'Invalid password' }] });
       }
 
       const payload = {
@@ -97,4 +101,5 @@ module.exports = () => {
       res.status(500).send('Server error');
     }
   });
+  return router;
 };

@@ -1,6 +1,9 @@
 /* eslint-disable radix */
 const express = require('express');
+const jwt = require('jsonwebtoken');
+const bcrypt = require('bcrypt');
 const db = require('../models');
+const config = require('../config/config');
 
 const router = express.Router();
 
@@ -48,20 +51,69 @@ module.exports = () => {
   });
 
   // Add a student
+  // eslint-disable-next-line consistent-return
   router.post('/api/student/add', async (req, res) => {
     console.log('/student/add - post');
     console.log(req.body);
     // isMentor left out: default to false, change within UI
     const { studentName, email, password, courseName, courseStage } = req.body;
-    const student = await Student.create({
-      studentName,
-      email,
-      password,
-      courseName,
-      courseStage,
-    });
-    console.log(student.toJSON());
-    res.send(student);
+    try {
+      const student = await Student.findOne({ where: { email } });
+      if (student) {
+        return res.status(400).json({ errors: [{ msg: 'User already exists' }] });
+      }
+
+      const newStudent = {
+        studentName,
+        email,
+        password,
+        courseName,
+        courseStage,
+      };
+
+      const salt = await bcrypt.genSalt(10);
+
+      newStudent.password = await bcrypt.hash(password, salt);
+      console.log(newStudent);
+
+      // Save to database
+      const studentRes = await Student.create({
+        studentName: newStudent.studentName,
+        email: newStudent.email,
+        password: newStudent.password,
+        courseName: newStudent.courseName,
+        courseStage: newStudent.courseStage,
+      });
+
+      // Send a token
+      const payload = {
+        student: {
+          studentId: studentRes.studentId,
+          studentName: studentRes.studentName,
+          email: studentRes.email,
+          isMentor: studentRes.isMentor,
+        },
+      };
+
+      // Sign token
+      jwt.sign(payload, config.authentication.jwtSecret, { expiresIn: '7d' }, (error, token) => {
+        if (error) throw error;
+        res.json({ token });
+      });
+    } catch (error) {
+      console.log(error.message);
+      res.status(500).send('Server error');
+    }
+    // Pre-auth implementation
+    // const student = await Student.create({
+    //   studentName,
+    //   email,
+    //   password,
+    //   courseName,
+    //   courseStage,
+    // });
+    // console.log(student.toJSON());
+    // res.send(student);
   });
 
   // Edit student details

@@ -228,6 +228,62 @@
 						}
 					},
 					"response": []
+				},
+				{
+					"name": "Add auth'd",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "studentName",
+									"value": "DELETE THIS",
+									"type": "text"
+								},
+								{
+									"key": "email",
+									"value": "delet@this.com",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "3",
+									"type": "text"
+								},
+								{
+									"key": "courseName",
+									"value": "course",
+									"type": "text"
+								},
+								{
+									"key": "courseStage",
+									"value": "2",
+									"type": "text"
+								},
+								{
+									"key": "isMentor",
+									"value": "false",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "localhost:5000/students/api/student/add",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"students",
+								"api",
+								"student",
+								"add"
+							]
+						}
+					},
+					"response": []
 				}
 			]
 		},
@@ -413,6 +469,47 @@
 								"api",
 								"staff",
 								"2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Add auth'd",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "staffName",
+									"value": "authtest",
+									"type": "text"
+								},
+								{
+									"key": "email",
+									"value": "auth@test.com",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "1",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "localhost:5000/staff/api/staff/add",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"staff",
+								"api",
+								"staff",
+								"add"
 							]
 						}
 					},
@@ -1121,6 +1218,81 @@
 								"dash",
 								"opti",
 								"users"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Auth",
+			"item": [
+				{
+					"name": "Student login",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "email",
+									"value": "delet@this.com",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "3",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "localhost:5000/auth/login/student",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"auth",
+								"login",
+								"student"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Staff login",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "email",
+									"value": "auth@test.com",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "1",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "localhost:5000/auth/login/staff",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"auth",
+								"login",
+								"staff"
 							]
 						}
 					},
