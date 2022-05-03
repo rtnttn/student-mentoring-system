@@ -5,6 +5,9 @@ const config = require('./config/config');
 const { sequelize } = require('./models');
 const db = require('./models');
 
+// TESTING IMPORT
+const routes = require('./routes');
+
 // Initialize express
 const app = express();
 
@@ -15,6 +18,9 @@ const { Student, Staff, Subject, Application, Group, Member, Attendance, Timeslo
 // Data handling middleware
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
+
+// TESTING ROUTER MIDDLEWARE
+app.use('/', routes());
 
 // Routing middleware
 // Test routes
