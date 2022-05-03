@@ -1083,6 +1083,48 @@
 						}
 					},
 					"response": []
+				},
+				{
+					"name": "F&C applications optimized",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:5000/api/dash/opti/applications",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"api",
+								"dash",
+								"opti",
+								"applications"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "F&C users optimized",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:5000/api/dash/opti/users",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"api",
+								"dash",
+								"opti",
+								"users"
+							]
+						}
+					},
+					"response": []
 				}
 			]
 		}

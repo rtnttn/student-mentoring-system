@@ -2,6 +2,7 @@
 // Imports
 const express = require('express');
 const config = require('./config/config');
+const { sequelize } = require('./models');
 const db = require('./models');
 
 // Initialize express
@@ -481,8 +482,9 @@ app.post('/api/timeslots/init', async (req, res) => {
 
 // Dash routes
 // Find and count mentors and mentees
+// OLD -- multiple database trips
 app.get('/api/dash/applications', async (req, res) => {
-  console.log('/applications/dash/all - get');
+  console.log('/dash/applications - get');
   const mentors = await Application.findAndCountAll({
     where: { forMentor: true },
     include: [Student, Subject],
@@ -497,9 +499,48 @@ app.get('/api/dash/applications', async (req, res) => {
   res.send({ mentors, mentees });
 });
 
+// NEW -- Single database query, different data structure
+app.get('/api/dash/opti/applications', async (req, res) => {
+  console.log('/dash/opti/applications - get');
+  try {
+    const applications = await Application.findAll({
+      order: [['createdAt', 'ASC']],
+      attributes: {
+        include: [
+          [
+            sequelize.literal(`(
+              SELECT COUNT(*)
+              FROM Applications as Application
+              WHERE
+                Application.forMentor = true
+            )`),
+            'mentorCount',
+          ],
+          [
+            sequelize.literal(`(
+              SELECT COUNT(*)
+              FROM Applications as Application
+              WHERE
+                Application.forMentor = false
+            )`),
+            'menteeCount',
+          ],
+        ],
+      },
+      include: [Student, Subject],
+    });
+    console.log(applications);
+    res.send(applications);
+  } catch (error) {
+    console.log(error);
+    res.send(`error ${error}`);
+  }
+});
+
 // Find and count mentors, mentees and staff
+// OLD -- Multiple database trips
 app.get('/api/dash/users', async (req, res) => {
-  console.log('/applications/dash/all - get');
+  console.log('/dash/users - get');
   const mentors = await Student.findAndCountAll({
     where: { isMentor: true },
   });
@@ -511,6 +552,39 @@ app.get('/api/dash/users', async (req, res) => {
   const staff = await Staff.findAndCountAll();
   console.log(staff);
   res.send({ mentors, mentees, staff });
+});
+
+// NEW -- Down to two queries
+app.get('/api/dash/opti/users', async (req, res) => {
+  console.log('/dash/opti/users - get');
+  const students = await Student.findAll({
+    attributes: {
+      include: [
+        [
+          sequelize.literal(`(
+            SELECT COUNT(*)
+            FROM Students as Student
+            WHERE
+              Student.isMentor = true
+          )`),
+          'mentorCount',
+        ],
+        [
+          sequelize.literal(`(
+            SELECT COUNT(*)
+            FROM Students as Student
+            WHERE
+              Student.isMentor = false
+          )`),
+          'menteeCount',
+        ],
+      ],
+    },
+  });
+  console.log(students);
+  const staff = await Staff.findAndCountAll();
+  console.log(staff);
+  res.send({ students, staff });
 });
 
 // Availability routes
