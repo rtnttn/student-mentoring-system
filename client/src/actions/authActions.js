@@ -28,7 +28,7 @@ export const register = (user) => async (dispatch) => {
   // const user = JSON.stringify({name, email, password});
 
   try {
-    const res = await axios.post('/api/student/add', user);
+    const res = await axios.post('/students/add', user);
 
     dispatch({
       type: REGISTER_SUCCESS,
