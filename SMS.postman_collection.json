@@ -1143,13 +1143,12 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "localhost:5000/api/dash/applications",
+							"raw": "localhost:5000/dash/applications",
 							"host": [
 								"localhost"
 							],
 							"port": "5000",
 							"path": [
-								"api",
 								"dash",
 								"applications"
 							]
@@ -1163,13 +1162,12 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "localhost:5000/api/dash/users",
+							"raw": "localhost:5000/dash/users",
 							"host": [
 								"localhost"
 							],
 							"port": "5000",
 							"path": [
-								"api",
 								"dash",
 								"users"
 							]
@@ -1183,13 +1181,12 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "localhost:5000/api/dash/opti/applications",
+							"raw": "localhost:5000/dash/opti/applications",
 							"host": [
 								"localhost"
 							],
 							"port": "5000",
 							"path": [
-								"api",
 								"dash",
 								"opti",
 								"applications"
@@ -1204,13 +1201,12 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "localhost:5000/api/dash/opti/users",
+							"raw": "localhost:5000/dash/opti/users",
 							"host": [
 								"localhost"
 							],
 							"port": "5000",
 							"path": [
-								"api",
 								"dash",
 								"opti",
 								"users"

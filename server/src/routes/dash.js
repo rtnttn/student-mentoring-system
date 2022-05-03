@@ -23,7 +23,7 @@ module.exports = () => {
   // Dash routes
   // Find and count mentors and mentees
   // OLD -- multiple database trips
-  router.get('/api/dash/applications', async (req, res) => {
+  router.get('/applications', async (req, res) => {
     console.log('/dash/applications - get');
     const mentors = await Application.findAndCountAll({
       where: { forMentor: true },
@@ -40,7 +40,7 @@ module.exports = () => {
   });
 
   // NEW -- Single database query, different data structure
-  router.get('/api/dash/opti/applications', async (req, res) => {
+  router.get('/opti/applications', async (req, res) => {
     console.log('/dash/opti/applications - get');
     try {
       const applications = await Application.findAll({
@@ -79,7 +79,7 @@ module.exports = () => {
 
   // Find and count mentors, mentees and staff
   // OLD -- Multiple database trips
-  router.get('/api/dash/users', async (req, res) => {
+  router.get('/users', async (req, res) => {
     console.log('/dash/users - get');
     const mentors = await Student.findAndCountAll({
       where: { isMentor: true },
@@ -95,7 +95,7 @@ module.exports = () => {
   });
 
   // NEW -- Down to two queries
-  router.get('/api/dash/opti/users', async (req, res) => {
+  router.get('/opti/users', async (req, res) => {
     console.log('/dash/opti/users - get');
     const students = await Student.findAll({
       attributes: {
