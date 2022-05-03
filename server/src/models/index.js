@@ -21,8 +21,8 @@ const sequelize = new Sequelize(
 const Student = sequelize.define('Student', {
   studentId: { type: DataTypes.INTEGER, autoIncrement: true, primaryKey: true },
   studentName: { type: DataTypes.STRING, allowNull: false },
-  email: { type: DataTypes.STRING, allowNull: false, unique: true },
-  password: { type: DataTypes.STRING, allowNull: false },
+  studentEmail: { type: DataTypes.STRING, allowNull: false, unique: true },
+  studentPassword: { type: DataTypes.STRING, allowNull: false },
   courseName: { type: DataTypes.STRING },
   courseStage: { type: DataTypes.STRING },
   isMentor: { type: DataTypes.BOOLEAN, defaultValue: false },
@@ -34,8 +34,8 @@ const Staff = sequelize.define(
   {
     staffId: { type: DataTypes.INTEGER, autoIncrement: true, primaryKey: true },
     staffName: { type: DataTypes.STRING, allowNull: false },
-    email: { type: DataTypes.STRING, allowNull: false, unique: true },
-    password: { type: DataTypes.STRING, allowNull: false },
+    staffEmail: { type: DataTypes.STRING, allowNull: false, unique: true },
+    staffPassword: { type: DataTypes.STRING, allowNull: false },
     isCoordinator: { type: DataTypes.BOOLEAN, defaultValue: false },
   },
   {

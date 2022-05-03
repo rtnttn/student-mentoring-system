@@ -22,8 +22,8 @@ const Register = ({ register }) => {
   // Set up our form state
   const [formData, setFormData] = useState({
     studentName: '',
-    email: '',
-    password: '',
+    studentEmail: '',
+    studentPassword: '',
     passwordCompare: '',
     courseName: '',
     courseStage: '',
@@ -31,7 +31,8 @@ const Register = ({ register }) => {
   });
   const [errors, setErrors] = useState({});
   // Destructure
-  const { studentName, email, password, passwordCompare, courseName, courseStage } = formData;
+  const { studentName, studentEmail, studentPassword, passwordCompare, courseName, courseStage } =
+    formData;
 
   // On Change function
   const onChange = (e) => setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -42,13 +43,13 @@ const Register = ({ register }) => {
     e.preventDefault();
     console.log('On Submit');
 
-    if (password !== passwordCompare) {
+    if (studentPassword !== passwordCompare) {
       // write some error message
       // use classnames package
-      setErrors({ password: 'Passwords do not match' });
+      setErrors({ studentPassword: 'Passwords do not match' });
       return;
     } else {
-      const user = { studentName, email, password, courseName, courseStage };
+      const user = { studentName, studentEmail, studentPassword, courseName, courseStage };
       register(user);
     }
   };
@@ -100,8 +101,8 @@ const Register = ({ register }) => {
                       id="exampleInputEmail1"
                       aria-describedby="emailHelp"
                       placeholder="Enter email"
-                      name="email"
-                      value={email}
+                      name="studentEmail"
+                      value={studentEmail}
                       onChange={(e) => onChange(e)}
                     />
                   </div>
@@ -115,8 +116,8 @@ const Register = ({ register }) => {
                       className="form-control"
                       id="exampleInputPassword1"
                       placeholder="Password"
-                      name="password"
-                      value={password}
+                      name="studentPassword"
+                      value={studentPassword}
                       onChange={(e) => onChange(e)}
                     />
                   </div>

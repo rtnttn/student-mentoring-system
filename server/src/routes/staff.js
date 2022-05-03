@@ -48,29 +48,29 @@ module.exports = () => {
     console.log('/staff/add - post');
     console.log(req.body);
     // isMentor left out: default to false, change within UI
-    const { staffName, email, password } = req.body;
+    const { staffName, staffEmail, staffPassword } = req.body;
     try {
-      const staff = await Staff.findOne({ where: { email } });
+      const staff = await Staff.findOne({ where: { staffEmail } });
       if (staff) {
         return res.status(400).json({ errors: [{ msg: 'Staff member already exists' }] });
       }
 
       const newStaff = {
         staffName,
-        email,
-        password,
+        staffEmail,
+        staffPassword,
       };
 
       const salt = await bcrypt.genSalt(10);
 
-      newStaff.password = await bcrypt.hash(password, salt);
+      newStaff.staffPassword = await bcrypt.hash(staffPassword, salt);
       console.log(newStaff);
 
       // Save to database
       const staffRes = await Staff.create({
         staffName: newStaff.staffName,
-        email: newStaff.email,
-        password: newStaff.password,
+        staffEmail: newStaff.staffEmail,
+        staffPassword: newStaff.staffPassword,
       });
 
       // Send a token
@@ -78,7 +78,7 @@ module.exports = () => {
         student: {
           staffId: staffRes.staffId,
           staffName: staffRes.name,
-          email: staffRes.email,
+          staffEmail: staffRes.staffEmail,
           isCoordinator: staffRes.isCoordinator,
         },
       };
@@ -94,11 +94,11 @@ module.exports = () => {
     }
     // Pre-auth implementation
     // console.log(req.body);
-    // const { staffName, email, password } = req.body;
+    // const { staffName, staffEmail, staffPassword } = req.body;
     // const staff = await Staff.create({
     //   staffName,
-    //   email,
-    //   password,
+    //   staffEmail,
+    //   staffPassword,
     // });
     // console.log(staff.toJSON());
     // res.send(staff);
@@ -111,12 +111,12 @@ module.exports = () => {
     id = parseInt(id);
     console.log(id);
     console.log(req.body);
-    const { staffName, email, password } = req.body;
+    const { staffName, staffEmail, staffPassword } = req.body;
     const staff = await Staff.update(
       {
         staffName,
-        email,
-        password,
+        staffEmail,
+        staffPassword,
       },
       {
         where: { staffId: id },
