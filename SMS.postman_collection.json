@@ -6,7 +6,7 @@
 	},
 	"item": [
 		{
-			"name": "Student",
+			"name": "Students",
 			"item": [
 				{
 					"name": "Find all",
@@ -653,7 +653,7 @@
 			]
 		},
 		{
-			"name": "Application",
+			"name": "Applications",
 			"item": [
 				{
 					"name": "Find all",
@@ -661,14 +661,14 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "localhost:5000/api/applications",
+							"raw": "localhost:5000/applications/all",
 							"host": [
 								"localhost"
 							],
 							"port": "5000",
 							"path": [
-								"api",
-								"applications"
+								"applications",
+								"all"
 							]
 						}
 					},
@@ -680,14 +680,14 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "localhost:5000/api/application/2",
+							"raw": "localhost:5000/applications/id/2",
 							"host": [
 								"localhost"
 							],
 							"port": "5000",
 							"path": [
-								"api",
-								"application",
+								"applications",
+								"id",
 								"2"
 							]
 						}
@@ -700,15 +700,15 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "localhost:5000/api/applications/1",
+							"raw": "localhost:5000/applications/student/2",
 							"host": [
 								"localhost"
 							],
 							"port": "5000",
 							"path": [
-								"api",
 								"applications",
-								"1"
+								"student",
+								"2"
 							]
 						}
 					},
@@ -720,13 +720,12 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "localhost:5000/api/applications/mentees/all",
+							"raw": "localhost:5000/applications/mentees/all",
 							"host": [
 								"localhost"
 							],
 							"port": "5000",
 							"path": [
-								"api",
 								"applications",
 								"mentees",
 								"all"
@@ -741,13 +740,12 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "localhost:5000/api/applications/mentors/all",
+							"raw": "localhost:5000/applications/mentors/all",
 							"host": [
 								"localhost"
 							],
 							"port": "5000",
 							"path": [
-								"api",
 								"applications",
 								"mentors",
 								"all"
@@ -762,16 +760,16 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "localhost:5000/api/applications/mentor/1",
+							"raw": "localhost:5000/applications/mentors/student/3",
 							"host": [
 								"localhost"
 							],
 							"port": "5000",
 							"path": [
-								"api",
 								"applications",
-								"mentor",
-								"1"
+								"mentors",
+								"student",
+								"3"
 							]
 						}
 					},
@@ -783,16 +781,16 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "localhost:5000/api/applications/mentee/2",
+							"raw": "localhost:5000/applications/mentees/student/4",
 							"host": [
 								"localhost"
 							],
 							"port": "5000",
 							"path": [
-								"api",
 								"applications",
-								"mentee",
-								"2"
+								"mentees",
+								"student",
+								"4"
 							]
 						}
 					},
@@ -808,12 +806,12 @@
 							"urlencoded": [
 								{
 									"key": "studentId",
-									"value": "2",
+									"value": "1",
 									"type": "text"
 								},
 								{
 									"key": "subjectId",
-									"value": "3",
+									"value": "2",
 									"type": "text"
 								},
 								{
@@ -824,14 +822,13 @@
 							]
 						},
 						"url": {
-							"raw": "localhost:5000/api/application/add",
+							"raw": "localhost:5000/applications/add",
 							"host": [
 								"localhost"
 							],
 							"port": "5000",
 							"path": [
-								"api",
-								"application",
+								"applications",
 								"add"
 							]
 						}
@@ -849,12 +846,14 @@
 								{
 									"key": "studentId",
 									"value": "3",
-									"type": "text"
+									"type": "text",
+									"disabled": true
 								},
 								{
 									"key": "subjectId",
 									"value": "2",
-									"type": "text"
+									"type": "text",
+									"disabled": true
 								},
 								{
 									"key": "forMentor",
@@ -864,16 +863,15 @@
 							]
 						},
 						"url": {
-							"raw": "localhost:5000/api/application/edit/6",
+							"raw": "localhost:5000/applications/edit/5",
 							"host": [
 								"localhost"
 							],
 							"port": "5000",
 							"path": [
-								"api",
-								"application",
+								"applications",
 								"edit",
-								"6"
+								"5"
 							]
 						}
 					},
@@ -905,15 +903,14 @@
 							]
 						},
 						"url": {
-							"raw": "localhost:5000/api/application/6",
+							"raw": "localhost:5000/applications/5",
 							"host": [
 								"localhost"
 							],
 							"port": "5000",
 							"path": [
-								"api",
-								"application",
-								"6"
+								"applications",
+								"5"
 							]
 						}
 					},
@@ -922,7 +919,7 @@
 			]
 		},
 		{
-			"name": "Group",
+			"name": "Groups",
 			"item": [
 				{
 					"name": "Find all",
@@ -1092,7 +1089,7 @@
 			]
 		},
 		{
-			"name": "Member",
+			"name": "Members",
 			"item": []
 		},
 		{
@@ -1100,7 +1097,7 @@
 			"item": []
 		},
 		{
-			"name": "Timeslot",
+			"name": "Timeslots",
 			"item": [
 				{
 					"name": "Init",
@@ -1118,13 +1115,12 @@
 							]
 						},
 						"url": {
-							"raw": "localhost:5000/api/timeslots/init",
+							"raw": "localhost:5000/timeslots/init",
 							"host": [
 								"localhost"
 							],
 							"port": "5000",
 							"path": [
-								"api",
 								"timeslots",
 								"init"
 							]
