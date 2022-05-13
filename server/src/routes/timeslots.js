@@ -57,5 +57,13 @@ module.exports = () => {
     }
   });
 
+  // Display timeslots
+  router.get('/', async (req, res) => {
+    console.log('/timeslots/ - get');
+    const timeslots = await Timeslot.findAll();
+    console.log(timeslots);
+    res.send(timeslots);
+  });
+
   return router;
 };
