@@ -277,6 +277,7 @@ const DashboardUsers = ({ getUsers, loading, users }) => {
                                 float: 'left',
                                 color: 'blue',
                                 marginLeft: '10',
+                                transform: 'scale(1.5)',
                               }}
                             />
                           </td>
@@ -316,6 +317,7 @@ const DashboardUsers = ({ getUsers, loading, users }) => {
                                 float: 'left',
                                 color: 'blue',
                                 marginLeft: '10',
+                                transform: 'scale(1.5)',
                               }}
                             />
                           </td>
@@ -376,6 +378,7 @@ const DashboardUsers = ({ getUsers, loading, users }) => {
                                 float: 'left',
                                 color: 'blue',
                                 marginLeft: '10',
+                                transform: 'scale(1.5)',
                               }}
                             />
                           </td>
@@ -419,6 +422,7 @@ const DashboardUsers = ({ getUsers, loading, users }) => {
                                 float: 'left',
                                 color: 'blue',
                                 marginLeft: '10',
+                                transform: 'scale(1.5)',
                               }}
                             />
                           </td>
@@ -467,6 +471,7 @@ const DashboardUsers = ({ getUsers, loading, users }) => {
                                 float: 'left',
                                 color: 'blue',
                                 marginLeft: '10',
+                                transform: 'scale(1.5)',
                               }}
                             />
                           </td>
@@ -498,6 +503,7 @@ const DashboardUsers = ({ getUsers, loading, users }) => {
                                 float: 'left',
                                 color: 'blue',
                                 marginLeft: '10',
+                                transform: 'scale(1.5)',
                               }}
                             />
                           </td>
