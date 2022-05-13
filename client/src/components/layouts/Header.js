@@ -1,3 +1,5 @@
+/* eslint-disable react/self-closing-comp */
+/* eslint-disable jsx-a11y/anchor-is-valid */
 /* eslint-disable react/jsx-filename-extension */
 /* eslint-disable arrow-body-style */
 /* eslint-disable react/function-component-definition */
@@ -10,14 +12,21 @@ import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 // import { logout } from '../../actions/authActions';
 
+import '../../styles.css';
+
 const Header = () => {
   // console.log(props);
   return (
-    <div className="container">
-      <nav className="navbar navbar-expand-lg navbar-light nav nav-pills navBackground">
+    <div>
+      <nav
+        id="navBackground"
+        className="navbar navbar-expand-xl navbar-light nav nav-pills rounded-3 mt-2 border shadow-sm"
+      >
         <div className="container-fluid">
-          <a className="navbar-brand ps-2" href="dashboard.html">
-            <h1>Computer and IT Mentoring</h1>
+          <a className="navbar-brand ps-2" href="#">
+            <h1 className="pb-1 border-bottom border-3 rounded" id="navTitle">
+              Computer and IT Mentoring
+            </h1>
           </a>
           <button
             className="navbar-toggler"
@@ -31,29 +40,29 @@ const Header = () => {
             <span className="navbar-toggler-icon" />
           </button>
           <div className="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul className="nav nav-pills nav-fill ms-auto mt-2 mb-2 mb-lg-0">
+            <ul className="nav nav-fill navbar-nav ms-auto me-auto mt-2 mb-2 mb-lg-0">
               <li className="nav-item ps-2 pe-2">
-                <Link className="nav-link active" to="/dashboard">
+                <Link className="nav-link active text-light" to="/">
                   Home
                 </Link>
               </li>
               <li className="nav-item ps-2 pe-2">
-                <Link className="nav-link" to="/subjects">
+                <Link className="nav-link text-primary" to="/subjects">
                   Subjects
                 </Link>
               </li>
               <li className="nav-item ps-2 pe-2">
-                <Link className="nav-link" to="/createGroup">
+                <Link className="nav-link text-primary" to="/createGroup">
                   Create Group
                 </Link>
               </li>
               <li className="nav-item ps-2 pe-2">
-                <Link className="nav-link" to="/login">
+                <Link className="nav-link text-primary" to="/login">
                   Logout
                 </Link>
               </li>
               <li className="nav-item ps-2 pe-2">
-                <Link className="nav-link" to="/register">
+                <Link className="nav-link text-primary" to="/register">
                   Register
                 </Link>
               </li>
@@ -61,6 +70,8 @@ const Header = () => {
           </div>
         </div>
       </nav>
+      <script src="https://code.jquery.com/jquery-2.1.3.min.js"></script>
+      <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/js/bootstrap.min.js"></script>
     </div>
   );
 };

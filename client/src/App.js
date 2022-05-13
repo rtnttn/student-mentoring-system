@@ -13,6 +13,8 @@ import Dashboard from './components/adminView/Dashboard';
 import Register from './components/auth/Register';
 import AdminLayout from './components/layouts/AdminLayout';
 
+import './styles.css';
+
 const App = () => {
   return (
     <Provider store={store}>

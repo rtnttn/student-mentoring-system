@@ -1,0 +1,19 @@
+#navBackground {
+  /* background-image: linear-gradient(90deg, rgba(173, 167, 201, 0.4), rgba(173, 167, 201, 0.4)); */
+  /* background-image: linear-gradient(90deg, rgba(70, 35, 122, 0.4), rgba(70, 35, 122, 0.4)); */
+  background-image: linear-gradient(90deg, rgba(229, 229, 229, 0.5), rgba(229, 229, 229, 0.5));
+}
+
+#navTitle {
+  border-bottom-color: darkmagenta !important;
+}
+
+#colBackground {
+  /* background-image: linear-gradient(180deg, rgba(144, 243, 255, 0.4), rgba(144, 243, 255, 0.2)); */
+  background-image: linear-gradient(180deg, rgba(58, 189, 233, 0.3), rgba(58, 189, 233, 0.15));
+  /* background-image: linear-gradient(180deg, rgba(35, 201, 255, 0.4), rgba(35, 201, 255, 0.2)); */
+}
+
+#background {
+  background-color: black;
+}
