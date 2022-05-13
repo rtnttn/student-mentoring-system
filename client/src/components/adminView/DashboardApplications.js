@@ -20,7 +20,6 @@
 // onclick for create group
 // onclick for approve mentor
 // onclick for delete application
-// center mentor/mentee counts
 
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
@@ -29,6 +28,8 @@ import { FaSortDown, FaCaretUp, FaTrash } from 'react-icons/fa';
 import { IoCheckmarkCircleOutline, IoCheckmarkCircle } from 'react-icons/io5';
 import { MdOutlinePersonSearch, MdOutlineGroupAdd } from 'react-icons/md';
 import { getApplications } from '../../actions/applicationActions';
+
+import '../../styles.css';
 
 const DashboardApplications = ({ getApplications, loading, applications }) => {
   // subApplications is a filtered version of applications
@@ -232,6 +233,7 @@ const DashboardApplications = ({ getApplications, loading, applications }) => {
                                 float: 'right',
                                 color: 'red',
                                 marginRight: '10',
+                                transform: 'scale(1.5)',
                               }}
                             />
                             <MdOutlinePersonSearch
@@ -241,6 +243,7 @@ const DashboardApplications = ({ getApplications, loading, applications }) => {
                                 float: 'left',
                                 color: 'blue',
                                 marginLeft: '10',
+                                transform: 'scale(1.5)',
                               }}
                             />
                             <MdOutlineGroupAdd
@@ -249,7 +252,8 @@ const DashboardApplications = ({ getApplications, loading, applications }) => {
                                 cursor: 'pointer',
                                 float: 'left',
                                 color: 'blue',
-                                marginLeft: '10',
+                                marginLeft: '20',
+                                transform: 'scale(1.5)',
                               }}
                             />
                           </td>
@@ -285,6 +289,7 @@ const DashboardApplications = ({ getApplications, loading, applications }) => {
                                 float: 'right',
                                 color: 'red',
                                 marginRight: '10',
+                                transform: 'scale(1.5)',
                               }}
                             />
                             <MdOutlinePersonSearch
@@ -294,6 +299,7 @@ const DashboardApplications = ({ getApplications, loading, applications }) => {
                                 float: 'left',
                                 color: 'blue',
                                 marginLeft: '10',
+                                transform: 'scale(1.5)',
                               }}
                             />
                             <MdOutlineGroupAdd
@@ -302,7 +308,8 @@ const DashboardApplications = ({ getApplications, loading, applications }) => {
                                 cursor: 'pointer',
                                 float: 'left',
                                 color: 'blue',
-                                marginLeft: '10',
+                                marginLeft: '20',
+                                transform: 'scale(1.5)',
                               }}
                             />
                           </td>
@@ -355,6 +362,7 @@ const DashboardApplications = ({ getApplications, loading, applications }) => {
                                 float: 'right',
                                 color: 'red',
                                 marginRight: '10',
+                                transform: 'scale(1.5)',
                               }}
                             />
                             <IoCheckmarkCircleOutline
@@ -363,7 +371,8 @@ const DashboardApplications = ({ getApplications, loading, applications }) => {
                                 cursor: 'pointer',
                                 float: 'right',
                                 color: 'green',
-                                marginRight: '10',
+                                marginRight: '20',
+                                transform: 'scale(1.5)',
                               }}
                             />
                             <MdOutlinePersonSearch
@@ -373,6 +382,7 @@ const DashboardApplications = ({ getApplications, loading, applications }) => {
                                 float: 'left',
                                 color: 'blue',
                                 marginLeft: '10',
+                                transform: 'scale(1.5)',
                               }}
                             />
                             <MdOutlineGroupAdd
@@ -381,7 +391,8 @@ const DashboardApplications = ({ getApplications, loading, applications }) => {
                                 cursor: 'pointer',
                                 float: 'left',
                                 color: 'blue',
-                                marginLeft: '10',
+                                marginLeft: '20',
+                                transform: 'scale(1.5)',
                               }}
                             />
                           </td>
@@ -417,6 +428,7 @@ const DashboardApplications = ({ getApplications, loading, applications }) => {
                                 float: 'right',
                                 color: 'red',
                                 marginRight: '10',
+                                transform: 'scale(1.5)',
                               }}
                             />
                             <IoCheckmarkCircleOutline
@@ -425,7 +437,8 @@ const DashboardApplications = ({ getApplications, loading, applications }) => {
                                 cursor: 'pointer',
                                 float: 'right',
                                 color: 'green',
-                                marginRight: '10',
+                                marginRight: '20',
+                                transform: 'scale(1.5)',
                               }}
                             />
                             <MdOutlinePersonSearch
@@ -435,6 +448,7 @@ const DashboardApplications = ({ getApplications, loading, applications }) => {
                                 float: 'left',
                                 color: 'blue',
                                 marginLeft: '10',
+                                transform: 'scale(1.5)',
                               }}
                             />
                             <MdOutlineGroupAdd
@@ -443,7 +457,8 @@ const DashboardApplications = ({ getApplications, loading, applications }) => {
                                 cursor: 'pointer',
                                 float: 'left',
                                 color: 'blue',
-                                marginLeft: '10',
+                                marginLeft: '20',
+                                transform: 'scale(1.5)',
                               }}
                             />
                           </td>
