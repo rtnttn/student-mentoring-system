@@ -154,7 +154,7 @@ Staff.hasMany(Group, { foreignKey: 'supervisorId' });
 
 Group.belongsTo(Staff, { foreignKey: 'supervisorId' });
 
-Subject.hasMany(Member, { foreignKey: 'studentId' });
+Student.hasMany(Member, { foreignKey: 'studentId' });
 
 Member.belongsTo(Student, { foreignKey: 'studentId' });
 
