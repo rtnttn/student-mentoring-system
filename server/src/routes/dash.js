@@ -28,6 +28,26 @@ module.exports = () => {
         {
           model: Student,
           attributes: { exclude: ['studentPassword'] },
+          include: [
+            {
+              model: Member,
+              include: [
+                {
+                  model: Group,
+                  include: [
+                    {
+                      model: Subject,
+                      attributes: ['subjectName'],
+                    },
+                    {
+                      model: Staff,
+                      attributes: ['staffName'],
+                    },
+                  ],
+                },
+              ],
+            },
+          ],
         },
         { model: Subject },
       ],
@@ -40,6 +60,26 @@ module.exports = () => {
         {
           model: Student,
           attributes: { exclude: ['studentPassword'] },
+          include: [
+            {
+              model: Member,
+              include: [
+                {
+                  model: Group,
+                  include: [
+                    {
+                      model: Subject,
+                      attributes: ['subjectName'],
+                    },
+                    {
+                      model: Staff,
+                      attributes: ['staffName'],
+                    },
+                  ],
+                },
+              ],
+            },
+          ],
         },
         { model: Subject },
       ],
@@ -54,15 +94,66 @@ module.exports = () => {
     const mentors = await Student.findAndCountAll({
       where: { isMentor: true },
       attributes: { exclude: ['studentPassword'] },
+      include: [
+        {
+          model: Member,
+          include: [
+            {
+              model: Group,
+              include: [
+                {
+                  model: Subject,
+                  attributes: ['subjectName'],
+                },
+                {
+                  model: Staff,
+                  attributes: ['staffName'],
+                },
+              ],
+            },
+          ],
+        },
+      ],
     });
     console.log(mentors);
     const mentees = await Student.findAndCountAll({
       where: { isMentor: false },
       attributes: { exclude: ['studentPassword'] },
+      include: [
+        {
+          model: Member,
+          include: [
+            {
+              model: Group,
+              include: [
+                {
+                  model: Subject,
+                  attributes: ['subjectName'],
+                },
+                {
+                  model: Staff,
+                  attributes: ['staffName'],
+                },
+              ],
+            },
+          ],
+        },
+      ],
     });
     console.log(mentees);
     const staff = await Staff.findAndCountAll({
       attributes: { exclude: ['staffPassword'] },
+      include: [
+        {
+          model: Group,
+          include: [
+            {
+              model: Subject,
+              attributes: ['subjectName'],
+            },
+          ],
+        },
+      ],
     });
     console.log(staff);
     res.send({ mentors, mentees, staff });
