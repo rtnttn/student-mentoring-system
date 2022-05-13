@@ -65,7 +65,6 @@ module.exports = () => {
     res.send(group);
   });
 
-  // BROKEN
   // Delete a group
   router.delete('/:id', (req, res) => {
     console.log('/groups/:id - delete');

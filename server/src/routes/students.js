@@ -27,7 +27,7 @@ module.exports = () => {
   router.get('/all', async (req, res) => {
     console.log('/students/all - get');
     // res.send('students, get');
-    const list = await Student.findAll();
+    const list = await Student.findAll({ attributes: { exclude: ['studentPassword'] } });
     console.log(list);
     res.send(list);
   });
@@ -35,7 +35,10 @@ module.exports = () => {
   // Find all mentors
   router.get('/mentors', async (req, res) => {
     console.log('/students/mentors - get');
-    const list = await Student.findAll({ where: { isMentor: true } });
+    const list = await Student.findAll({
+      attributes: { exclude: ['studentPassword'] },
+      where: { isMentor: true },
+    });
     res.send(list);
   });
 
@@ -45,7 +48,7 @@ module.exports = () => {
     let { id } = req.params;
     id = parseInt(id);
     console.log(id);
-    const student = await Student.findByPk(id);
+    const student = await Student.findByPk(id, { attributes: { exclude: ['studentPassword'] } });
     console.log(student);
     res.send(student);
   });
@@ -153,7 +156,7 @@ module.exports = () => {
     res.send(student);
   });
 
-  // Delete student BROKEN
+  // Delete student
   router.delete('/:id', (req, res) => {
     console.log('/students/:id - delete');
     let { id } = req.params;

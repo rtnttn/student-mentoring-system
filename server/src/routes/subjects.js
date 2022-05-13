@@ -60,7 +60,7 @@ module.exports = () => {
     res.send(subject);
   });
 
-  // Delete a subject BROKEN
+  // Delete a subject
   router.delete('/:id', (req, res) => {
     console.log('/subjects/:id - delete');
     let { id } = req.params;
