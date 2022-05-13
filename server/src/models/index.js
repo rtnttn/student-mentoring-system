@@ -117,7 +117,7 @@ const Timeslot = sequelize.define('Timeslot', {
 });
 
 // Availability model
-const Availability = sequelize.define('Availabily', {
+const Availability = sequelize.define('Availability', {
   studentId: {
     type: DataTypes.INTEGER,
     primaryKey: true,
@@ -134,9 +134,13 @@ const Availability = sequelize.define('Availabily', {
 });
 
 // Associations
-Student.belongsToMany(Timeslot, { through: Availability });
+Student.hasMany(Availability, { foreignKey: 'studentId' });
 
-Timeslot.belongsToMany(Student, { through: Availability });
+Availability.belongsTo(Student, { foreignKey: 'studentId' });
+
+Timeslot.hasMany(Availability, { foreignKey: 'timeslotId' });
+
+Availability.belongsTo(Timeslot, { foreignKey: 'timeslotId' });
 
 Student.hasMany(Application, { foreignKey: 'studentId' });
 
