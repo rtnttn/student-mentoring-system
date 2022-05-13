@@ -55,6 +55,7 @@ const Application = sequelize.define('Application', {
   studentId: { type: DataTypes.INTEGER, references: { model: Student, key: 'studentId' } },
   subjectId: { type: DataTypes.INTEGER, references: { model: Subject, key: 'subjectId' } },
   forMentor: { type: DataTypes.BOOLEAN, defaultValue: false },
+  isApproved: { type: DataTypes.BOOLEAN, defaultValue: false },
 });
 
 // Group model
