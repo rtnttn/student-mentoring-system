@@ -114,6 +114,19 @@ module.exports = () => {
     res.send(application);
   });
 
+  // Approve an application
+  router.put('/approve/:id', async (req, res) => {
+    console.log('/applications/approve/:id - put');
+    let { id } = req.params;
+    id = parseInt(id);
+    console.log(id);
+    console.log(req.body);
+    const { isApproved } = req.body;
+    const application = await Application.update({ isApproved }, { where: { applicationId: id } });
+    console.log(application);
+    res.send(application);
+  });
+
   // Delete an application
   router.delete('/:id', (req, res) => {
     console.log('/applications/:id - delete');
