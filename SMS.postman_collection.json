@@ -1149,7 +1149,92 @@
 		},
 		{
 			"name": "Attendance",
-			"item": []
+			"item": [
+				{
+					"name": "Get by group",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:5000/attendance/groupid/1",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"attendance",
+								"groupid",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get by student",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:5000/attendance/studentid/1",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"attendance",
+								"studentid",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Add",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "groupId",
+									"value": "1",
+									"type": "text"
+								},
+								{
+									"key": "studentId",
+									"value": "1",
+									"type": "text"
+								},
+								{
+									"key": "date",
+									"value": "1",
+									"type": "text"
+								},
+								{
+									"key": "confirmed",
+									"value": "true",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "localhost:5000/attendance/add",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"attendance",
+								"add"
+							]
+						}
+					},
+					"response": []
+				}
+			]
 		},
 		{
 			"name": "Timeslots",

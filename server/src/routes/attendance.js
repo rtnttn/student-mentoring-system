@@ -12,14 +12,40 @@ const {
   // Application,
   // Group,
   // Member,
-  // eslint-disable-next-line no-unused-vars
   Attendance,
   // Timeslot,
   // Availability
 } = db.sequelize.models;
 
 module.exports = () => {
-  // ROUTES HERE
-  router.get('/', async (req, res) => [res.send('/attendance/ - get')]);
+  // Get attendance by group
+  router.get('/groupid/:id', async (req, res) => {
+    console.log('/attendance/groupid/:id - get');
+    let { id } = req.params;
+    id = parseInt(id);
+    const attendance = await Attendance.findAll({ where: { groupid: id } });
+    console.log(attendance);
+    res.send(attendance);
+  });
+
+  // Get attendance by student
+  router.get('/studentid/:id', async (req, res) => {
+    console.log('/attendance/studentid/:id - get');
+    let { id } = req.params;
+    id = parseInt(id);
+    const attendance = await Attendance.findAll({ where: { studentId: id } });
+    console.log(attendance);
+    res.send(attendance);
+  });
+
+  // Mark attendance
+  router.post('/add', async (req, res) => {
+    console.log('/attendance/add - post');
+    console.log(req.body);
+    const { groupId, studentId, date, confirmed } = req.body;
+    const attendance = await Attendance.create({ groupId, studentId, date, confirmed });
+    console.log(attendance);
+    res.send(attendance);
+  });
   return router;
 };
