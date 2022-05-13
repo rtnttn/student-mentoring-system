@@ -26,7 +26,7 @@ module.exports = () => {
   // Find all staff
   router.get('/all', async (req, res) => {
     console.log('/staff/all - get');
-    const list = await Staff.findAll();
+    const list = await Staff.findAll({ attributes: { exclude: ['staffPassword'] } });
     console.log(list);
     res.send(list);
   });
@@ -37,7 +37,7 @@ module.exports = () => {
     let { id } = req.params;
     id = parseInt(id);
     console.log(id);
-    const staff = await Staff.findByPk(id);
+    const staff = await Staff.findByPk(id, { attributes: { exclude: ['staffPassword'] } });
     console.log(staff);
     res.send(staff);
   });
@@ -139,7 +139,7 @@ module.exports = () => {
     res.send(staff);
   });
 
-  // Delete a staff member BROKEN
+  // Delete a staff member
   router.delete('/:id', (req, res) => {
     console.log('/staff/:id - delete');
     let { id } = req.params;
