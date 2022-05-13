@@ -1231,40 +1231,19 @@
 					"response": []
 				},
 				{
-					"name": "F&C applications optimized",
+					"name": "Find and count groups",
 					"request": {
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "localhost:5000/dash/opti/applications",
+							"raw": "localhost:5000/dash/groups",
 							"host": [
 								"localhost"
 							],
 							"port": "5000",
 							"path": [
 								"dash",
-								"opti",
-								"applications"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "F&C users optimized",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "localhost:5000/dash/opti/users",
-							"host": [
-								"localhost"
-							],
-							"port": "5000",
-							"path": [
-								"dash",
-								"opti",
-								"users"
+								"groups"
 							]
 						}
 					},

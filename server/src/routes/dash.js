@@ -10,8 +10,8 @@ const {
   Staff,
   Subject,
   Application,
-  // Group,
-  // Member,
+  Group,
+  Member,
   // Attendance,
   // Timeslot,
   // Availability
@@ -66,6 +66,33 @@ module.exports = () => {
     });
     console.log(staff);
     res.send({ mentors, mentees, staff });
+  });
+
+  router.get('/groups', async (req, res) => {
+    console.log('/dash/groups - get');
+    const groups = await Group.findAndCountAll({
+      include: [
+        {
+          model: Staff,
+          attributes: ['staffName'],
+        },
+        {
+          model: Subject,
+          attributes: ['subjectName'],
+        },
+        {
+          model: Member,
+          include: [
+            {
+              model: Student,
+              attributes: ['studentName'],
+            },
+          ],
+        },
+      ],
+    });
+    console.log(groups);
+    res.send(groups);
   });
 
   return router;
