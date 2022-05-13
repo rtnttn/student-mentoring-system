@@ -1,6 +1,5 @@
 /* eslint-disable radix */
 const express = require('express');
-const { sequelize } = require('../models');
 const db = require('../models');
 
 const router = express.Router();
@@ -69,37 +68,5 @@ module.exports = () => {
     res.send({ mentors, mentees, staff });
   });
 
-  // NEW -- Down to two queries
-  router.get('/opti/users', async (req, res) => {
-    console.log('/dash/opti/users - get');
-    const students = await Student.findAll({
-      attributes: {
-        include: [
-          [
-            sequelize.literal(`(
-            SELECT COUNT(*)
-            FROM Students as Student
-            WHERE
-              Student.isMentor = true
-          )`),
-            'mentorCount',
-          ],
-          [
-            sequelize.literal(`(
-            SELECT COUNT(*)
-            FROM Students as Student
-            WHERE
-              Student.isMentor = false
-          )`),
-            'menteeCount',
-          ],
-        ],
-      },
-    });
-    console.log(students);
-    const staff = await Staff.findAndCountAll();
-    console.log(staff);
-    res.send({ students, staff });
-  });
   return router;
 };

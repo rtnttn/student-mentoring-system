@@ -808,6 +808,54 @@
 						}
 					},
 					"response": []
+				},
+				{
+					"name": "Approve",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "studentId",
+									"value": "3",
+									"type": "text",
+									"disabled": true
+								},
+								{
+									"key": "subjectId",
+									"value": "2",
+									"type": "text",
+									"disabled": true
+								},
+								{
+									"key": "forMentor",
+									"value": "true",
+									"type": "text",
+									"disabled": true
+								},
+								{
+									"key": "isApproved",
+									"value": "true",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "localhost:5000/applications/approve/1",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"applications",
+								"approve",
+								"1"
+							]
+						}
+					},
+					"response": []
 				}
 			]
 		},
@@ -980,7 +1028,124 @@
 		},
 		{
 			"name": "Members",
-			"item": []
+			"item": [
+				{
+					"name": "Add",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "studentId",
+									"value": "3",
+									"type": "text"
+								},
+								{
+									"key": "groupId",
+									"value": "1",
+									"type": "text"
+								},
+								{
+									"key": "isMentor",
+									"value": "false",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "localhost:5000/members/add",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"members",
+								"add"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Find all members of a group",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": []
+						},
+						"url": {
+							"raw": "localhost:5000/members/groupid/1",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"members",
+								"groupid",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Find all groups of a student",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": []
+						},
+						"url": {
+							"raw": "localhost:5000/members/studentid/1",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"members",
+								"studentid",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": []
+						},
+						"url": {
+							"raw": "localhost:5000/members/1&3",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"members",
+								"1&3"
+							]
+						}
+					},
+					"response": []
+				}
+			]
 		},
 		{
 			"name": "Attendance",
