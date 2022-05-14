@@ -15,7 +15,6 @@
 /* eslint-disable react/function-component-definition */
 
 // TODO LIST
-// active mentee/mentor groups
 // onclick for inspect user
 // onclick for create group
 // onclick for approve mentor
@@ -34,14 +33,10 @@ import '../../styles.css';
 const DashboardApplications = ({ getApplications, loading, applications }) => {
   // subApplications is a filtered version of applications
   const [subApplications, setSubApplications] = useState({
-    mentees: {
-      count: -1,
-      rows: [],
-    },
-    mentors: {
-      count: -1,
-      rows: [],
-    },
+    mentees: [],
+    mentors: [],
+    menteeCount: -1,
+    mentorCount: -1,
     useSubApplications: false,
   });
 
@@ -79,35 +74,31 @@ const DashboardApplications = ({ getApplications, loading, applications }) => {
 
     // console.log('subApplication: ');
 
-    const menteesFiltered = await applications.mentees.rows.filter(
+    const menteesFiltered = applications.mentees.filter(
       (mentee) =>
         mentee.Student.studentName.toLowerCase().includes(name.toLowerCase()) &&
         mentee.Subject.subjectName.toLowerCase().includes(subject.toLowerCase())
     );
     // console.log(menteesFiltered);
 
-    const menteesCount = await menteesFiltered.length;
+    const menteesCount = menteesFiltered.length;
     // console.log(menteesCount);
 
-    const mentorsFiltered = await applications.mentors.rows.filter(
+    const mentorsFiltered = applications.mentors.filter(
       (mentor) =>
         mentor.Student.studentName.toLowerCase().includes(name.toLowerCase()) &&
         mentor.Subject.subjectName.toLowerCase().includes(subject.toLowerCase())
     );
     // console.log(mentorsFiltered);
 
-    const mentorsCount = await mentorsFiltered.length;
+    const mentorsCount = mentorsFiltered.length;
     // console.log(mentorsCount);
 
-    await setSubApplications({
-      mentees: {
-        count: menteesCount,
-        rows: menteesFiltered,
-      },
-      mentors: {
-        count: mentorsCount,
-        rows: mentorsFiltered,
-      },
+    setSubApplications({
+      mentees: [menteesFiltered],
+      mentors: [mentorsFiltered],
+      menteeCount: menteesCount,
+      mentorCount: mentorsCount,
       useSubApplications: true,
     });
   }; // End of onSubmit
@@ -173,17 +164,17 @@ const DashboardApplications = ({ getApplications, loading, applications }) => {
             <tr>
               <td>Mentee:</td>
               {subApplications.useSubApplications ? (
-                <td>{subApplications.mentees.count}</td>
+                <td>{subApplications.menteeCount}</td>
               ) : (
-                <td>{applications.mentees.count}</td>
+                <td>{applications.menteeCount}</td>
               )}
             </tr>
             <tr>
               <td>Mentor:</td>
               {subApplications.useSubApplications ? (
-                <td>{subApplications.mentors.count}</td>
+                <td>{subApplications.mentorCount}</td>
               ) : (
-                <td>{applications.mentors.count}</td>
+                <td>{applications.mentorCount}</td>
               )}
             </tr>
           </tbody>
@@ -205,7 +196,7 @@ const DashboardApplications = ({ getApplications, loading, applications }) => {
           {showMenteeInfo ? (
             <ul className="list-group columnSubListColor">
               {subApplications.useSubApplications
-                ? subApplications.mentees.rows.map((mentee) => (
+                ? subApplications.mentees.map((mentee) => (
                     <table className="table table-bordered">
                       <tbody>
                         <tr>
@@ -263,7 +254,7 @@ const DashboardApplications = ({ getApplications, loading, applications }) => {
                       </tbody>
                     </table>
                   ))
-                : applications.mentees.rows.map((mentee) => (
+                : applications.mentees.map((mentee) => (
                     <table className="table table-bordered">
                       <tbody>
                         <tr>
@@ -338,7 +329,7 @@ const DashboardApplications = ({ getApplications, loading, applications }) => {
           {showMentorInfo ? (
             <ul className="list-group columnSubListColor">
               {subApplications.useSubApplications
-                ? subApplications.mentors.rows.map((mentor) => (
+                ? subApplications.mentors.map((mentor) => (
                     <table className="table table-bordered">
                       <tbody>
                         <tr>
@@ -406,7 +397,7 @@ const DashboardApplications = ({ getApplications, loading, applications }) => {
                       </tbody>
                     </table>
                   ))
-                : applications.mentors.rows.map((mentor) => (
+                : applications.mentors.map((mentor) => (
                     <table className="table table-bordered">
                       <tbody>
                         <tr>

@@ -15,10 +15,7 @@
 /* eslint-disable react/function-component-definition */
 
 // TODO LIST
-// show approved mentor subjects
-// add mentor/mentee groups
-// add logic for max groups
-// add logic for subjects (for mentors)
+// onclick for inspect user
 
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
@@ -30,18 +27,12 @@ import { getUsers } from '../../actions/userActions';
 const DashboardUsers = ({ getUsers, loading, users }) => {
   // subUsers is a filtered version of users
   const [subUsers, setSubUsers] = useState({
-    mentees: {
-      count: -1,
-      rows: [],
-    },
-    mentors: {
-      count: -1,
-      rows: [],
-    },
-    staff: {
-      count: -1,
-      rows: [],
-    },
+    mentees: [],
+    mentors: [],
+    staff: [],
+    menteeCount: -1,
+    mentorCount: -1,
+    staffCount: -1,
     useSubUsers: false,
   });
 
@@ -86,7 +77,7 @@ const DashboardUsers = ({ getUsers, loading, users }) => {
 
     // console.log('subUsers: ');
 
-    const menteesFiltered = await users.mentees.rows.filter(
+    const menteesFiltered = users.mentees.filter(
       (mentee) =>
         mentee.studentName.toLowerCase().includes(name.toLowerCase()) &&
         mentee.courseName.toLowerCase().includes(course.toLowerCase()) &&
@@ -96,36 +87,30 @@ const DashboardUsers = ({ getUsers, loading, users }) => {
     const menteesCount = menteesFiltered.length;
     // console.log(menteesCount);
 
-    const mentorsFiltered = await users.mentors.rows.filter(
+    const mentorsFiltered = users.mentors.filter(
       (mentor) =>
         mentor.studentName.toLowerCase().includes(name.toLowerCase()) &&
         mentor.courseName.toLowerCase().includes(course.toLowerCase()) &&
         mentor.Members.length <= groups
     );
     // console.log(mentorsFiltered);
-    const mentorsCount = await mentorsFiltered.length;
+    const mentorsCount = mentorsFiltered.length;
     // console.log(mentorsCount);
 
-    const staffFiltered = await users.staff.rows.filter((staff) =>
+    const staffFiltered = users.staff.filter((staff) =>
       staff.staffName.toLowerCase().includes(name.toLowerCase())
     );
     // console.log(menteesFiltered);
-    const staffCount = await staffFiltered.length;
+    const subStaffCount = staffFiltered.length;
     // console.log(menteesCount);
 
-    await setSubUsers({
-      mentees: {
-        count: menteesCount,
-        rows: menteesFiltered,
-      },
-      mentors: {
-        count: mentorsCount,
-        rows: mentorsFiltered,
-      },
-      staff: {
-        count: staffCount,
-        rows: staffFiltered,
-      },
+    setSubUsers({
+      mentees: [menteesFiltered],
+      mentors: [mentorsFiltered],
+      staff: [staffFiltered],
+      menteeCount: menteesCount,
+      mentorCount: mentorsCount,
+      staffCount: subStaffCount,
       useSubUsers: true,
     });
   }; // End of onSubmit
@@ -210,26 +195,22 @@ const DashboardUsers = ({ getUsers, loading, users }) => {
             <tr>
               <td>Mentee:</td>
               {subUsers.useSubUsers ? (
-                <td>{subUsers.mentees.count}</td>
+                <td>{subUsers.menteeCount}</td>
               ) : (
-                <td>{users.mentees.count}</td>
+                <td>{users.menteeCount}</td>
               )}
             </tr>
             <tr>
               <td>Mentor:</td>
               {subUsers.useSubUsers ? (
-                <td>{subUsers.mentors.count}</td>
+                <td>{subUsers.mentorCount}</td>
               ) : (
-                <td>{users.mentors.count}</td>
+                <td>{users.mentorCount}</td>
               )}
             </tr>
             <tr>
               <td>Staff:</td>
-              {subUsers.useSubUsers ? (
-                <td>{subUsers.staff.count}</td>
-              ) : (
-                <td>{users.staff.count}</td>
-              )}
+              {subUsers.useSubUsers ? <td>{subUsers.staffCount}</td> : <td>{users.staffCount}</td>}
             </tr>
           </tbody>
         </table>
@@ -250,7 +231,7 @@ const DashboardUsers = ({ getUsers, loading, users }) => {
           {showMenteeInfo ? (
             <ul className="list-group columnSubListColor">
               {subUsers.useSubUsers
-                ? subUsers.mentees.rows.map((mentee) => (
+                ? subUsers.mentees.map((mentee) => (
                     <table className="table table-bordered">
                       <tbody>
                         <tr>
@@ -290,7 +271,7 @@ const DashboardUsers = ({ getUsers, loading, users }) => {
                       </tbody>
                     </table>
                   ))
-                : users.mentees.rows.map((mentee) => (
+                : users.mentees.map((mentee) => (
                     <table className="table table-bordered">
                       <tbody>
                         <tr>
@@ -347,7 +328,7 @@ const DashboardUsers = ({ getUsers, loading, users }) => {
           {showMentorInfo ? (
             <ul className="list-group columnSubListColor">
               {subUsers.useSubUsers
-                ? subUsers.mentors.rows.map((mentor) => (
+                ? subUsers.mentors.map((mentor) => (
                     <table className="table table-bordered">
                       <tbody>
                         <tr>
@@ -391,7 +372,7 @@ const DashboardUsers = ({ getUsers, loading, users }) => {
                       </tbody>
                     </table>
                   ))
-                : users.mentors.rows.map((mentor) => (
+                : users.mentors.map((mentor) => (
                     <table className="table table-bordered">
                       <tbody>
                         <tr>
@@ -452,7 +433,7 @@ const DashboardUsers = ({ getUsers, loading, users }) => {
           {showStaffInfo ? (
             <ul className="list-group columnSubListColor">
               {subUsers.useSubUsers
-                ? subUsers.staff.rows.map((staff) => (
+                ? subUsers.staff.map((staff) => (
                     <table className="table table-bordered">
                       <tbody>
                         <tr>
@@ -484,7 +465,7 @@ const DashboardUsers = ({ getUsers, loading, users }) => {
                       </tbody>
                     </table>
                   ))
-                : users.staff.rows.map((staff) => (
+                : users.staff.map((staff) => (
                     <table className="table table-bordered">
                       <tbody>
                         <tr>
