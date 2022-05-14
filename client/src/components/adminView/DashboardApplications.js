@@ -222,7 +222,9 @@ const DashboardApplications = ({ getApplications, loading, applications }) => {
                         </tr>
                         <tr>
                           <td className="fst-italic">Active Mentee Groups:</td>
-                          <td>TODO</td>
+                          <td>
+                            {mentee.Student.Members.filter((m) => m.isMentor === false).length}
+                          </td>
                         </tr>
                         <tr>
                           <td colSpan="2">
@@ -278,7 +280,9 @@ const DashboardApplications = ({ getApplications, loading, applications }) => {
                         </tr>
                         <tr>
                           <td className="fst-italic">Active Mentee Groups:</td>
-                          <td>TODO</td>
+                          <td>
+                            {mentee.Student.Members.filter((m) => m.isMentor === false).length}
+                          </td>
                         </tr>
                         <tr>
                           <td colSpan="2">
@@ -351,7 +355,9 @@ const DashboardApplications = ({ getApplications, loading, applications }) => {
                         </tr>
                         <tr>
                           <td className="fst-italic">Active Mentor Groups:</td>
-                          <td>TODO</td>
+                          <td>
+                            {mentor.Student.Members.filter((m) => m.isMentor === true).length}
+                          </td>
                         </tr>
                         <tr>
                           <td colSpan="2">
@@ -417,7 +423,9 @@ const DashboardApplications = ({ getApplications, loading, applications }) => {
                         </tr>
                         <tr>
                           <td className="fst-italic">Active Mentor Groups:</td>
-                          <td>TODO</td>
+                          <td>
+                            {mentor.Student.Members.filter((m) => m.isMentor === true).length}
+                          </td>
                         </tr>
                         <tr>
                           <td colSpan="2">

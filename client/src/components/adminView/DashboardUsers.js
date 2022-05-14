@@ -48,10 +48,10 @@ const DashboardUsers = ({ getUsers, loading, users }) => {
   // data for the search form
   const [formData, setFormData] = useState({
     name: '',
-    subject: '',
+    course: '',
     groups: '',
   });
-  const { name, subject, groups } = formData; // destructuring
+  const { name, course, groups } = formData; // destructuring
 
   const onChange = (e) => setFormData({ ...formData, [e.target.name]: e.target.value });
 
@@ -86,16 +86,21 @@ const DashboardUsers = ({ getUsers, loading, users }) => {
 
     // console.log('subUsers: ');
 
-    const menteesFiltered = await users.mentees.rows.filter((mentee) =>
-      mentee.studentName.toLowerCase().includes(name.toLowerCase())
+    const menteesFiltered = await users.mentees.rows.filter(
+      (mentee) =>
+        mentee.studentName.toLowerCase().includes(name.toLowerCase()) &&
+        mentee.courseName.toLowerCase().includes(course.toLowerCase()) &&
+        mentee.Members.length <= groups
     );
     // console.log(menteesFiltered);
-    const menteesCount = await menteesFiltered.length;
+    const menteesCount = menteesFiltered.length;
     // console.log(menteesCount);
 
     const mentorsFiltered = await users.mentors.rows.filter(
-      (mentor) => mentor.studentName.toLowerCase().includes(name.toLowerCase())
-      // && mentor.Subject.subjectName.toLowerCase().includes(subject.toLowerCase())
+      (mentor) =>
+        mentor.studentName.toLowerCase().includes(name.toLowerCase()) &&
+        mentor.courseName.toLowerCase().includes(course.toLowerCase()) &&
+        mentor.Members.length <= groups
     );
     // console.log(mentorsFiltered);
     const mentorsCount = await mentorsFiltered.length;
@@ -156,7 +161,7 @@ const DashboardUsers = ({ getUsers, loading, users }) => {
         <div className="row g-2 mb-1">
           <div className="col-sm-4">
             <label htmlFor="exampleInputEmail1" className="col-form-label">
-              Subject
+              Course
             </label>
           </div>
           <div className="col-sm-8">
@@ -165,9 +170,9 @@ const DashboardUsers = ({ getUsers, loading, users }) => {
               className="form-control"
               id="exampleInputEmail1"
               aria-describedby="emailHelp"
-              placeholder="Subject Name"
-              name="subject"
-              value={subject}
+              placeholder="Course Name"
+              name="course"
+              value={course}
               onChange={(e) => onChange(e)}
             />
           </div>
@@ -266,7 +271,7 @@ const DashboardUsers = ({ getUsers, loading, users }) => {
                         </tr>
                         <tr>
                           <td className="fst-italic">Mentee Groups:</td>
-                          <td>TODO</td>
+                          <td>{mentee.Members.filter((m) => m.isMentor === false).length}</td>
                         </tr>
                         <tr>
                           <td colSpan="2">
@@ -306,7 +311,7 @@ const DashboardUsers = ({ getUsers, loading, users }) => {
                         </tr>
                         <tr>
                           <td className="fst-italic">Mentee Groups:</td>
-                          <td>TODO</td>
+                          <td>{mentee.Members.filter((m) => m.isMentor === false).length}</td>
                         </tr>
                         <tr>
                           <td colSpan="2">
@@ -363,11 +368,11 @@ const DashboardUsers = ({ getUsers, loading, users }) => {
                         </tr>
                         <tr>
                           <td className="fst-italic">Mentee Groups:</td>
-                          <td>TODO</td>
+                          <td>{mentor.Members.filter((m) => m.isMentor === false).length}</td>
                         </tr>
                         <tr>
                           <td className="fst-italic">Mentor Groups:</td>
-                          <td>TODO</td>
+                          <td>{mentor.Members.filter((m) => m.isMentor === true).length}</td>
                         </tr>
                         <tr>
                           <td colSpan="2">
@@ -407,11 +412,11 @@ const DashboardUsers = ({ getUsers, loading, users }) => {
                         </tr>
                         <tr>
                           <td className="fst-italic">Mentee Groups:</td>
-                          <td>TODO</td>
+                          <td>{mentor.Members.filter((m) => m.isMentor === false).length}</td>
                         </tr>
                         <tr>
                           <td className="fst-italic">Mentor Groups:</td>
-                          <td>TODO</td>
+                          <td>{mentor.Members.filter((m) => m.isMentor === true).length}</td>
                         </tr>
                         <tr>
                           <td colSpan="2">
