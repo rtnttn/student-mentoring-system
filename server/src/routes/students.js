@@ -8,17 +8,8 @@ const config = require('../config/config');
 const router = express.Router();
 
 // eslint-disable-next-line no-unused-vars
-const {
-  Student,
-  // Staff,
-  // Subject,
-  // Application,
-  // Group,
-  // Member,
-  // Attendance,
-  // Timeslot,
-  // Availability
-} = db.sequelize.models;
+const { Student, Staff, Subject, Application, Group, Member, Attendance, Timeslot, Availability } =
+  db.sequelize.models;
 
 module.exports = () => {
   // ROUTES HERE
@@ -164,6 +155,75 @@ module.exports = () => {
     console.log(id);
     Student.destroy({ where: { studentId: id } });
     res.send(`ID: ${id} deleted`);
+  });
+
+  // Student details -- ADMIN VIEW
+  router.get('/details/:id', async (req, res) => {
+    console.log('/students/details/:id - get');
+    let { id } = req.params;
+    id = parseInt(id);
+    console.log(id);
+    const student = await Student.findByPk(id, {
+      include: [
+        {
+          model: Application,
+          include: [
+            {
+              model: Subject,
+              attributes: ['subjectName'],
+            },
+          ],
+        },
+        {
+          model: Member,
+          include: [
+            {
+              model: Group,
+              include: [
+                {
+                  model: Subject,
+                  attributes: ['subjectName'],
+                },
+                {
+                  model: Staff,
+                  attributes: ['staffName'],
+                },
+              ],
+            },
+          ],
+        },
+        {
+          model: Attendance,
+          include: [
+            {
+              model: Group,
+              include: [
+                {
+                  model: Subject,
+                  attributes: ['subjectName'],
+                },
+                {
+                  model: Staff,
+                  attributes: ['staffName'],
+                },
+              ],
+            },
+          ],
+        },
+        {
+          model: Availability,
+          include: [
+            {
+              model: Timeslot,
+              attributes: ['timeslotName'],
+            },
+          ],
+        },
+      ],
+      attributes: { exclude: ['studentPassword'] },
+    });
+    console.log(student);
+    res.send({ student });
   });
   return router;
 };
