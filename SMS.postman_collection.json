@@ -224,6 +224,26 @@
 						}
 					},
 					"response": []
+				},
+				{
+					"name": "Admin view details",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:5000/students/details/2",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"students",
+								"details",
+								"2"
+							]
+						}
+					},
+					"response": []
 				}
 			]
 		},
