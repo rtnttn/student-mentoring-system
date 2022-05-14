@@ -19,10 +19,10 @@ const {
 
 module.exports = () => {
   // Dash routes
-  // Find and count mentors and mentees
+  // Find and count applications by mentor and mentee
   router.get('/applications', async (req, res) => {
     console.log('/dash/applications - get');
-    const mentors = await Application.findAndCountAll({
+    const mentors = await Application.findAll({
       where: { forMentor: true },
       include: [
         {
@@ -54,7 +54,7 @@ module.exports = () => {
     });
     console.log(mentors);
     // res.send(mentors);
-    const mentees = await Application.findAndCountAll({
+    const mentees = await Application.findAll({
       where: { forMentor: false },
       include: [
         {
@@ -85,13 +85,17 @@ module.exports = () => {
       ],
     });
     console.log(mentees);
-    res.send({ mentors, mentees });
+    const mentorCount = await Application.count({ where: { forMentor: true } });
+    const menteeCount = await Application.count({ where: { forMentor: false } });
+    console.log(mentorCount);
+    console.log(menteeCount);
+    res.send({ mentors, mentees, mentorCount, menteeCount });
   });
 
   // Find and count mentors, mentees and staff
   router.get('/users', async (req, res) => {
     console.log('/dash/users - get');
-    const mentors = await Student.findAndCountAll({
+    const mentors = await Student.findAll({
       where: { isMentor: true },
       attributes: { exclude: ['studentPassword'] },
       include: [
@@ -116,7 +120,7 @@ module.exports = () => {
       ],
     });
     console.log(mentors);
-    const mentees = await Student.findAndCountAll({
+    const mentees = await Student.findAll({
       where: { isMentor: false },
       attributes: { exclude: ['studentPassword'] },
       include: [
@@ -141,7 +145,7 @@ module.exports = () => {
       ],
     });
     console.log(mentees);
-    const staff = await Staff.findAndCountAll({
+    const staff = await Staff.findAll({
       attributes: { exclude: ['staffPassword'] },
       include: [
         {
@@ -156,12 +160,20 @@ module.exports = () => {
       ],
     });
     console.log(staff);
-    res.send({ mentors, mentees, staff });
+    // Counts
+    const mentorCount = await Student.count({ where: { isMentor: true } });
+    console.log(mentorCount);
+    const menteeCount = await Student.count({ where: { isMentor: false } });
+    console.log(menteeCount);
+    const staffCount = await Staff.count();
+    console.log(staffCount);
+    res.send({ mentors, mentees, staff, mentorCount, menteeCount, staffCount });
   });
 
+  // Find and count groups
   router.get('/groups', async (req, res) => {
     console.log('/dash/groups - get');
-    const groups = await Group.findAndCountAll({
+    const groups = await Group.findAll({
       include: [
         {
           model: Staff,
@@ -183,7 +195,10 @@ module.exports = () => {
       ],
     });
     console.log(groups);
-    res.send(groups);
+    // Count
+    const groupCount = await Group.count();
+    console.log(groupCount);
+    res.send({ groups, groupCount });
   });
 
   return router;
