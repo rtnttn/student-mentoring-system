@@ -10,6 +10,7 @@ import PropTypes from 'prop-types';
 
 import DashboardApplications from './DashboardApplications';
 import DashboardUsers from './DashboardUsers';
+import DashboardGroups from './DashboardGroups';
 
 import '../../styles.css';
 
@@ -31,7 +32,10 @@ const Dashboard = () => {
         </div>
 
         {/* Col 3 */}
-        <div className="col-md card mt-2 ms-2 columnColor shadow" id="colBackground"></div>
+        <div className="col-md card mt-2 ms-2 columnColor shadow" id="colBackground">
+          <DashboardGroups />
+          <br />
+        </div>
       </div>
     </div>
   );
