@@ -225,5 +225,27 @@ module.exports = () => {
     console.log(student);
     res.send({ student });
   });
+
+  // Additional details by group - fetches mentor and attendance data
+  router.get('/details/group/:studentId&:groupId', async (req, res) => {
+    console.log('/students/details/group/:studentId&:groupId - get');
+    let { studentId, groupId } = req.params;
+    studentId = parseInt(studentId);
+    groupId = parseInt(groupId);
+    const mentor = await Member.findOne({
+      where: { groupId, isMentor: true },
+      include: [
+        {
+          model: Student,
+          attributes: ['studentName'],
+        },
+      ],
+    });
+    const attendance = await Attendance.findAll({ where: { studentId, groupId } });
+    console.log(mentor);
+    console.log(attendance);
+    res.send({ mentor, attendance });
+  });
+
   return router;
 };

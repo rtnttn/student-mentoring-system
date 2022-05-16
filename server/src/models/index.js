@@ -95,7 +95,7 @@ const Attendance = sequelize.define(
       references: { model: Student, key: 'studentId' },
     },
     date: { type: DataTypes.DATEONLY, primaryKey: true },
-    confirmed: { type: DataTypes.BOOLEAN },
+    confirmed: { type: DataTypes.BOOLEAN, defaultValue: false },
   },
   {
     freezeTableName: true,

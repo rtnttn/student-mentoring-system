@@ -231,7 +231,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "localhost:5000/students/details/2",
+							"raw": "localhost:5000/students/details/1",
 							"host": [
 								"localhost"
 							],
@@ -239,7 +239,28 @@
 							"path": [
 								"students",
 								"details",
-								"2"
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Additional details - mentor and attendance",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:5000/students/details/group/1&1",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"students",
+								"details",
+								"group",
+								"1&1"
 							]
 						}
 					},
@@ -1230,7 +1251,7 @@
 								},
 								{
 									"key": "date",
-									"value": "1",
+									"value": "2001-01-02",
 									"type": "text"
 								},
 								{
@@ -1249,6 +1270,109 @@
 							"path": [
 								"attendance",
 								"add"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Mentor confirm",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "groupId",
+									"value": "1",
+									"type": "text"
+								},
+								{
+									"key": "date",
+									"value": "2001-01-02",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "localhost:5000/attendance/confirm",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"attendance",
+								"confirm"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Mentee confirm",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "groupId",
+									"value": "1",
+									"type": "text"
+								},
+								{
+									"key": "date",
+									"value": "2001-01-02",
+									"type": "text"
+								},
+								{
+									"key": "studentId",
+									"value": "2",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "localhost:5000/attendance/confirm",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"attendance",
+								"confirm"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "date",
+									"value": "2001-01-02",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "localhost:5000/attendance/groupid/1",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"attendance",
+								"groupid",
+								"1"
 							]
 						}
 					},
