@@ -13,10 +13,12 @@ export const APPLICATION_DEL_ERROR = 'APPLICATION_DEL_ERROR';
 // User Actions
 export const GET_USERS = 'GET_USERS';
 export const GET_USER = 'GET_USER';
+export const GET_STUDENT_ADMIN = 'GET_STUDENT_ADMIN';
 export const ADD_USER = 'ADD_USER';
 export const UPDATE_USER = 'UPDATE_USER';
 export const DELETE_USER = 'DELETE_USER';
 export const USER_DEL_ERROR = 'USER_DEL_ERROR';
+export const USER_DEFAULT = 'USER_DEFAULT';
 
 // Group Actions
 export const GET_GROUPS = 'GET_GROUPS';

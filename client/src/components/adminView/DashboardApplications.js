@@ -23,6 +23,7 @@
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
 import { FaSortDown, FaCaretUp, FaTrash } from 'react-icons/fa';
 import { IoCheckmarkCircleOutline, IoCheckmarkCircle } from 'react-icons/io5';
 import { MdOutlinePersonSearch, MdOutlineGroupAdd } from 'react-icons/md';
@@ -229,16 +230,17 @@ const DashboardApplications = ({ getApplications, loading, applications }) => {
                                 transform: 'scale(1.5)',
                               }}
                             />
-                            <MdOutlinePersonSearch
-                              // onClick={(e) => userProfile(e)}
-                              style={{
-                                cursor: 'pointer',
-                                float: 'left',
-                                color: 'blue',
-                                marginLeft: '10',
-                                transform: 'scale(1.5)',
-                              }}
-                            />
+                            <Link to={`/student/${mentee.studentId}`}>
+                              <MdOutlinePersonSearch
+                                style={{
+                                  cursor: 'pointer',
+                                  float: 'left',
+                                  color: 'blue',
+                                  marginLeft: '10',
+                                  transform: 'scale(1.5)',
+                                }}
+                              />
+                            </Link>
                             <MdOutlineGroupAdd
                               // onClick={(e) => createGroup(e)}
                               style={{
@@ -287,16 +289,17 @@ const DashboardApplications = ({ getApplications, loading, applications }) => {
                                 transform: 'scale(1.5)',
                               }}
                             />
-                            <MdOutlinePersonSearch
-                              // onClick={(e) => userProfile(e)}
-                              style={{
-                                cursor: 'pointer',
-                                float: 'left',
-                                color: 'blue',
-                                marginLeft: '10',
-                                transform: 'scale(1.5)',
-                              }}
-                            />
+                            <Link to={`/student/${mentee.studentId}`}>
+                              <MdOutlinePersonSearch
+                                style={{
+                                  cursor: 'pointer',
+                                  float: 'left',
+                                  color: 'blue',
+                                  marginLeft: '10',
+                                  transform: 'scale(1.5)',
+                                }}
+                              />
+                            </Link>
                             <MdOutlineGroupAdd
                               // onClick={(e) => createGroup(e)}
                               style={{
@@ -372,16 +375,17 @@ const DashboardApplications = ({ getApplications, loading, applications }) => {
                                 transform: 'scale(1.5)',
                               }}
                             />
-                            <MdOutlinePersonSearch
-                              // onClick={(e) => userProfile(e)}
-                              style={{
-                                cursor: 'pointer',
-                                float: 'left',
-                                color: 'blue',
-                                marginLeft: '10',
-                                transform: 'scale(1.5)',
-                              }}
-                            />
+                            <Link to={`/student/${mentor.studentId}`}>
+                              <MdOutlinePersonSearch
+                                style={{
+                                  cursor: 'pointer',
+                                  float: 'left',
+                                  color: 'blue',
+                                  marginLeft: '10',
+                                  transform: 'scale(1.5)',
+                                }}
+                              />
+                            </Link>
                             <MdOutlineGroupAdd
                               // onClick={(e) => createGroup(e)}
                               style={{
@@ -440,16 +444,17 @@ const DashboardApplications = ({ getApplications, loading, applications }) => {
                                 transform: 'scale(1.5)',
                               }}
                             />
-                            <MdOutlinePersonSearch
-                              // onClick={(e) => userProfile(e)}
-                              style={{
-                                cursor: 'pointer',
-                                float: 'left',
-                                color: 'blue',
-                                marginLeft: '10',
-                                transform: 'scale(1.5)',
-                              }}
-                            />
+                            <Link to={`/student/${mentor.studentId}`}>
+                              <MdOutlinePersonSearch
+                                style={{
+                                  cursor: 'pointer',
+                                  float: 'left',
+                                  color: 'blue',
+                                  marginLeft: '10',
+                                  transform: 'scale(1.5)',
+                                }}
+                              />
+                            </Link>
                             <MdOutlineGroupAdd
                               // onClick={(e) => createGroup(e)}
                               style={{

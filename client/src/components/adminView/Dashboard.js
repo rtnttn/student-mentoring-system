@@ -1,3 +1,4 @@
+/* eslint-disable no-shadow */
 /* eslint-disable react/self-closing-comp */
 /* eslint-disable no-unused-vars */
 /* eslint-disable import/no-extraneous-dependencies */
@@ -7,14 +8,27 @@
 import React, { useEffect } from 'react';
 // Proptypes is used heavily within redux.
 import PropTypes from 'prop-types';
+import { connect } from 'react-redux';
 
 import DashboardApplications from './DashboardApplications';
 import DashboardUsers from './DashboardUsers';
 import DashboardGroups from './DashboardGroups';
+import { userDefault } from '../../actions/userActions';
 
 import '../../styles.css';
 
-const Dashboard = () => {
+const Dashboard = ({ userDefault }) => {
+  // useEffect(() => {
+  //   window.addEventListener('movemouse', () => {});
+  //   console.log('mount function');
+
+  //   return () => { // returned function will be called on component unmount
+  //     window.removeEventListener('movemouse', () => {});
+  //     console.log('unmount function');
+  //     userDefault();
+  //   };
+  // }, []);
+
   return (
     // Columns content
     <div className="container">
@@ -41,4 +55,9 @@ const Dashboard = () => {
   );
 };
 
-export default Dashboard;
+// Create our propTypes
+Dashboard.propTypes = {
+  userDefault: PropTypes.func.isRequired,
+};
+
+export default connect(null, { userDefault })(Dashboard);

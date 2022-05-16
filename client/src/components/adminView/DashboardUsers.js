@@ -20,6 +20,7 @@
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
 import { FaSortDown, FaCaretUp } from 'react-icons/fa';
 import { MdOutlinePersonSearch } from 'react-icons/md';
 import { getUsers } from '../../actions/userActions';
@@ -256,16 +257,18 @@ const DashboardUsers = ({ getUsers, loading, users }) => {
                         </tr>
                         <tr>
                           <td colSpan="2">
-                            <MdOutlinePersonSearch
-                              // onClick={(e) => userProfile(e)}
-                              style={{
-                                cursor: 'pointer',
-                                float: 'left',
-                                color: 'blue',
-                                marginLeft: '10',
-                                transform: 'scale(1.5)',
-                              }}
-                            />
+                            <Link to={`/student/${mentee.studentId}`}>
+                              <MdOutlinePersonSearch
+                                // onClick={(e) => userProfile(e)}
+                                style={{
+                                  cursor: 'pointer',
+                                  float: 'left',
+                                  color: 'blue',
+                                  marginLeft: '10',
+                                  transform: 'scale(1.5)',
+                                }}
+                              />
+                            </Link>
                           </td>
                         </tr>
                       </tbody>
@@ -296,16 +299,18 @@ const DashboardUsers = ({ getUsers, loading, users }) => {
                         </tr>
                         <tr>
                           <td colSpan="2">
-                            <MdOutlinePersonSearch
-                              // onClick={(e) => userProfile(e)}
-                              style={{
-                                cursor: 'pointer',
-                                float: 'left',
-                                color: 'blue',
-                                marginLeft: '10',
-                                transform: 'scale(1.5)',
-                              }}
-                            />
+                            <Link to={`/student/${mentee.studentId}`}>
+                              <MdOutlinePersonSearch
+                                // onClick={(e) => userProfile(e)}
+                                style={{
+                                  cursor: 'pointer',
+                                  float: 'left',
+                                  color: 'blue',
+                                  marginLeft: '10',
+                                  transform: 'scale(1.5)',
+                                }}
+                              />
+                            </Link>
                           </td>
                         </tr>
                       </tbody>
@@ -357,16 +362,18 @@ const DashboardUsers = ({ getUsers, loading, users }) => {
                         </tr>
                         <tr>
                           <td colSpan="2">
-                            <MdOutlinePersonSearch
-                              // onClick={(e) => userProfile(e)}
-                              style={{
-                                cursor: 'pointer',
-                                float: 'left',
-                                color: 'blue',
-                                marginLeft: '10',
-                                transform: 'scale(1.5)',
-                              }}
-                            />
+                            <Link to={`/student/${mentor.studentId}`}>
+                              <MdOutlinePersonSearch
+                                // onClick={(e) => userProfile(e)}
+                                style={{
+                                  cursor: 'pointer',
+                                  float: 'left',
+                                  color: 'blue',
+                                  marginLeft: '10',
+                                  transform: 'scale(1.5)',
+                                }}
+                              />
+                            </Link>
                           </td>
                         </tr>
                       </tbody>
@@ -401,16 +408,18 @@ const DashboardUsers = ({ getUsers, loading, users }) => {
                         </tr>
                         <tr>
                           <td colSpan="2">
-                            <MdOutlinePersonSearch
-                              // onClick={(e) => userProfile(e)}
-                              style={{
-                                cursor: 'pointer',
-                                float: 'left',
-                                color: 'blue',
-                                marginLeft: '10',
-                                transform: 'scale(1.5)',
-                              }}
-                            />
+                            <Link to={`/student/${mentor.studentId}`}>
+                              <MdOutlinePersonSearch
+                                // onClick={(e) => userProfile(e)}
+                                style={{
+                                  cursor: 'pointer',
+                                  float: 'left',
+                                  color: 'blue',
+                                  marginLeft: '10',
+                                  transform: 'scale(1.5)',
+                                }}
+                              />
+                            </Link>
                           </td>
                         </tr>
                       </tbody>
