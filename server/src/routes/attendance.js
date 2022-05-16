@@ -43,8 +43,15 @@ module.exports = () => {
   router.post('/add', async (req, res) => {
     console.log('/attendance/add - post');
     console.log(req.body);
-    const { groupId, studentId, date, confirmed } = req.body;
-    const attendance = await Attendance.create({ groupId, studentId, date, confirmed });
+    const { groupId, studentId, date, confirmed, startTime, endTime } = req.body;
+    const attendance = await Attendance.create({
+      groupId,
+      studentId,
+      date,
+      confirmed,
+      startTime,
+      endTime,
+    });
     console.log(attendance);
     res.send(attendance);
   });
@@ -53,7 +60,7 @@ module.exports = () => {
   router.post('/confirm', async (req, res) => {
     console.log('/attendance/confirm - post');
     console.log(req.body);
-    let { studentId, groupId, date, confirmed } = req.body;
+    let { studentId, groupId, date, confirmed, startTime, endTime } = req.body;
     const confirm = await Attendance.update({ confirmed }, { where: { studentId, groupId, date } });
     console.log(confirm);
     const mentees = await Member.findAll({ where: { groupId, isMentor: false } });
@@ -61,7 +68,7 @@ module.exports = () => {
     for (let i = 0; i < mentees.length; i += 1) {
       // eslint-disable-next-line no-shadow
       let { studentId, groupId } = mentees[i];
-      let sessionMember = { studentId, groupId, date };
+      let sessionMember = { studentId, groupId, date, startTime, endTime };
       sessions.push(sessionMember);
     }
     const attendance = await Attendance.bulkCreate(sessions);
