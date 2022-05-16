@@ -5,17 +5,8 @@ const db = require('../models');
 const router = express.Router();
 
 // eslint-disable-next-line no-unused-vars
-const {
-  Student,
-  Staff,
-  Subject,
-  // Application,
-  Group,
-  Member,
-  Attendance,
-  // Timeslot,
-  // Availability
-} = db.sequelize.models;
+const { Student, Staff, Subject, Application, Group, Member, Attendance, Timeslot, Availability } =
+  db.sequelize.models;
 
 module.exports = () => {
   // ROUTES HERE
@@ -30,7 +21,7 @@ module.exports = () => {
 
   // Find group by id
   router.get('/id/:id', async (req, res) => {
-    console.log('/groups/:id - get');
+    console.log('/groups/id/:id - get');
     let { id } = req.params;
     id = parseInt(id);
     console.log(id);
@@ -60,6 +51,39 @@ module.exports = () => {
     });
     console.log(group);
     res.send(group);
+  });
+
+  // Pull data for group creation
+  router.get('/add', async (req, res) => {
+    console.log('/groups/add - get');
+    const applications = await Application.findAll({
+      include: [
+        {
+          model: Student,
+          attributes: { exclude: ['studentPassword'] },
+          include: [
+            {
+              model: Availability,
+              include: [
+                {
+                  model: Timeslot,
+                  attributes: ['timeslotName'],
+                },
+              ],
+            },
+          ],
+        },
+        {
+          model: Subject,
+        },
+      ],
+    });
+    console.log(applications);
+    const staff = await Staff.findAll({
+      attributes: ['staffName'],
+    });
+    console.log(staff);
+    res.send({ applications, staff });
   });
 
   // Create a group
