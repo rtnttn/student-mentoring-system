@@ -53,7 +53,9 @@ module.exports = () => {
   router.post('/confirm', async (req, res) => {
     console.log('/attendance/confirm - post');
     console.log(req.body);
-    let { groupId, date } = req.body;
+    let { studentId, groupId, date, confirmed } = req.body;
+    const confirm = await Attendance.update({ confirmed }, { where: { studentId, groupId, date } });
+    console.log(confirm);
     const mentees = await Member.findAll({ where: { groupId, isMentor: false } });
     let sessions = [];
     for (let i = 0; i < mentees.length; i += 1) {
@@ -64,7 +66,7 @@ module.exports = () => {
     }
     const attendance = await Attendance.bulkCreate(sessions);
     console.log(attendance);
-    res.send(attendance);
+    res.send({ confirm, attendance });
   });
 
   // Confirm attendance (mentee duty)
