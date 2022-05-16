@@ -6,13 +6,13 @@ const router = express.Router();
 
 // eslint-disable-next-line no-unused-vars
 const {
-  // Student,
-  // Staff,
-  // Subject,
+  Student,
+  Staff,
+  Subject,
   // Application,
   Group,
-  // Member,
-  // Attendance,
+  Member,
+  Attendance,
   // Timeslot,
   // Availability
 } = db.sequelize.models;
@@ -34,7 +34,30 @@ module.exports = () => {
     let { id } = req.params;
     id = parseInt(id);
     console.log(id);
-    const group = await Group.findByPk(id);
+    const group = await Group.findByPk(id, {
+      include: [
+        {
+          model: Staff,
+          attributes: ['staffName'],
+        },
+        {
+          model: Subject,
+          attributes: ['subjectName'],
+        },
+        {
+          model: Attendance,
+        },
+        {
+          model: Member,
+          include: [
+            {
+              model: Student,
+              attributes: ['studentName'],
+            },
+          ],
+        },
+      ],
+    });
     console.log(group);
     res.send(group);
   });
