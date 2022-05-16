@@ -1064,6 +1064,25 @@
 						}
 					},
 					"response": []
+				},
+				{
+					"name": "Find data for group creation",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:5000/groups/add",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"groups",
+								"add"
+							]
+						}
+					},
+					"response": []
 				}
 			]
 		},
