@@ -6,10 +6,12 @@
 import {
   GET_USERS,
   GET_USER,
+  GET_STUDENT_ADMIN,
   ADD_USER,
   UPDATE_USER,
   DELETE_USER,
   USER_DEL_ERROR,
+  USER_DEFAULT,
 } from '../actions/types';
 
 const initialState = {
@@ -30,6 +32,12 @@ export default function userReducer(state = initialState, action) {
       };
     case GET_USER:
       return {};
+    case GET_STUDENT_ADMIN:
+      return {
+        ...state,
+        user: action.payload,
+        loading: false,
+      };
     case ADD_USER:
       return {};
     case UPDATE_USER:
@@ -38,6 +46,9 @@ export default function userReducer(state = initialState, action) {
       return {};
     case USER_DEL_ERROR:
       return {};
+    case USER_DEFAULT:
+      console.log('SET_LOADING REDUCER');
+      return initialState;
     default:
       return state;
   }

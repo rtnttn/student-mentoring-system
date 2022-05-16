@@ -25,3 +25,7 @@
 table.table.table-bordered {
   border: 2px solid black;
 }
+
+#borderless {
+  border: 0px;
+}

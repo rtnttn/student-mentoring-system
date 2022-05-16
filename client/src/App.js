@@ -12,6 +12,7 @@ import Header from './components/layouts/Header';
 import Dashboard from './components/adminView/Dashboard';
 import Register from './components/auth/Register';
 import AdminLayout from './components/layouts/AdminLayout';
+import AdminStudentProfile from './components/students/AdminStudentProfile';
 
 import './styles.css';
 
@@ -23,6 +24,7 @@ const App = () => {
           <Routes>
             <Route path="/" element={<AdminLayout />}>
               <Route path="/" element={<Dashboard />} />
+              <Route path="/student/:id" element={<AdminStudentProfile />} />
             </Route>
 
             <Route path="register" element={<Register />} />
