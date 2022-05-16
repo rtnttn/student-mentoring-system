@@ -96,6 +96,8 @@ const Attendance = sequelize.define(
     },
     date: { type: DataTypes.DATEONLY, primaryKey: true },
     confirmed: { type: DataTypes.BOOLEAN, defaultValue: false },
+    startTime: { type: DataTypes.STRING },
+    endTime: { type: DataTypes.STRING },
   },
   {
     freezeTableName: true,

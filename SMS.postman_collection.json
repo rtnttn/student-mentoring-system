@@ -1258,6 +1258,16 @@
 									"key": "confirmed",
 									"value": "false",
 									"type": "text"
+								},
+								{
+									"key": "startTime",
+									"value": "6pm",
+									"type": "text"
+								},
+								{
+									"key": "endTime",
+									"value": "7pm",
+									"type": "text"
 								}
 							]
 						},
@@ -1301,6 +1311,16 @@
 								{
 									"key": "confirmed",
 									"value": "true",
+									"type": "text"
+								},
+								{
+									"key": "startTime",
+									"value": "6pm",
+									"type": "text"
+								},
+								{
+									"key": "endTime",
+									"value": "7pm",
 									"type": "text"
 								}
 							]
