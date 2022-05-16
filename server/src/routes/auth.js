@@ -20,6 +20,14 @@ const {
   // Availability
 } = db.sequelize.models;
 
+// AUTH LEVELS
+// Are you logged in?
+// Are you a student?
+// Are you a mentor?
+// Are you the mentor for this group? <-------
+// Are you a staff member?
+// Are you a course coordinator?
+
 module.exports = () => {
   // ROUTES HERE
   // Student login
