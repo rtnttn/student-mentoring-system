@@ -1,5 +1,7 @@
 /* eslint-disable radix */
 const express = require('express');
+// eslint-disable-next-line no-unused-vars
+const { sequelize } = require('../models');
 const db = require('../models');
 
 const router = express.Router();
@@ -12,7 +14,7 @@ const {
   Application,
   Group,
   Member,
-  // Attendance,
+  Attendance,
   // Timeslot,
   // Availability
 } = db.sequelize.models;
@@ -182,6 +184,9 @@ module.exports = () => {
         {
           model: Subject,
           attributes: ['subjectName'],
+        },
+        {
+          model: Attendance,
         },
         {
           model: Member,
