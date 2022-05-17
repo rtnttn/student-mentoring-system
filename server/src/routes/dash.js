@@ -2,6 +2,7 @@
 const express = require('express');
 // eslint-disable-next-line no-unused-vars
 const { sequelize } = require('../models');
+// eslint-disable-next-line no-unused-vars
 const db = require('../models');
 
 const router = express.Router();
@@ -24,8 +25,24 @@ module.exports = () => {
   // Find and count applications by mentor and mentee
   router.get('/applications', async (req, res) => {
     console.log('/dash/applications - get');
+
+    // Get subjectId for mentor EoI
+    const mentorApp = await Subject.findOne({
+      where: {
+        subjectName: 'Mentor Application',
+      },
+    });
+    const { subjectId } = mentorApp;
+    console.log(subjectId);
+
+    // Mentor applications
     const mentors = await Application.findAll({
-      where: { forMentor: true },
+      where: {
+        forMentor: true,
+        subjectId: {
+          [db.Op.ne]: subjectId,
+        },
+      },
       include: [
         {
           model: Student,
@@ -55,9 +72,15 @@ module.exports = () => {
       ],
     });
     console.log(mentors);
-    // res.send(mentors);
+
+    // Mentee applications
     const mentees = await Application.findAll({
-      where: { forMentor: false },
+      where: {
+        forMentor: false,
+        subjectId: {
+          [db.Op.ne]: subjectId,
+        },
+      },
       include: [
         {
           model: Student,
@@ -87,11 +110,65 @@ module.exports = () => {
       ],
     });
     console.log(mentees);
-    const mentorCount = await Application.count({ where: { forMentor: true } });
-    const menteeCount = await Application.count({ where: { forMentor: false } });
+
+    // Applications to become mentor
+    const mentorEoI = await Application.findAll({
+      where: {
+        subjectId,
+      },
+      include: [
+        {
+          model: Student,
+          attributes: { exclude: ['studentPassword'] },
+          include: [
+            {
+              model: Member,
+              include: [
+                {
+                  model: Group,
+                  include: [
+                    {
+                      model: Subject,
+                      attributes: ['subjectName'],
+                    },
+                    {
+                      model: Staff,
+                      attributes: ['staffName'],
+                    },
+                  ],
+                },
+              ],
+            },
+          ],
+        },
+        { model: Subject },
+      ],
+    });
+
+    // Counts
+    const mentorCount = await Application.count({
+      where: {
+        forMentor: true,
+        subjectId: {
+          [db.Op.ne]: subjectId,
+        },
+      },
+    });
+    const menteeCount = await Application.count({
+      where: {
+        forMentor: false,
+        subjectId: {
+          [db.Op.ne]: subjectId,
+        },
+      },
+    });
+    const eoICount = await Application.count({
+      where: { subjectId },
+    });
     console.log(mentorCount);
     console.log(menteeCount);
-    res.send({ mentors, mentees, mentorCount, menteeCount });
+    console.log(eoICount);
+    res.send({ mentors, mentees, mentorCount, menteeCount, mentorEoI, eoICount });
   });
 
   // Find and count mentors, mentees and staff

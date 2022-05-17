@@ -770,6 +770,45 @@
 					"response": []
 				},
 				{
+					"name": "Apply to be a mentor",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "studentId",
+									"value": "1",
+									"type": "text"
+								},
+								{
+									"key": "subjectId",
+									"value": "2",
+									"type": "text"
+								},
+								{
+									"key": "forMentor",
+									"value": "false",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "localhost:5000/applications/add",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"applications",
+								"add"
+							]
+						}
+					},
+					"response": []
+				},
+				{
 					"name": "Edit",
 					"request": {
 						"method": "PUT",
