@@ -1,6 +1,7 @@
 /* eslint-disable import/prefer-default-export */
 /* eslint-disable import/order */
 /* eslint-disable no-unused-vars */
+/* eslint-disable no-debugger, no-console */
 import {
   GET_APPLICATIONS,
   GET_APPLICATION,
@@ -22,6 +23,20 @@ export const getApplications = () => async (dispatch) => {
   // console.log(res.data);
   dispatch({
     type: GET_APPLICATIONS,
+    payload: res.data,
+  });
+};
+
+// Add  contacts
+export const addApplication = () => async (dispatch) => {
+  console.log('addApplication');
+  // the call to the api.
+  // This will get all our contacts from the endpoint
+  const res = await axios.post('/applications/add');
+  // Dispatch the action and payload to the reducer to update the state.
+  console.log(res.data);
+  dispatch({
+    type: ADD_APPLICATION,
     payload: res.data,
   });
 };

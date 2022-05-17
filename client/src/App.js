@@ -14,6 +14,8 @@ import Register from './components/auth/Register';
 import AdminLayout from './components/layouts/AdminLayout';
 import AdminStudentProfile from './components/students/AdminStudentProfile';
 import AdminGroupProfile from './components/groups/AdminGroupProfile';
+import StudentLayout from './components/layouts/StudentLayout';
+import StudentDashboard from './components/studentView/StudentDashboard';
 
 import './styles.css';
 
@@ -30,6 +32,9 @@ const App = () => {
             </Route>
 
             <Route path="register" element={<Register />} />
+
+            <Route path="/student" element={<StudentLayout />}/>
+            <Route path="/student/:id" element={<StudentDashboard />} />
           </Routes>
         </div>
       </Router>

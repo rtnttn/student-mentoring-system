@@ -28,9 +28,17 @@ export default function applicationReducer(state = initialState, action) {
         loading: false,
       };
     case GET_APPLICATION:
-      return {};
+      return {
+        ...state,
+          application: action.payload,
+          loading: false
+      };
     case ADD_APPLICATION:
-      return {};
+      return {
+        ...state,
+        application: action.payload,
+        loading: false
+      };
     case UPDATE_APPLICATION:
       return {};
     case DELETE_APPLICATION:
