@@ -1,3 +1,4 @@
+/* eslint-disable radix */
 /* eslint-disable no-unused-expressions */
 /* eslint-disable prefer-const */
 /* eslint-disable prefer-template */
@@ -15,12 +16,10 @@
 /* eslint-disable arrow-body-style */
 /* eslint-disable react/function-component-definition */
 
-// TODO LIST
-// onclick for inspect user
-
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
 import { FaSortDown, FaCaretUp } from 'react-icons/fa';
 import { MdOutlineManageSearch } from 'react-icons/md';
 import { getGroups } from '../../actions/groupActions';
@@ -226,17 +225,117 @@ const DashboardGroups = ({ getGroups, loading, groups }) => {
                           ) : null
                         )}
                         <tr>
+                          <td className="fst-italic">Age:</td>
+                          <td>
+                            {parseInt(
+                              (new Date() - new Date(group.createdAt)) / (1000 * 60 * 60 * 24 * 7)
+                            )}{' '}
+                            Weeks
+                          </td>
+                        </tr>
+                        <tr>
+                          <td className="fst-italic">Sessions:</td>
+                          <td>
+                            {[...new Set(group.Attendances.map((session) => session.date))].length}
+                          </td>
+                        </tr>
+                        <tr>
+                          <td className="fst-italic">Sessions/Week:</td>
+                          <td>
+                            <div class="progress">
+                              <div
+                                class="progress-bar"
+                                role="progressbar"
+                                style={{
+                                  width:
+                                    (parseInt(
+                                      (new Date() - new Date(group.createdAt)) /
+                                        (1000 * 60 * 60 * 24 * 7)
+                                    ) === 0
+                                      ? 0
+                                      : ([
+                                          ...new Set(
+                                            group.Attendances.map((session) => session.date)
+                                          ),
+                                        ].length /
+                                          parseInt(
+                                            (new Date() - new Date(group.createdAt)) /
+                                              (1000 * 60 * 60 * 24 * 7)
+                                          )) *
+                                        100) + '%',
+                                }}
+                              >
+                                {parseInt(
+                                  (new Date() - new Date(group.createdAt)) /
+                                    (1000 * 60 * 60 * 24 * 7)
+                                ) === 0
+                                  ? 'New Group'
+                                  : [...new Set(group.Attendances.map((session) => session.date))]
+                                      .length /
+                                    parseInt(
+                                      (new Date() - new Date(group.createdAt)) /
+                                        (1000 * 60 * 60 * 24 * 7)
+                                    )}
+                              </div>
+                              <div
+                                class="progress-bar bg-transparent text-black"
+                                role="progressbar"
+                                style={{
+                                  width:
+                                    parseInt(
+                                      (new Date() - new Date(group.createdAt)) /
+                                        (1000 * 60 * 60 * 24 * 7)
+                                    ) === 0
+                                      ? 100
+                                      : Math.max(
+                                          0,
+                                          100 -
+                                            ([
+                                              ...new Set(
+                                                group.Attendances.map((session) => session.date)
+                                              ),
+                                            ].length /
+                                              parseInt(
+                                                (new Date() - new Date(group.createdAt)) /
+                                                  (1000 * 60 * 60 * 24 * 7)
+                                              )) *
+                                              100
+                                        ) + '%',
+                                }}
+                              >
+                                {([...new Set(group.Attendances.map((session) => session.date))]
+                                  .length /
+                                  parseInt(
+                                    (new Date() - new Date(group.createdAt)) /
+                                      (1000 * 60 * 60 * 24 * 7)
+                                  )) *
+                                  100 >
+                                0
+                                  ? ''
+                                  : '0'}
+                              </div>
+                              <div
+                                class="progress-bar bg-white"
+                                role="progressbar"
+                                style={{ width: '30%' }}
+                              ></div>
+                            </div>
+                          </td>
+                        </tr>
+                        <tr>
                           <td colSpan="2">
-                            <MdOutlineManageSearch
-                              // onClick={(e) => userProfile(e)}
-                              style={{
-                                cursor: 'pointer',
-                                float: 'left',
-                                color: 'blue',
-                                marginLeft: '10',
-                                transform: 'scale(1.5)',
-                              }}
-                            />
+                            <Link to={`/group/${group.groupId}`}>
+                              <MdOutlineManageSearch
+                                // onClick={(e) => userProfile(e)}
+                                style={{
+                                  cursor: 'pointer',
+                                  float: 'left',
+                                  color: 'blue',
+                                  marginLeft: '10',
+                                  transform: 'scale(1.5)',
+                                }}
+                              />
+                            </Link>
                           </td>
                         </tr>
                       </tbody>
@@ -274,17 +373,112 @@ const DashboardGroups = ({ getGroups, loading, groups }) => {
                           ) : null
                         )}
                         <tr>
+                          <td className="fst-italic">Age:</td>
+                          <td>
+                            {parseInt(
+                              (new Date() - new Date(group.createdAt)) / (1000 * 60 * 60 * 24 * 7)
+                            )}{' '}
+                            Weeks
+                          </td>
+                        </tr>
+                        <tr>
+                          <td className="fst-italic">Sessions:</td>
+                          <td>
+                            {[...new Set(group.Attendances.map((session) => session.date))].length}
+                          </td>
+                        </tr>
+                        <tr>
+                          <td className="fst-italic">Sessions/Week:</td>
+                          <td>
+                            <div class="progress">
+                              <div
+                                class="progress-bar"
+                                role="progressbar"
+                                style={{
+                                  width:
+                                    (parseInt(
+                                      (new Date() - new Date(group.createdAt)) /
+                                        (1000 * 60 * 60 * 24 * 7)
+                                    ) === 0
+                                      ? 0
+                                      : ([
+                                          ...new Set(
+                                            group.Attendances.map((session) => session.date)
+                                          ),
+                                        ].length /
+                                          parseInt(
+                                            (new Date() - new Date(group.createdAt)) /
+                                              (1000 * 60 * 60 * 24 * 7)
+                                          )) *
+                                        100) + '%',
+                                }}
+                              >
+                                {parseInt(
+                                  (new Date() - new Date(group.createdAt)) /
+                                    (1000 * 60 * 60 * 24 * 7)
+                                ) === 0
+                                  ? 'New Group'
+                                  : [...new Set(group.Attendances.map((session) => session.date))]
+                                      .length /
+                                    parseInt(
+                                      (new Date() - new Date(group.createdAt)) /
+                                        (1000 * 60 * 60 * 24 * 7)
+                                    )}
+                              </div>
+                              <div
+                                class="progress-bar bg-transparent text-black"
+                                role="progressbar"
+                                style={{
+                                  width:
+                                    parseInt(
+                                      (new Date() - new Date(group.createdAt)) /
+                                        (1000 * 60 * 60 * 24 * 7)
+                                    ) === 0
+                                      ? 100
+                                      : Math.max(
+                                          0,
+                                          100 -
+                                            ([
+                                              ...new Set(
+                                                group.Attendances.map((session) => session.date)
+                                              ),
+                                            ].length /
+                                              parseInt(
+                                                (new Date() - new Date(group.createdAt)) /
+                                                  (1000 * 60 * 60 * 24 * 7)
+                                              )) *
+                                              100
+                                        ) + '%',
+                                }}
+                              >
+                                {([...new Set(group.Attendances.map((session) => session.date))]
+                                  .length /
+                                  parseInt(
+                                    (new Date() - new Date(group.createdAt)) /
+                                      (1000 * 60 * 60 * 24 * 7)
+                                  )) *
+                                  100 >
+                                0
+                                  ? ''
+                                  : '0'}
+                              </div>
+                            </div>
+                          </td>
+                        </tr>
+                        <tr>
                           <td colSpan="2">
-                            <MdOutlineManageSearch
-                              // onClick={(e) => userProfile(e)}
-                              style={{
-                                cursor: 'pointer',
-                                float: 'left',
-                                color: 'blue',
-                                marginLeft: '10',
-                                transform: 'scale(1.5)',
-                              }}
-                            />
+                            <Link to={`/group/${group.groupId}`}>
+                              <MdOutlineManageSearch
+                                // onClick={(e) => userProfile(e)}
+                                style={{
+                                  cursor: 'pointer',
+                                  float: 'left',
+                                  color: 'blue',
+                                  marginLeft: '10',
+                                  transform: 'scale(1.5)',
+                                }}
+                              />
+                            </Link>
                           </td>
                         </tr>
                       </tbody>
