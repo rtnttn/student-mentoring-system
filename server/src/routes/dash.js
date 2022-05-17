@@ -266,6 +266,7 @@ module.exports = () => {
           ],
         },
       ],
+      // order: [[Attendance, sequelize.fn('max', sequelize.col('date')), 'ASC']],
     });
     console.log(groups);
     const lastMet = await sequelize.query(
