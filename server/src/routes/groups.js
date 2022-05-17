@@ -71,13 +71,28 @@ module.exports = () => {
                 },
               ],
             },
+            {
+              model: Member,
+              include: [
+                {
+                  model: Group,
+                  include: [
+                    {
+                      model: Subject,
+                      attributes: ['subjectName'],
+                    },
+                  ],
+                },
+                {
+                  model: Student,
+                  attributes: ['studentName'],
+                },
+              ],
+            },
           ],
         },
         {
           model: Subject,
-        },
-        {
-          model: Member,
         },
       ],
     });
