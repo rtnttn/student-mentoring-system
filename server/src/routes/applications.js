@@ -8,7 +8,7 @@ const router = express.Router();
 const {
   // Student,
   // Staff,
-  // Subject,
+  Subject,
   Application,
   // Group,
   // Member,
@@ -95,6 +95,24 @@ module.exports = () => {
     const { studentId, subjectId, forMentor } = req.body;
     const application = await Application.create({ studentId, subjectId, forMentor });
     console.log(application.toJSON());
+    res.send(application);
+  });
+
+  // Apply to be a mentor
+  router.post('/becomeamentor', async (req, res) => {
+    console.log('/applications/becomeamentor - post');
+    console.log(req.body);
+    const mentorApp = await Subject.findOne({
+      where: {
+        subjectName: 'Mentor Application',
+      },
+    });
+    const { subjectId } = mentorApp;
+    console.log(subjectId);
+    const { studentId } = req.body;
+    console.log(studentId);
+    const application = await Application.create({ studentId, subjectId });
+    console.log(application);
     res.send(application);
   });
 
