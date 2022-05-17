@@ -338,6 +338,8 @@ module.exports = () => {
       ],
     });
     console.log(student);
+
+    // Find names of mentors for all student groups
     const groups = await Member.findAll({
       where: {
         studentId: id,
@@ -383,7 +385,55 @@ module.exports = () => {
     });
     console.log(meetings);
 
-    res.send({ student, mentors, meetings });
+    // Find all groups where student is a mentor
+    const mentorGroups = await Member.findAll({ where: { studentid: id, isMentor: true } });
+    console.log(mentorGroups);
+
+    let mentees = [];
+    if (mentorGroups.length > 0) {
+      // eslint-disable-next-line prefer-const
+      let mentorGroupIds = [];
+      for (let i = 0; i < mentorGroups.length; i += 1) {
+        // eslint-disable-next-line prefer-const
+        let { groupId } = groups[i];
+        mentorGroupIds.push(groupId);
+      }
+      mentees = await Member.findAll({
+        where: { groupId: mentorGroupIds },
+        include: [
+          {
+            model: Group,
+            include: [
+              {
+                model: Staff,
+                attributes: ['staffName'],
+              },
+              {
+                model: Subject,
+                attributes: ['subjectName'],
+              },
+            ],
+          },
+          {
+            model: Student,
+            attributes: ['studentName', 'studentEmail'],
+            include: [
+              {
+                model: Availability,
+                include: [
+                  {
+                    model: Timeslot,
+                  },
+                ],
+              },
+            ],
+          },
+        ],
+      });
+      console.log(mentees);
+    }
+
+    res.send({ student, mentors, meetings, mentees });
   });
 
   return router;
