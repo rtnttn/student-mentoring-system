@@ -3,7 +3,7 @@
 const jwt = require('jsonwebtoken');
 const config = require('../config/config');
 
-module.exports = function (req, res, next) {
+function staff(req, res, next) {
   const token = req.header('x-auth-token');
 
   if (!token) {
@@ -17,4 +17,6 @@ module.exports = function (req, res, next) {
   } catch (error) {
     res.status(401).json({ msg: 'Token is not valid' });
   }
-};
+}
+
+module.exports = staff;

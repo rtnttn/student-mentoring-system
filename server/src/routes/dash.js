@@ -268,10 +268,22 @@ module.exports = () => {
       ],
     });
     console.log(groups);
+    const lastMet = await sequelize.query(
+      'SELECT MAX(date) AS date, groupId from Attendance where confirmed = true GROUP BY groupId'
+    );
+    const firstMet = await sequelize.query(
+      'SELECT MIN(date) AS date, groupId from Attendance where confirmed = true GROUP BY groupId'
+    );
+    const sessionCount = await sequelize.query(
+      'SELECT Members.groupId, COUNT(Attendance.date) as sessionCount FROM Members INNER JOIN Attendance ON Members.groupId = Attendance.groupId WHERE Members.isMentor = "1" AND Attendance.studentId = Members.studentId GROUP BY Members.groupId'
+    );
+    console.log(lastMet);
+    console.log(firstMet);
+    console.log(sessionCount);
     // Count
     const groupCount = await Group.count();
     console.log(groupCount);
-    res.send({ groups, groupCount });
+    res.send({ groups, groupCount, lastMet, firstMet, sessionCount });
   });
 
   // Student dash
