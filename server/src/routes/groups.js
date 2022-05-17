@@ -76,6 +76,9 @@ module.exports = () => {
         {
           model: Subject,
         },
+        {
+          model: Member,
+        },
       ],
     });
     console.log(applications);
