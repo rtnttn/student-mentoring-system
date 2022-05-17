@@ -5,6 +5,7 @@
 import {
   GET_GROUPS,
   GET_GROUP,
+  GET_GROUP_ADMIN,
   ADD_GROUP,
   UPDATE_GROUP,
   DELETE_GROUP,
@@ -29,6 +30,12 @@ export default function groupReducer(state = initialState, action) {
       };
     case GET_GROUP:
       return {};
+    case GET_GROUP_ADMIN:
+      return {
+        ...state,
+        group: action.payload,
+        loading: false,
+      };
     case ADD_GROUP:
       return {};
     case UPDATE_GROUP:

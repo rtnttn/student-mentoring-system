@@ -13,6 +13,7 @@ import Dashboard from './components/adminView/Dashboard';
 import Register from './components/auth/Register';
 import AdminLayout from './components/layouts/AdminLayout';
 import AdminStudentProfile from './components/students/AdminStudentProfile';
+import AdminGroupProfile from './components/groups/AdminGroupProfile';
 
 import './styles.css';
 
@@ -25,6 +26,7 @@ const App = () => {
             <Route path="/" element={<AdminLayout />}>
               <Route path="/" element={<Dashboard />} />
               <Route path="/student/:id" element={<AdminStudentProfile />} />
+              <Route path="/group/:id" element={<AdminGroupProfile />} />
             </Route>
 
             <Route path="register" element={<Register />} />
