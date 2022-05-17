@@ -8,17 +8,8 @@ const db = require('../models');
 const router = express.Router();
 
 // eslint-disable-next-line no-unused-vars
-const {
-  Student,
-  Staff,
-  Subject,
-  Application,
-  Group,
-  Member,
-  Attendance,
-  // Timeslot,
-  // Availability
-} = db.sequelize.models;
+const { Student, Staff, Subject, Application, Group, Member, Attendance, Timeslot, Availability } =
+  db.sequelize.models;
 
 module.exports = () => {
   // Dash routes
@@ -281,6 +272,105 @@ module.exports = () => {
     const groupCount = await Group.count();
     console.log(groupCount);
     res.send({ groups, groupCount });
+  });
+
+  // Student dash
+  router.get('/student/:id', async (req, res) => {
+    let { id } = req.params;
+    id = parseInt(id);
+    console.log(id);
+    const student = await Student.findByPk(id, {
+      attributes: {
+        exclude: ['studentPassword'],
+      },
+      include: [
+        {
+          model: Availability,
+          include: [
+            {
+              model: Timeslot,
+            },
+          ],
+        },
+        {
+          model: Application,
+          include: [
+            {
+              model: Subject,
+              attributes: ['subjectName'],
+            },
+          ],
+        },
+        {
+          model: Member,
+          include: [
+            {
+              model: Group,
+              include: [
+                {
+                  model: Staff,
+                  attributes: ['staffName'],
+                },
+                {
+                  model: Subject,
+                  attributes: ['subjectName'],
+                },
+              ],
+            },
+          ],
+        },
+        {
+          model: Attendance,
+        },
+      ],
+    });
+    console.log(student);
+    const groups = await Member.findAll({
+      where: {
+        studentId: id,
+      },
+      attributes: ['groupId'],
+    });
+    console.log(groups);
+    // eslint-disable-next-line prefer-const
+    let groupIds = [];
+    for (let i = 0; i < groups.length; i += 1) {
+      // eslint-disable-next-line prefer-const
+      let { groupId } = groups[i];
+      groupIds.push(groupId);
+    }
+
+    const mentors = await Member.findAll({
+      where: {
+        groupId: groupIds,
+        isMentor: true,
+      },
+      include: [
+        {
+          model: Student,
+          attributes: ['studentName'],
+        },
+      ],
+    });
+    console.log(mentors);
+
+    // eslint-disable-next-line prefer-const
+    let mentorIds = [];
+    for (let i = 0; i < mentors.length; i += 1) {
+      // eslint-disable-next-line prefer-const
+      let { studentId } = mentors[i];
+      mentorIds.push(studentId);
+    }
+
+    const meetings = await Attendance.findAll({
+      where: {
+        studentId: mentorIds,
+        groupId: groupIds,
+      },
+    });
+    console.log(meetings);
+
+    res.send({ student, mentors, meetings });
   });
 
   return router;
