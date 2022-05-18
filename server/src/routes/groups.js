@@ -108,39 +108,41 @@ module.exports = () => {
     console.log(staff);
 
     // Group data
-    const group = await Member.findAll({
+    const group = await Group.findAll({
       include: [
         {
-          model: Student,
-          attributes: { exclude: ['studentPassword'] },
+          model: Staff,
+          attributes: ['staffName', 'staffId'],
+        },
+        {
+          model: Subject,
+          attributes: ['subjectName'],
+        },
+        {
+          model: Attendance,
+        },
+        {
+          model: Member,
           include: [
             {
-              model: Availability,
+              model: Student,
+              attributes: ['studentName'],
               include: [
                 {
-                  model: Timeslot,
-                  attributes: ['timeslotName'],
+                  model: Availability,
+                  include: [
+                    {
+                      model: Timeslot,
+                      attributes: ['timeslotName'],
+                    },
+                  ],
                 },
               ],
             },
           ],
         },
-        {
-          model: Group,
-          include: [
-            {
-              model: Subject,
-            },
-            {
-              model: Staff,
-              attributes: { exclude: ['staffPassword, staffEmail'] },
-            },
-            {
-              model: Attendance,
-            },
-          ],
-        },
       ],
+      // order: [[Attendance, sequelize.fn('max', sequelize.col('date')), 'ASC']],
     });
     console.log(group);
 
