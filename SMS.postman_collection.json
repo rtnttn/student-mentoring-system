@@ -982,7 +982,7 @@
 					"response": []
 				},
 				{
-					"name": "Add",
+					"name": "Add LEGACY",
 					"request": {
 						"method": "POST",
 						"header": [],
@@ -1005,6 +1005,35 @@
 									"type": "text"
 								}
 							]
+						},
+						"url": {
+							"raw": "localhost:5000/groups/legacy/add",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"groups",
+								"legacy",
+								"add"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Add NEW",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n\t\"group\": {\r\n\t\t\"staffId\": 3,\r\n\t\t\"subjectId\": 1\r\n\t},\r\n\t\"students\": [\r\n\t\t{\r\n\t\t\t\"studentId\": 1,\r\n\t\t\t\"isMentor\": true\r\n\t\t},\r\n\t\t{\r\n\t\t\t\"studentId\": 2,\r\n\t\t\t\"isMentor\": false\r\n\t\t},\r\n\t\t{\r\n\t\t\t\"studentId\": 3,\r\n\t\t\t\"isMentor\": false\r\n\t\t}\r\n\t]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
 						},
 						"url": {
 							"raw": "localhost:5000/groups/add",
@@ -1118,6 +1147,35 @@
 							"path": [
 								"groups",
 								"add"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Add to existing group",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"students\": [\r\n\t\t{\r\n\t\t\t\"studentId\": 1,\r\n\t\t\t\"isMentor\": true\r\n\t\t},\r\n\t\t{\r\n\t\t\t\"studentId\": 2,\r\n\t\t\t\"isMentor\": false\r\n\t\t},\r\n\t\t{\r\n\t\t\t\"studentId\": 3,\r\n\t\t\t\"isMentor\": false\r\n\t\t}\r\n\t]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:5000/groups/add/5",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"groups",
+								"add",
+								"5"
 							]
 						}
 					},
