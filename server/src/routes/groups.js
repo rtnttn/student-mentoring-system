@@ -164,9 +164,41 @@ module.exports = () => {
     res.send({ applications, staff, group, lastMet, firstMet, sessionCount, menteeCount });
   });
 
-  // Create a group
+  // Create a group NEW
   router.post('/add', async (req, res) => {
     console.log('/groups/add - post');
+    console.log(req.body);
+    const { group, students } = req.body;
+    console.log(group);
+    console.log(students);
+
+    // Group creation
+    const { supervisorId, subjectId } = group;
+    const semesterCode = 1; // TODO
+    const newGroup = await Group.create({ supervisorId, subjectId, semesterCode });
+    console.log(newGroup);
+    const { groupId } = newGroup;
+    console.log(groupId);
+
+    // Member creation
+    for (let i = 0; i < students.length; i += 1) {
+      // eslint-disable-next-line prefer-const
+      let { studentId, isMentor } = students[i];
+      students[i] = {
+        studentId,
+        isMentor,
+        groupId,
+      };
+    }
+    const members = await Member.bulkCreate(students);
+    console.log(members);
+
+    res.send({ newGroup, members });
+  });
+
+  // Create a group LEGACY
+  router.post('/legacy/add', async (req, res) => {
+    console.log('/groups/legacy/add - post');
     console.log(req.body);
     const { supervisorId, subjectId, semesterCode } = req.body;
     const group = await Group.create({ supervisorId, subjectId, semesterCode });
