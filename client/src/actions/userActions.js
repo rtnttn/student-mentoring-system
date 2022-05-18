@@ -16,12 +16,12 @@ import axios from 'axios';
 
 // Get all contacts
 export const getUsers = () => async (dispatch) => {
-  console.log('getUsers');
+  // console.log('getUsers');
   // the call to the api.
   // This will get all our contacts from the endpoint
   const res = await axios.get('/dash/users');
   // Dispatch the action and payload to the reducer to update the state.
-  console.log(res.data);
+  // console.log(res.data);
   dispatch({
     type: GET_USERS,
     payload: res.data,
@@ -40,7 +40,7 @@ export const getStudentAdmin = (id) => async (dispatch) => {
 };
 
 export const userDefault = () => async (dispatch) => {
-  console.log('Set Loading');
+  // console.log('Set Loading');
   dispatch({
     type: USER_DEFAULT,
   });

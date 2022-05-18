@@ -20,7 +20,7 @@
 /* eslint-disable react/function-component-definition */
 
 import React, { useState, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { FaSortDown, FaCaretUp, FaTrash } from 'react-icons/fa';
@@ -243,16 +243,18 @@ const AdminStudentProfile = ({ user, getStudentAdmin, loading }) => {
                       </tr>
                       <tr>
                         <td colSpan="2">
-                          <MdOutlineManageSearch
-                            // onClick={(e) => userProfile(e)}
-                            style={{
-                              cursor: 'pointer',
-                              float: 'left',
-                              color: 'blue',
-                              marginLeft: '10',
-                              transform: 'scale(1.5)',
-                            }}
-                          />
+                          <Link to={`/group/${group.groupId}`}>
+                            <MdOutlineManageSearch
+                              // onClick={(e) => userProfile(e)}
+                              style={{
+                                cursor: 'pointer',
+                                float: 'left',
+                                color: 'blue',
+                                marginLeft: '10',
+                                transform: 'scale(1.5)',
+                              }}
+                            />
+                          </Link>
                         </td>
                       </tr>
                     </tbody>
@@ -282,16 +284,18 @@ const AdminStudentProfile = ({ user, getStudentAdmin, loading }) => {
                       </tr>
                       <tr>
                         <td colSpan="2">
-                          <MdOutlineManageSearch
-                            // onClick={(e) => userProfile(e)}
-                            style={{
-                              cursor: 'pointer',
-                              float: 'left',
-                              color: 'blue',
-                              marginLeft: '10',
-                              transform: 'scale(1.5)',
-                            }}
-                          />
+                          <Link to={`/group/${group.groupId}`}>
+                            <MdOutlineManageSearch
+                              // onClick={(e) => userProfile(e)}
+                              style={{
+                                cursor: 'pointer',
+                                float: 'left',
+                                color: 'blue',
+                                marginLeft: '10',
+                                transform: 'scale(1.5)',
+                              }}
+                            />
+                          </Link>
                         </td>
                       </tr>
                     </tbody>
