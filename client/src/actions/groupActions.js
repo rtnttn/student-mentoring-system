@@ -5,6 +5,7 @@ import {
   GET_GROUPS,
   GET_GROUP,
   GET_GROUP_ADMIN,
+  GET_GROUP_FOR_ADD,
   ADD_GROUP,
   UPDATE_GROUP,
   DELETE_GROUP,
@@ -34,6 +35,28 @@ export const getGroupAdmin = (id) => async (dispatch) => {
   // dispatch our action and the payload to the reducer.
   dispatch({
     type: GET_GROUP_ADMIN,
+    payload: res.data,
+  });
+};
+
+export const getGroupForAdd = () => async (dispatch) => {
+  // make a call to our api
+  // endpoint: /api/contact/id
+  const res = await axios.get(`/groups/add`);
+  // dispatch our action and the payload to the reducer.
+  dispatch({
+    type: GET_GROUP_FOR_ADD,
+    payload: res.data,
+  });
+};
+
+export const addGroup = (group) => async (dispatch) => {
+  // make a call to our api
+  // endpoint: /api/contact/id
+  const res = await axios.post(`/groups/add`);
+  // dispatch our action and the payload to the reducer.
+  dispatch({
+    type: ADD_GROUP,
     payload: res.data,
   });
 };
