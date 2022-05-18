@@ -28,3 +28,4 @@ export const ADD_GROUP = 'ADD_GROUP';
 export const UPDATE_GROUP = 'UPDATE_GROUP';
 export const DELETE_GROUP = 'DELETE_GROUP';
 export const GROUP_DEL_ERROR = 'GROUP_DEL_ERROR';
+export const GET_GROUP_FOR_ADD = 'GET_GROUP_FOR_ADD';
