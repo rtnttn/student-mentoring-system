@@ -98,7 +98,7 @@ module.exports = () => {
     });
     console.log(applications);
     const staff = await Staff.findAll({
-      attributes: ['staffName'],
+      attributes: ['staffName', 'staffId'],
     });
     console.log(staff);
     res.send({ applications, staff });
