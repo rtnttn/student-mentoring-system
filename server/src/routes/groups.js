@@ -196,6 +196,29 @@ module.exports = () => {
     res.send({ newGroup, members });
   });
 
+  // Add members to a group
+  router.put('/add/:id', async (req, res) => {
+    console.log('/groups/add/:id - put');
+    let { id } = req.params;
+    id = parseInt(id);
+    console.log(id);
+    console.log(req.body);
+    const { students } = req.body;
+    console.log(students);
+    for (let i = 0; i < students.length; i += 1) {
+      // eslint-disable-next-line prefer-const
+      let { studentId, isMentor } = students[i];
+      students[i] = {
+        studentId,
+        isMentor,
+        groupId: id,
+      };
+    }
+    const members = await Member.bulkCreate(students);
+    console.log(members);
+    res.send(members);
+  });
+
   // Create a group LEGACY
   router.post('/legacy/add', async (req, res) => {
     console.log('/groups/legacy/add - post');

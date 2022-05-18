@@ -1151,6 +1151,35 @@
 						}
 					},
 					"response": []
+				},
+				{
+					"name": "Add to existing group",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"students\": [\r\n\t\t{\r\n\t\t\t\"studentId\": 1,\r\n\t\t\t\"isMentor\": true\r\n\t\t},\r\n\t\t{\r\n\t\t\t\"studentId\": 2,\r\n\t\t\t\"isMentor\": false\r\n\t\t},\r\n\t\t{\r\n\t\t\t\"studentId\": 3,\r\n\t\t\t\"isMentor\": false\r\n\t\t}\r\n\t]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:5000/groups/add/5",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"groups",
+								"add",
+								"5"
+							]
+						}
+					},
+					"response": []
 				}
 			]
 		},
