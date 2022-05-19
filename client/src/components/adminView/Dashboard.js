@@ -34,19 +34,19 @@ const Dashboard = ({ userDefault }) => {
     <div className="container">
       <div className="row">
         {/* Col 1 */}
-        <div className="col-md card mt-2 me-2 columnColor shadow" id="colBackground">
+        <div className="col-lg card mt-2 me-2 columnColor shadow" id="colBackground">
           <DashboardApplications />
           <br />
         </div>
 
         {/* Col 2 */}
-        <div className="col-md card mt-2 ms-1 me-1 columnColor shadow" id="colBackground">
+        <div className="col-lg card mt-2 ms-1 me-1 columnColor shadow" id="colBackground">
           <DashboardUsers />
           <br />
         </div>
 
         {/* Col 3 */}
-        <div className="col-md card mt-2 ms-2 columnColor shadow" id="colBackground">
+        <div className="col-lg card mt-2 ms-2 columnColor shadow" id="colBackground">
           <DashboardGroups />
           <br />
         </div>
