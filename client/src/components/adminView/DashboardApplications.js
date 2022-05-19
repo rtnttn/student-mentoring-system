@@ -1,3 +1,4 @@
+/* eslint-disable no-prototype-builtins */
 /* eslint-disable prefer-const */
 /* eslint-disable prefer-template */
 /* eslint-disable react/style-prop-object */
@@ -14,12 +15,6 @@
 /* eslint-disable arrow-body-style */
 /* eslint-disable react/function-component-definition */
 
-// TODO LIST
-// onclick for inspect user
-// onclick for create group
-// onclick for approve mentor
-// onclick for delete application
-
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
@@ -27,18 +22,36 @@ import { Link } from 'react-router-dom';
 import { FaSortDown, FaCaretUp, FaTrash } from 'react-icons/fa';
 import { IoCheckmarkCircleOutline, IoCheckmarkCircle } from 'react-icons/io5';
 import { MdOutlinePersonSearch, MdOutlineGroupAdd } from 'react-icons/md';
-import { getApplications } from '../../actions/applicationActions';
+import {
+  getApplications,
+  deleteApplication,
+  approveMentorship,
+  approveMentorSubject,
+} from '../../actions/applicationActions';
 
 import '../../styles.css';
 
-const DashboardApplications = ({ getApplications, loading, applications }) => {
+const DashboardApplications = ({
+  getApplications,
+  deleteApplication,
+  approveMentorship,
+  approveMentorSubject,
+  loading,
+  applications,
+}) => {
   // subApplications is a filtered version of applications
   const [subApplications, setSubApplications] = useState({
     mentees: [],
     mentors: [],
+    mentorUniversal: [],
+    approvedMentor: [],
     menteeCount: -1,
     mentorCount: -1,
+    mentorUniversalCount: -1,
+    approvedCount: -1,
     useSubApplications: false,
+    deletedIds: [],
+    approvedIds: [],
   });
 
   // data for the search form
@@ -53,6 +66,7 @@ const DashboardApplications = ({ getApplications, loading, applications }) => {
   // gets applications when component is called
   useEffect(() => {
     getApplications();
+    // console.log('Get Applications');
   }, [getApplications]);
 
   // Hidden List logic
@@ -66,6 +80,18 @@ const DashboardApplications = ({ getApplications, loading, applications }) => {
   const onShowClickMentor = (e) => {
     // console.log('onShowClickMentor called');
     setShowMentorInfo(!showMentorInfo);
+  };
+
+  const [showMentorUniversalInfo, setShowMentorUniversalInfo] = useState(false);
+  const onShowClickMentorUniversal = (e) => {
+    // console.log('onShowClickMentor called');
+    setShowMentorUniversalInfo(!showMentorUniversalInfo);
+  };
+
+  const [showApprovedMentorInfo, setShowApprovedMentorInfo] = useState(false);
+  const onShowClickApprovedMentor = (e) => {
+    // console.log('onShowClickMentor called');
+    setShowApprovedMentorInfo(!showApprovedMentorInfo);
   };
   // End of Hidden list logic
 
@@ -88,21 +114,271 @@ const DashboardApplications = ({ getApplications, loading, applications }) => {
     const mentorsFiltered = applications.mentors.filter(
       (mentor) =>
         mentor.Student.studentName.toLowerCase().includes(name.toLowerCase()) &&
-        mentor.Subject.subjectName.toLowerCase().includes(subject.toLowerCase())
+        mentor.Subject.subjectName.toLowerCase().includes(subject.toLowerCase()) &&
+        !subApplications.deletedIds.includes(mentor.applicationId) &&
+        !mentor.isApproved
     );
     // console.log(mentorsFiltered);
 
     const mentorsCount = mentorsFiltered.length;
     // console.log(mentorsCount);
 
+    const mentorsUniversalFiltered = applications.mentorEoI.filter(
+      (mentor) =>
+        mentor.Student.studentName.toLowerCase().includes(name.toLowerCase()) &&
+        mentor.Subject.subjectName.toLowerCase().includes(subject.toLowerCase())
+    );
+    // console.log(mentorsFiltered);
+
+    const mentorsUniversalCount = mentorsUniversalFiltered.length;
+    // console.log(mentorsCount);
+
+    const approvedMentorFiltered = applications.mentors.filter(
+      (mentor) =>
+        mentor.Student.studentName.toLowerCase().includes(name.toLowerCase()) &&
+        mentor.Subject.subjectName.toLowerCase().includes(subject.toLowerCase()) &&
+        mentor.isApproved
+    );
+    // console.log(approvedMentorFiltered);
+
+    const approvedMentorCount = approvedMentorFiltered.length;
+    // console.log(mentorsCount);
+
     setSubApplications({
-      mentees: [menteesFiltered],
-      mentors: [mentorsFiltered],
+      ...subApplications,
+      mentees: menteesFiltered,
+      mentors: mentorsFiltered,
+      mentorUniversal: mentorsUniversalFiltered,
+      approvedMentor: approvedMentorFiltered,
       menteeCount: menteesCount,
       mentorCount: mentorsCount,
+      mentorUniversalCount: mentorsUniversalCount,
+      approvedCount: approvedMentorCount,
       useSubApplications: true,
     });
   }; // End of onSubmit
+
+  const onDelete = async (id) => {
+    // deleteApplication(id);
+
+    setSubApplications({
+      ...subApplications,
+      // mentees: [menteesFiltered],
+      // mentors: [mentorsFiltered],
+      // menteeCount: menteesCount,
+      // mentorCount: mentorsCount,
+      // useSubApplications: true,
+      deletedIds: subApplications.deletedIds.push(id),
+    });
+    // console.log(subApplications);
+
+    const menteesFiltered = applications.mentees.filter(
+      (mentee) =>
+        mentee.Student.studentName.toLowerCase().includes(name.toLowerCase()) &&
+        mentee.Subject.subjectName.toLowerCase().includes(subject.toLowerCase()) &&
+        !subApplications.deletedIds.includes(mentee.applicationId)
+    );
+    // console.log(menteesFiltered);
+
+    const menteesCount = menteesFiltered.length;
+    // console.log(menteesCount);
+
+    const mentorsFiltered = applications.mentors.filter(
+      (mentor) =>
+        mentor.Student.studentName.toLowerCase().includes(name.toLowerCase()) &&
+        mentor.Subject.subjectName.toLowerCase().includes(subject.toLowerCase()) &&
+        !subApplications.deletedIds.includes(mentor.applicationId) &&
+        !mentor.isApproved
+    );
+    // console.log(mentorsFiltered);
+
+    const mentorsCount = mentorsFiltered.length;
+    // console.log(mentorsCount);
+
+    const mentorsUniversalFiltered = applications.mentorEoI.filter(
+      (mentor) =>
+        mentor.Student.studentName.toLowerCase().includes(name.toLowerCase()) &&
+        mentor.Subject.subjectName.toLowerCase().includes(subject.toLowerCase()) &&
+        !subApplications.deletedIds.includes(mentor.applicationId)
+    );
+    // console.log(mentorsFiltered);
+
+    const mentorsUniversalCount = mentorsUniversalFiltered.length;
+    // console.log(mentorsCount);
+
+    const approvedMentorFiltered = applications.mentors.filter(
+      (mentor) =>
+        mentor.Student.studentName.toLowerCase().includes(name.toLowerCase()) &&
+        mentor.Subject.subjectName.toLowerCase().includes(subject.toLowerCase()) &&
+        !subApplications.deletedIds.includes(mentor.applicationId) &&
+        mentor.isApproved
+    );
+    // console.log(mentorsFiltered);
+
+    const approvedMentorCount = approvedMentorFiltered.length;
+    // console.log(mentorsCount);
+
+    setSubApplications({
+      ...subApplications,
+      mentees: menteesFiltered,
+      mentors: mentorsFiltered,
+      mentorUniversal: mentorsUniversalFiltered,
+      approvedMentor: approvedMentorFiltered,
+      menteeCount: menteesCount,
+      mentorCount: mentorsCount,
+      mentorUniversalCount: mentorsUniversalCount,
+      approvedCount: approvedMentorCount,
+      useSubApplications: true,
+    });
+
+    // console.log(subApplications);
+
+    deleteApplication(id);
+  };
+
+  const onApproveMentorSubject = async (id) => {
+    console.log('onApprove');
+
+    setSubApplications({
+      ...subApplications,
+      approvedIds: subApplications.approvedIds.push(id),
+    });
+    console.log(subApplications);
+    console.log(subApplications.approvedIds);
+
+    const menteesFiltered = applications.mentees.filter(
+      (mentee) =>
+        mentee.Student.studentName.toLowerCase().includes(name.toLowerCase()) &&
+        mentee.Subject.subjectName.toLowerCase().includes(subject.toLowerCase()) &&
+        !subApplications.deletedIds.includes(mentee.applicationId)
+    );
+    // console.log(menteesFiltered);
+
+    const menteesCount = menteesFiltered.length;
+    // console.log(menteesCount);
+
+    const mentorsFiltered = applications.mentors.filter(
+      (mentor) =>
+        mentor.Student.studentName.toLowerCase().includes(name.toLowerCase()) &&
+        mentor.Subject.subjectName.toLowerCase().includes(subject.toLowerCase()) &&
+        !subApplications.deletedIds.includes(mentor.applicationId) &&
+        !mentor.isApproved
+    );
+    // console.log(mentorsFiltered);
+
+    const mentorsCount = mentorsFiltered.length;
+    // console.log(mentorsCount);
+
+    const mentorsUniversalFiltered = applications.mentorEoI.filter(
+      (mentor) =>
+        mentor.Student.studentName.toLowerCase().includes(name.toLowerCase()) &&
+        mentor.Subject.subjectName.toLowerCase().includes(subject.toLowerCase()) &&
+        !subApplications.deletedIds.includes(mentor.applicationId)
+    );
+    // console.log(mentorsFiltered);
+
+    const mentorsUniversalCount = mentorsUniversalFiltered.length;
+    // console.log(mentorsCount);
+
+    const approvedMentorFiltered = applications.mentors.filter(
+      (mentor) =>
+        mentor.Student.studentName.toLowerCase().includes(name.toLowerCase()) &&
+        mentor.Subject.subjectName.toLowerCase().includes(subject.toLowerCase()) &&
+        !subApplications.deletedIds.includes(mentor.applicationId) &&
+        mentor.isApproved
+    );
+    // console.log(mentorsFiltered);
+
+    const approvedMentorCount = approvedMentorFiltered.length;
+    // console.log(mentorsCount);
+
+    setSubApplications({
+      ...subApplications,
+      mentees: menteesFiltered,
+      mentors: mentorsFiltered,
+      mentorUniversal: mentorsUniversalFiltered,
+      approvedMentor: approvedMentorFiltered,
+      menteeCount: menteesCount,
+      mentorCount: mentorsCount,
+      mentorUniversalCount: mentorsUniversalCount,
+      approvedCount: approvedMentorCount,
+      useSubApplications: true,
+    });
+
+    approveMentorSubject(id);
+  };
+
+  const onApproveMentorship = async (mentorId, applicationId) => {
+    console.log('onApproveMentorship');
+
+    setSubApplications({
+      ...subApplications,
+      approvedIds: subApplications.approvedIds.push(applicationId),
+    });
+    console.log(subApplications);
+    console.log(subApplications.approvedIds);
+
+    const menteesFiltered = applications.mentees.filter(
+      (mentee) =>
+        mentee.Student.studentName.toLowerCase().includes(name.toLowerCase()) &&
+        mentee.Subject.subjectName.toLowerCase().includes(subject.toLowerCase()) &&
+        !subApplications.deletedIds.includes(mentee.applicationId)
+    );
+    // console.log(menteesFiltered);
+
+    const menteesCount = menteesFiltered.length;
+    // console.log(menteesCount);
+
+    const mentorsFiltered = applications.mentors.filter(
+      (mentor) =>
+        mentor.Student.studentName.toLowerCase().includes(name.toLowerCase()) &&
+        mentor.Subject.subjectName.toLowerCase().includes(subject.toLowerCase()) &&
+        !subApplications.deletedIds.includes(mentor.applicationId) &&
+        !mentor.isApproved
+    );
+    // console.log(mentorsFiltered);
+
+    const mentorsCount = mentorsFiltered.length;
+    // console.log(mentorsCount);
+
+    const mentorsUniversalFiltered = applications.mentorEoI.filter(
+      (mentor) =>
+        mentor.Student.studentName.toLowerCase().includes(name.toLowerCase()) &&
+        mentor.Subject.subjectName.toLowerCase().includes(subject.toLowerCase()) &&
+        !subApplications.deletedIds.includes(mentor.applicationId)
+    );
+    // console.log(mentorsFiltered);
+
+    const mentorsUniversalCount = mentorsUniversalFiltered.length;
+    // console.log(mentorsCount);
+
+    const approvedMentorFiltered = applications.mentors.filter(
+      (mentor) =>
+        mentor.Student.studentName.toLowerCase().includes(name.toLowerCase()) &&
+        mentor.Subject.subjectName.toLowerCase().includes(subject.toLowerCase()) &&
+        !subApplications.deletedIds.includes(mentor.applicationId) &&
+        mentor.isApproved
+    );
+    // console.log(mentorsFiltered);
+
+    const approvedMentorCount = approvedMentorFiltered.length;
+    // console.log(mentorsCount);
+
+    setSubApplications({
+      ...subApplications,
+      mentees: menteesFiltered,
+      mentors: mentorsFiltered,
+      mentorUniversal: mentorsUniversalFiltered,
+      approvedMentor: approvedMentorFiltered,
+      menteeCount: menteesCount,
+      mentorCount: mentorsCount,
+      mentorUniversalCount: mentorsUniversalCount,
+      approvedCount: approvedMentorCount,
+      useSubApplications: true,
+    });
+
+    approveMentorship(mentorId);
+  };
 
   // return loading while gathering application list
   return loading ? (
@@ -171,11 +447,27 @@ const DashboardApplications = ({ getApplications, loading, applications }) => {
               )}
             </tr>
             <tr>
-              <td>Mentor:</td>
+              <td>Mentorship:</td>
+              {subApplications.useSubApplications ? (
+                <td>{subApplications.mentorUniversalCount}</td>
+              ) : (
+                <td>{applications.eoICount}</td>
+              )}
+            </tr>
+            <tr>
+              <td>Mentor Subjects:</td>
               {subApplications.useSubApplications ? (
                 <td>{subApplications.mentorCount}</td>
               ) : (
-                <td>{applications.mentorCount}</td>
+                <td>{applications.mentors.filter((mentor) => !mentor.isApproved).length}</td>
+              )}
+            </tr>
+            <tr>
+              <td>Approved Mentor Subjects:</td>
+              {subApplications.useSubApplications ? (
+                <td>{subApplications.approvedCount}</td>
+              ) : (
+                <td>{applications.mentors.filter((mentor) => mentor.isApproved).length}</td>
               )}
             </tr>
           </tbody>
@@ -197,65 +489,69 @@ const DashboardApplications = ({ getApplications, loading, applications }) => {
           {showMenteeInfo ? (
             <ul className="list-group columnSubListColor">
               {subApplications.useSubApplications
-                ? subApplications.mentees.map((mentee) => (
-                    <table className="table table-bordered">
-                      <tbody>
-                        <tr>
-                          <td style={{ width: '30%' }} className="fst-italic">
-                            Name:
-                          </td>
-                          <td style={{ width: '70%' }} className="fw-bold">
-                            {mentee.Student.studentName}
-                          </td>
-                        </tr>
-                        <tr>
-                          <td className="fst-italic">Subject:</td>
-                          <td>{mentee.Subject.subjectName}</td>
-                        </tr>
-                        <tr>
-                          <td className="fst-italic">Active Mentee Groups:</td>
-                          <td>
-                            {mentee.Student.Members.filter((m) => m.isMentor === false).length}
-                          </td>
-                        </tr>
-                        <tr>
-                          <td colSpan="2">
-                            <FaTrash
-                              // onClick={(e) => deleteApplication(e)}
-                              style={{
-                                cursor: 'pointer',
-                                float: 'right',
-                                color: 'red',
-                                marginRight: '10',
-                                transform: 'scale(1.5)',
-                              }}
-                            />
-                            <Link to={`/student/${mentee.studentId}`}>
-                              <MdOutlinePersonSearch
+                ? subApplications.mentees.map((mentee) =>
+                    mentee.hasOwnProperty('applicationId') &&
+                    !subApplications.deletedIds.find((id) => id === mentee.applicationId) ? (
+                      <table className="table table-bordered">
+                        <tbody>
+                          <tr>
+                            <td style={{ width: '30%' }} className="fst-italic">
+                              Name:
+                            </td>
+                            <td style={{ width: '70%' }} className="fw-bold">
+                              {mentee.Student.studentName}
+                            </td>
+                          </tr>
+                          <tr>
+                            <td className="fst-italic">Subject:</td>
+                            <td>{mentee.Subject.subjectName}</td>
+                          </tr>
+                          <tr>
+                            <td className="fst-italic">Active Mentee Groups:</td>
+                            <td>
+                              {mentee.Student.Members.filter((m) => m.isMentor === false).length}
+                            </td>
+                          </tr>
+                          <tr>
+                            <td colSpan="2">
+                              <FaTrash
+                                onClick={(e) => onDelete(mentee.applicationId)}
                                 style={{
                                   cursor: 'pointer',
-                                  float: 'left',
-                                  color: 'blue',
-                                  marginLeft: '10',
+                                  float: 'right',
+                                  color: 'red',
+                                  marginRight: '10',
                                   transform: 'scale(1.5)',
                                 }}
                               />
-                            </Link>
-                            <MdOutlineGroupAdd
-                              // onClick={(e) => createGroup(e)}
-                              style={{
-                                cursor: 'pointer',
-                                float: 'left',
-                                color: 'blue',
-                                marginLeft: '20',
-                                transform: 'scale(1.5)',
-                              }}
-                            />
-                          </td>
-                        </tr>
-                      </tbody>
-                    </table>
-                  ))
+                              <Link to={`/student/${mentee.studentId}`}>
+                                <MdOutlinePersonSearch
+                                  style={{
+                                    cursor: 'pointer',
+                                    float: 'left',
+                                    color: 'blue',
+                                    marginLeft: '10',
+                                    transform: 'scale(1.5)',
+                                  }}
+                                />
+                              </Link>
+                              <Link to={`/group/add/${mentee.studentId}`}>
+                                <MdOutlineGroupAdd
+                                  style={{
+                                    cursor: 'pointer',
+                                    float: 'left',
+                                    color: 'blue',
+                                    marginLeft: '20',
+                                    transform: 'scale(1.5)',
+                                  }}
+                                />
+                              </Link>
+                            </td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    ) : null
+                  )
                 : applications.mentees.map((mentee) => (
                     <table className="table table-bordered">
                       <tbody>
@@ -280,7 +576,7 @@ const DashboardApplications = ({ getApplications, loading, applications }) => {
                         <tr>
                           <td colSpan="2">
                             <FaTrash
-                              // onClick={(e) => deleteApplication(e)}
+                              onClick={(e) => onDelete(mentee.applicationId)}
                               style={{
                                 cursor: 'pointer',
                                 float: 'right',
@@ -300,16 +596,17 @@ const DashboardApplications = ({ getApplications, loading, applications }) => {
                                 }}
                               />
                             </Link>
-                            <MdOutlineGroupAdd
-                              // onClick={(e) => createGroup(e)}
-                              style={{
-                                cursor: 'pointer',
-                                float: 'left',
-                                color: 'blue',
-                                marginLeft: '20',
-                                transform: 'scale(1.5)',
-                              }}
-                            />
+                            <Link to={`/group/add/${mentee.studentId}`}>
+                              <MdOutlineGroupAdd
+                                style={{
+                                  cursor: 'pointer',
+                                  float: 'left',
+                                  color: 'blue',
+                                  marginLeft: '20',
+                                  transform: 'scale(1.5)',
+                                }}
+                              />
+                            </Link>
                           </td>
                         </tr>
                       </tbody>
@@ -319,10 +616,171 @@ const DashboardApplications = ({ getApplications, loading, applications }) => {
           ) : null}
         </li>
         {/* END MENTEE APPLICATIONS */}
-        {/* MENTOR APPLICATIONS */}
+        {/* MENTOR APPROVAL APPLICATIONS */}
         <li className="list-group-item">
           <h5 className="text-center">
-            Mentor
+            Mentorship
+            {showMentorUniversalInfo ? (
+              <FaCaretUp
+                onClick={(e) => onShowClickMentorUniversal(e)}
+                style={{ cursor: 'pointer' }}
+              />
+            ) : (
+              <FaSortDown
+                onClick={(e) => onShowClickMentorUniversal(e)}
+                style={{ cursor: 'pointer' }}
+              />
+            )}
+          </h5>
+          {showMentorUniversalInfo ? (
+            <ul className="list-group columnSubListColor">
+              {subApplications.useSubApplications
+                ? subApplications.mentorUniversal.map((mentor) =>
+                    mentor.hasOwnProperty('applicationId') &&
+                    !subApplications.deletedIds.find((id) => id === mentor.applicationId) ? (
+                      <table className="table table-bordered">
+                        <tbody>
+                          <tr>
+                            <td style={{ width: '30%' }} className="fst-italic">
+                              Name:
+                            </td>
+                            <td style={{ width: '70%' }} className="fw-bold">
+                              {mentor.Student.studentName}
+                            </td>
+                          </tr>
+                          <tr>
+                            <td className="fst-italic">Type:</td>
+                            <td>Application for Mentorship</td>
+                          </tr>
+                          <tr>
+                            <td colSpan="2">
+                              <FaTrash
+                                onClick={(e) => onDelete(mentor.applicationId)}
+                                style={{
+                                  cursor: 'pointer',
+                                  float: 'right',
+                                  color: 'red',
+                                  marginRight: '10',
+                                  transform: 'scale(1.5)',
+                                }}
+                              />
+                              <Link to={`/student/${mentor.studentId}`}>
+                                <MdOutlinePersonSearch
+                                  style={{
+                                    cursor: 'pointer',
+                                    float: 'left',
+                                    color: 'blue',
+                                    marginLeft: '10',
+                                    transform: 'scale(1.5)',
+                                  }}
+                                />
+                              </Link>
+                              {subApplications.approvedIds.find(
+                                (id) => id === mentor.applicationId
+                              ) ? (
+                                <IoCheckmarkCircle
+                                  style={{
+                                    float: 'left',
+                                    color: 'green',
+                                    marginLeft: '20',
+                                    transform: 'scale(1.5)',
+                                  }}
+                                />
+                              ) : (
+                                <IoCheckmarkCircleOutline
+                                  onClick={(e) =>
+                                    onApproveMentorship(mentor.studentId, mentor.applicationId)
+                                  }
+                                  style={{
+                                    cursor: 'pointer',
+                                    float: 'left',
+                                    color: 'green',
+                                    marginLeft: '20',
+                                    transform: 'scale(1.5)',
+                                  }}
+                                />
+                              )}
+                            </td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    ) : null
+                  )
+                : applications.mentorEoI.map((mentor) => (
+                    <table className="table table-bordered">
+                      <tbody>
+                        <tr>
+                          <td style={{ width: '30%' }} className="fst-italic">
+                            Name:
+                          </td>
+                          <td style={{ width: '70%' }} className="fw-bold">
+                            {mentor.Student.studentName}
+                          </td>
+                        </tr>
+                        <tr>
+                          <td className="fst-italic">Type:</td>
+                          <td>Application for Mentorship</td>
+                        </tr>
+                        <tr>
+                          <td colSpan="2">
+                            <FaTrash
+                              onClick={(e) => onDelete(mentor.applicationId)}
+                              style={{
+                                cursor: 'pointer',
+                                float: 'right',
+                                color: 'red',
+                                marginRight: '10',
+                                transform: 'scale(1.5)',
+                              }}
+                            />
+                            <Link to={`/student/${mentor.studentId}`}>
+                              <MdOutlinePersonSearch
+                                style={{
+                                  cursor: 'pointer',
+                                  float: 'left',
+                                  color: 'blue',
+                                  marginLeft: '10',
+                                  transform: 'scale(1.5)',
+                                }}
+                              />
+                            </Link>
+                            {subApplications.approvedIds.find(
+                              (id) => id === mentor.applicationId
+                            ) ? (
+                              <IoCheckmarkCircle
+                                style={{
+                                  float: 'left',
+                                  color: 'green',
+                                  marginLeft: '20',
+                                  transform: 'scale(1.5)',
+                                }}
+                              />
+                            ) : (
+                              <IoCheckmarkCircleOutline
+                                onClick={(e) =>
+                                  onApproveMentorship(mentor.studentId, mentor.applicationId)
+                                }
+                                style={{
+                                  cursor: 'pointer',
+                                  float: 'left',
+                                  color: 'green',
+                                  marginLeft: '20',
+                                  transform: 'scale(1.5)',
+                                }}
+                              />
+                            )}
+                          </td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  ))}
+            </ul>
+          ) : null}
+        </li>
+        {/* MENTOR SUBJECT APPLICATIONS */}
+        <li className="list-group-item">
+          <h5 className="text-center">
+            Mentor Subjects
             {showMentorInfo ? (
               <FaCaretUp onClick={(e) => onShowClickMentor(e)} style={{ cursor: 'pointer' }} />
             ) : (
@@ -332,144 +790,278 @@ const DashboardApplications = ({ getApplications, loading, applications }) => {
           {showMentorInfo ? (
             <ul className="list-group columnSubListColor">
               {subApplications.useSubApplications
-                ? subApplications.mentors.map((mentor) => (
-                    <table className="table table-bordered">
-                      <tbody>
-                        <tr>
-                          <td style={{ width: '30%' }} className="fst-italic">
-                            Name:
-                          </td>
-                          <td style={{ width: '70%' }} className="fw-bold">
-                            {mentor.Student.studentName}
-                          </td>
-                        </tr>
-                        <tr>
-                          <td className="fst-italic">Subject:</td>
-                          <td>{mentor.Subject.subjectName}</td>
-                        </tr>
-                        <tr>
-                          <td className="fst-italic">Active Mentor Groups:</td>
-                          <td>
-                            {mentor.Student.Members.filter((m) => m.isMentor === true).length}
-                          </td>
-                        </tr>
-                        <tr>
-                          <td colSpan="2">
-                            <FaTrash
-                              // onClick={(e) => deleteApplication(e)}
-                              style={{
-                                cursor: 'pointer',
-                                float: 'right',
-                                color: 'red',
-                                marginRight: '10',
-                                transform: 'scale(1.5)',
-                              }}
-                            />
-                            <IoCheckmarkCircleOutline
-                              // onClick={(e) => approveMentor(e)}
-                              style={{
-                                cursor: 'pointer',
-                                float: 'right',
-                                color: 'green',
-                                marginRight: '20',
-                                transform: 'scale(1.5)',
-                              }}
-                            />
-                            <Link to={`/student/${mentor.studentId}`}>
-                              <MdOutlinePersonSearch
+                ? subApplications.mentors.map((mentor) =>
+                    mentor.hasOwnProperty('applicationId') &&
+                    !subApplications.deletedIds.find((id) => id === mentor.applicationId) ? (
+                      <table className="table table-bordered">
+                        <tbody>
+                          <tr>
+                            <td style={{ width: '30%' }} className="fst-italic">
+                              Name:
+                            </td>
+                            <td style={{ width: '70%' }} className="fw-bold">
+                              {mentor.Student.studentName}
+                            </td>
+                          </tr>
+                          <tr>
+                            <td className="fst-italic">Subject:</td>
+                            <td>{mentor.Subject.subjectName}</td>
+                          </tr>
+                          <tr>
+                            <td className="fst-italic">Active Mentor Groups:</td>
+                            <td>
+                              {mentor.Student.Members.filter((m) => m.isMentor === true).length}
+                            </td>
+                          </tr>
+                          <tr>
+                            <td colSpan="2">
+                              <FaTrash
+                                onClick={(e) => onDelete(mentor.applicationId)}
                                 style={{
                                   cursor: 'pointer',
-                                  float: 'left',
-                                  color: 'blue',
-                                  marginLeft: '10',
+                                  float: 'right',
+                                  color: 'red',
+                                  marginRight: '10',
                                   transform: 'scale(1.5)',
                                 }}
                               />
-                            </Link>
-                            <MdOutlineGroupAdd
-                              // onClick={(e) => createGroup(e)}
-                              style={{
-                                cursor: 'pointer',
-                                float: 'left',
-                                color: 'blue',
-                                marginLeft: '20',
-                                transform: 'scale(1.5)',
-                              }}
-                            />
-                          </td>
-                        </tr>
-                      </tbody>
-                    </table>
-                  ))
-                : applications.mentors.map((mentor) => (
-                    <table className="table table-bordered">
-                      <tbody>
-                        <tr>
-                          <td style={{ width: '30%' }} className="fst-italic">
-                            Name:
-                          </td>
-                          <td style={{ width: '70%' }} className="fw-bold">
-                            {mentor.Student.studentName}
-                          </td>
-                        </tr>
-                        <tr>
-                          <td className="fst-italic">Subject:</td>
-                          <td>{mentor.Subject.subjectName}</td>
-                        </tr>
-                        <tr>
-                          <td className="fst-italic">Active Mentor Groups:</td>
-                          <td>
-                            {mentor.Student.Members.filter((m) => m.isMentor === true).length}
-                          </td>
-                        </tr>
-                        <tr>
-                          <td colSpan="2">
-                            <FaTrash
-                              // onClick={(e) => deleteApplication(e)}
-                              style={{
-                                cursor: 'pointer',
-                                float: 'right',
-                                color: 'red',
-                                marginRight: '10',
-                                transform: 'scale(1.5)',
-                              }}
-                            />
-                            <IoCheckmarkCircleOutline
-                              // onClick={(e) => approveMentor(e)}
-                              style={{
-                                cursor: 'pointer',
-                                float: 'right',
-                                color: 'green',
-                                marginRight: '20',
-                                transform: 'scale(1.5)',
-                              }}
-                            />
-                            <Link to={`/student/${mentor.studentId}`}>
-                              <MdOutlinePersonSearch
+                              <Link to={`/student/${mentor.studentId}`}>
+                                <MdOutlinePersonSearch
+                                  style={{
+                                    cursor: 'pointer',
+                                    float: 'left',
+                                    color: 'blue',
+                                    marginLeft: '10',
+                                    transform: 'scale(1.5)',
+                                  }}
+                                />
+                              </Link>
+                              {subApplications.approvedIds.find(
+                                (id) => id === mentor.applicationId
+                              ) ? (
+                                <IoCheckmarkCircle
+                                  style={{
+                                    float: 'left',
+                                    color: 'green',
+                                    marginLeft: '20',
+                                    transform: 'scale(1.5)',
+                                  }}
+                                />
+                              ) : (
+                                <IoCheckmarkCircleOutline
+                                  onClick={(e) => onApproveMentorSubject(mentor.applicationId)}
+                                  style={{
+                                    cursor: 'pointer',
+                                    float: 'left',
+                                    color: 'green',
+                                    marginLeft: '20',
+                                    transform: 'scale(1.5)',
+                                  }}
+                                />
+                              )}
+                            </td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    ) : null
+                  )
+                : applications.mentors
+                    .filter((mentor) => !mentor.isApproved)
+                    .map((mentor) => (
+                      <table className="table table-bordered">
+                        <tbody>
+                          <tr>
+                            <td style={{ width: '30%' }} className="fst-italic">
+                              Name:
+                            </td>
+                            <td style={{ width: '70%' }} className="fw-bold">
+                              {mentor.Student.studentName}
+                            </td>
+                          </tr>
+                          <tr>
+                            <td className="fst-italic">Subject:</td>
+                            <td>{mentor.Subject.subjectName}</td>
+                          </tr>
+                          <tr>
+                            <td className="fst-italic">Active Mentor Groups:</td>
+                            <td>
+                              {mentor.Student.Members.filter((m) => m.isMentor === true).length}
+                            </td>
+                          </tr>
+                          <tr>
+                            <td colSpan="2">
+                              <FaTrash
+                                onClick={(e) => onDelete(mentor.applicationId)}
                                 style={{
                                   cursor: 'pointer',
-                                  float: 'left',
-                                  color: 'blue',
-                                  marginLeft: '10',
+                                  float: 'right',
+                                  color: 'red',
+                                  marginRight: '10',
                                   transform: 'scale(1.5)',
                                 }}
                               />
-                            </Link>
-                            <MdOutlineGroupAdd
-                              // onClick={(e) => createGroup(e)}
-                              style={{
-                                cursor: 'pointer',
-                                float: 'left',
-                                color: 'blue',
-                                marginLeft: '20',
-                                transform: 'scale(1.5)',
-                              }}
-                            />
-                          </td>
-                        </tr>
-                      </tbody>
-                    </table>
-                  ))}
+                              <Link to={`/student/${mentor.studentId}`}>
+                                <MdOutlinePersonSearch
+                                  style={{
+                                    cursor: 'pointer',
+                                    float: 'left',
+                                    color: 'blue',
+                                    marginLeft: '10',
+                                    transform: 'scale(1.5)',
+                                  }}
+                                />
+                              </Link>
+                              {subApplications.approvedIds.find(
+                                (id) => id === mentor.applicationId
+                              ) ? (
+                                <IoCheckmarkCircle
+                                  style={{
+                                    float: 'left',
+                                    color: 'green',
+                                    marginLeft: '20',
+                                    transform: 'scale(1.5)',
+                                  }}
+                                />
+                              ) : (
+                                <IoCheckmarkCircleOutline
+                                  onClick={(e) => onApproveMentorSubject(mentor.applicationId)}
+                                  style={{
+                                    cursor: 'pointer',
+                                    float: 'left',
+                                    color: 'green',
+                                    marginLeft: '20',
+                                    transform: 'scale(1.5)',
+                                  }}
+                                />
+                              )}
+                            </td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    ))}
+            </ul>
+          ) : null}
+        </li>
+        {/* APPROVED MENTOR SUBJECT APPLICATIONS */}
+        <li className="list-group-item">
+          <h5 className="text-center">
+            Approved Mentor Subjects
+            {showApprovedMentorInfo ? (
+              <FaCaretUp
+                onClick={(e) => onShowClickApprovedMentor(e)}
+                style={{ cursor: 'pointer' }}
+              />
+            ) : (
+              <FaSortDown
+                onClick={(e) => onShowClickApprovedMentor(e)}
+                style={{ cursor: 'pointer' }}
+              />
+            )}
+          </h5>
+          {showApprovedMentorInfo ? (
+            <ul className="list-group columnSubListColor">
+              {subApplications.useSubApplications
+                ? subApplications.approvedMentor.map((mentor) =>
+                    mentor.hasOwnProperty('applicationId') &&
+                    !subApplications.deletedIds.find((id) => id === mentor.applicationId) ? (
+                      <table className="table table-bordered">
+                        <tbody>
+                          <tr>
+                            <td style={{ width: '30%' }} className="fst-italic">
+                              Name:
+                            </td>
+                            <td style={{ width: '70%' }} className="fw-bold">
+                              {mentor.Student.studentName}
+                            </td>
+                          </tr>
+                          <tr>
+                            <td className="fst-italic">Subject:</td>
+                            <td>{mentor.Subject.subjectName}</td>
+                          </tr>
+                          <tr>
+                            <td className="fst-italic">Active Mentor Groups:</td>
+                            <td>
+                              {mentor.Student.Members.filter((m) => m.isMentor === true).length}
+                            </td>
+                          </tr>
+                          <tr>
+                            <td colSpan="2">
+                              <FaTrash
+                                onClick={(e) => onDelete(mentor.applicationId)}
+                                style={{
+                                  cursor: 'pointer',
+                                  float: 'right',
+                                  color: 'red',
+                                  marginRight: '10',
+                                  transform: 'scale(1.5)',
+                                }}
+                              />
+                              <Link to={`/student/${mentor.studentId}`}>
+                                <MdOutlinePersonSearch
+                                  style={{
+                                    cursor: 'pointer',
+                                    float: 'left',
+                                    color: 'blue',
+                                    marginLeft: '10',
+                                    transform: 'scale(1.5)',
+                                  }}
+                                />
+                              </Link>
+                            </td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    ) : null
+                  )
+                : applications.mentors
+                    .filter((mentor) => mentor.isApproved)
+                    .map((mentor) => (
+                      <table className="table table-bordered">
+                        <tbody>
+                          <tr>
+                            <td style={{ width: '30%' }} className="fst-italic">
+                              Name:
+                            </td>
+                            <td style={{ width: '70%' }} className="fw-bold">
+                              {mentor.Student.studentName}
+                            </td>
+                          </tr>
+                          <tr>
+                            <td className="fst-italic">Subject:</td>
+                            <td>{mentor.Subject.subjectName}</td>
+                          </tr>
+                          <tr>
+                            <td className="fst-italic">Status:</td>
+                            <td>Approved</td>
+                          </tr>
+                          <tr>
+                            <td colSpan="2">
+                              <FaTrash
+                                onClick={(e) => onDelete(mentor.applicationId)}
+                                style={{
+                                  cursor: 'pointer',
+                                  float: 'right',
+                                  color: 'red',
+                                  marginRight: '10',
+                                  transform: 'scale(1.5)',
+                                }}
+                              />
+                              <Link to={`/student/${mentor.studentId}`}>
+                                <MdOutlinePersonSearch
+                                  style={{
+                                    cursor: 'pointer',
+                                    float: 'left',
+                                    color: 'blue',
+                                    marginLeft: '10',
+                                    transform: 'scale(1.5)',
+                                  }}
+                                />
+                              </Link>
+                            </td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    ))}
             </ul>
           ) : null}
         </li>
@@ -480,6 +1072,9 @@ const DashboardApplications = ({ getApplications, loading, applications }) => {
 
 DashboardApplications.propTypes = {
   getApplications: PropTypes.func.isRequired,
+  deleteApplication: PropTypes.func.isRequired,
+  approveMentorship: PropTypes.func.isRequired,
+  approveMentorSubject: PropTypes.func.isRequired,
   applications: PropTypes.object.isRequired,
 };
 
@@ -488,4 +1083,9 @@ const mapStateToProps = (state) => ({
   loading: state.application.loading,
 });
 
-export default connect(mapStateToProps, { getApplications })(DashboardApplications);
+export default connect(mapStateToProps, {
+  getApplications,
+  deleteApplication,
+  approveMentorship,
+  approveMentorSubject,
+})(DashboardApplications);

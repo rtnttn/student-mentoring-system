@@ -1,3 +1,5 @@
+/* eslint-disable no-nested-ternary */
+/* eslint-disable react/jsx-fragments */
 /* eslint-disable radix */
 /* eslint-disable no-unused-expressions */
 /* eslint-disable prefer-const */
@@ -16,7 +18,7 @@
 /* eslint-disable arrow-body-style */
 /* eslint-disable react/function-component-definition */
 
-import React, { useEffect, useState } from 'react';
+import React, { Fragment, useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
@@ -67,7 +69,7 @@ const DashboardGroups = ({ getGroups, loading, groups }) => {
   // onSubmit for the search function
   const onSubmit = async (e) => {
     e.preventDefault();
-    console.log(formData);
+    // console.log(formData);
 
     // console.log('subGroups: ');
 
@@ -79,12 +81,14 @@ const DashboardGroups = ({ getGroups, loading, groups }) => {
         group.Subject.subjectName.toLowerCase().includes(subject.toLowerCase()) &&
         group.Staff.staffName.toLowerCase().includes(teacher.toLowerCase()) &&
         (nonPerforming
-          ? (new Date() -
-              new Date(
-                groups.lastMet[0].find((element) => element.groupId === group.groupId).date
-              )) /
-              (1000 * 60 * 60 * 24 * 7) >
-            2
+          ? groups.lastMet[0].find((element) => element.groupId === group.groupId)
+            ? (new Date() -
+                new Date(
+                  groups.lastMet[0].find((element) => element.groupId === group.groupId).date
+                )) /
+                (1000 * 60 * 60 * 24 * 7) >
+              2
+            : false
           : true)
     );
 
@@ -260,65 +264,11 @@ const DashboardGroups = ({ getGroups, loading, groups }) => {
                             </tr>
                           ) : null
                         )}
-                        <tr>
-                          <td className="fst-italic">Age:</td>
-                          <td>
-                            {parseInt(
-                              (new Date() -
-                                new Date(
-                                  groups.firstMet[0].find(
-                                    (element) => element.groupId === group.groupId
-                                  ).date
-                                )) /
-                                (1000 * 60 * 60 * 24 * 7)
-                            )}{' '}
-                            Weeks
-                          </td>
-                        </tr>
-                        <tr>
-                          <td className="fst-italic">Sessions:</td>
-                          <td>
-                            {
-                              groups.sessionCount[0].find(
-                                (element) => element.groupId === group.groupId
-                              ).sessionCount
-                            }
-                          </td>
-                        </tr>
-                        <tr>
-                          <td className="fst-italic">Sessions/Week:</td>
-                          <td>
-                            <div className="progress">
-                              <div
-                                className="progress-bar"
-                                role="progressbar"
-                                style={{
-                                  width:
-                                    (parseInt(
-                                      (new Date() -
-                                        new Date(
-                                          groups.firstMet[0].find(
-                                            (element) => element.groupId === group.groupId
-                                          ).date
-                                        )) /
-                                        (1000 * 60 * 60 * 24 * 7)
-                                    ) === 0
-                                      ? 0
-                                      : (groups.sessionCount[0].find(
-                                          (element) => element.groupId === group.groupId
-                                        ).sessionCount /
-                                          parseInt(
-                                            (new Date() -
-                                              new Date(
-                                                groups.firstMet[0].find(
-                                                  (element) => element.groupId === group.groupId
-                                                ).date
-                                              )) /
-                                              (1000 * 60 * 60 * 24 * 7)
-                                          )) *
-                                        100) + '%',
-                                }}
-                              >
+                        {groups.firstMet[0].find((element) => element.groupId === group.groupId) ? (
+                          <Fragment>
+                            <tr>
+                              <td className="fst-italic">Age:</td>
+                              <td>
                                 {parseInt(
                                   (new Date() -
                                     new Date(
@@ -326,41 +276,41 @@ const DashboardGroups = ({ getGroups, loading, groups }) => {
                                         (element) => element.groupId === group.groupId
                                       ).date
                                     )) /
-                                    (1000 * 60 * 60 * 24 * 7)
-                                ) === 0
-                                  ? 'New Group'
-                                  : groups.sessionCount[0].find(
-                                      (element) => element.groupId === group.groupId
-                                    ).sessionCount /
-                                    parseInt(
-                                      (new Date() -
-                                        new Date(
-                                          groups.firstMet[0].find(
-                                            (element) => element.groupId === group.groupId
-                                          ).date
-                                        )) /
-                                        (1000 * 60 * 60 * 24 * 7)
-                                    )}
-                              </div>
-                              <div
-                                className="progress-bar bg-transparent text-black"
-                                role="progressbar"
-                                style={{
-                                  width:
-                                    parseInt(
-                                      (new Date() -
-                                        new Date(
-                                          groups.firstMet[0].find(
-                                            (element) => element.groupId === group.groupId
-                                          ).date
-                                        )) /
-                                        (1000 * 60 * 60 * 24 * 7)
-                                    ) === 0
-                                      ? 100
-                                      : Math.max(
-                                          0,
-                                          100 -
-                                            (groups.sessionCount[0].find(
+                                    (1000 * 60 * 60 * 24 * 7),
+                                  10
+                                ) + ' Weeks'}
+                              </td>
+                            </tr>
+                            <tr>
+                              <td className="fst-italic">Sessions:</td>
+                              <td>
+                                {
+                                  groups.sessionCount[0].find(
+                                    (element) => element.groupId === group.groupId
+                                  ).sessionCount
+                                }
+                              </td>
+                            </tr>
+                            <tr>
+                              <td className="fst-italic">Sessions/Week:</td>
+                              <td>
+                                <div className="progress">
+                                  <div
+                                    className="progress-bar"
+                                    role="progressbar"
+                                    style={{
+                                      width:
+                                        (parseInt(
+                                          (new Date() -
+                                            new Date(
+                                              groups.firstMet[0].find(
+                                                (element) => element.groupId === group.groupId
+                                              ).date
+                                            )) /
+                                            (1000 * 60 * 60 * 24 * 7)
+                                        ) === 0
+                                          ? 0
+                                          : (groups.sessionCount[0].find(
                                               (element) => element.groupId === group.groupId
                                             ).sessionCount /
                                               parseInt(
@@ -372,68 +322,133 @@ const DashboardGroups = ({ getGroups, loading, groups }) => {
                                                   )) /
                                                   (1000 * 60 * 60 * 24 * 7)
                                               )) *
-                                              100
-                                        ) + '%',
-                                }}
-                              >
-                                {(groups.sessionCount[0].find(
-                                  (element) => element.groupId === group.groupId
-                                ).sessionCount /
-                                  parseInt(
+                                            100) + '%',
+                                    }}
+                                  >
+                                    {parseInt(
+                                      (new Date() -
+                                        new Date(
+                                          groups.firstMet[0].find(
+                                            (element) => element.groupId === group.groupId
+                                          ).date
+                                        )) /
+                                        (1000 * 60 * 60 * 24 * 7)
+                                    ) === 0
+                                      ? 'New Group'
+                                      : groups.sessionCount[0].find(
+                                          (element) => element.groupId === group.groupId
+                                        ).sessionCount /
+                                        parseInt(
+                                          (new Date() -
+                                            new Date(
+                                              groups.firstMet[0].find(
+                                                (element) => element.groupId === group.groupId
+                                              ).date
+                                            )) /
+                                            (1000 * 60 * 60 * 24 * 7)
+                                        )}
+                                  </div>
+                                  <div
+                                    className="progress-bar bg-transparent text-black"
+                                    role="progressbar"
+                                    style={{
+                                      width:
+                                        parseInt(
+                                          (new Date() -
+                                            new Date(
+                                              groups.firstMet[0].find(
+                                                (element) => element.groupId === group.groupId
+                                              ).date
+                                            )) /
+                                            (1000 * 60 * 60 * 24 * 7)
+                                        ) === 0
+                                          ? 100
+                                          : Math.max(
+                                              0,
+                                              100 -
+                                                (groups.sessionCount[0].find(
+                                                  (element) => element.groupId === group.groupId
+                                                ).sessionCount /
+                                                  parseInt(
+                                                    (new Date() -
+                                                      new Date(
+                                                        groups.firstMet[0].find(
+                                                          (element) =>
+                                                            element.groupId === group.groupId
+                                                        ).date
+                                                      )) /
+                                                      (1000 * 60 * 60 * 24 * 7)
+                                                  )) *
+                                                  100
+                                            ) + '%',
+                                    }}
+                                  >
+                                    {(groups.sessionCount[0].find(
+                                      (element) => element.groupId === group.groupId
+                                    ).sessionCount /
+                                      parseInt(
+                                        (new Date() -
+                                          new Date(
+                                            groups.firstMet[0].find(
+                                              (element) => element.groupId === group.groupId
+                                            ).date
+                                          )) /
+                                          (1000 * 60 * 60 * 24 * 7)
+                                      )) *
+                                      100 >
+                                    0
+                                      ? ''
+                                      : '0'}
+                                  </div>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td className="fst-italic">Last Met:</td>
+                              <td
+                                style={{
+                                  color:
                                     (new Date() -
                                       new Date(
                                         groups.firstMet[0].find(
                                           (element) => element.groupId === group.groupId
                                         ).date
                                       )) /
-                                      (1000 * 60 * 60 * 24 * 7)
-                                  )) *
-                                  100 >
-                                0
-                                  ? ''
-                                  : '0'}
-                              </div>
-                            </div>
-                          </td>
-                        </tr>
-                        <tr>
-                          <td className="fst-italic">Last Met:</td>
-                          <td
-                            style={{
-                              color:
-                                (new Date() -
-                                  new Date(
-                                    groups.firstMet[0].find(
-                                      (element) => element.groupId === group.groupId
-                                    ).date
-                                  )) /
-                                  (1000 * 60 * 60 * 24 * 7) >
-                                2
-                                  ? 'red'
-                                  : 'black',
-                            }}
-                          >
-                            {
-                              groups.lastMet[0].find((element) => element.groupId === group.groupId)
-                                .date
-                            }
-                          </td>
-                        </tr>
-                        <tr>
-                          <td colSpan="2">
-                            <Link to={`/group/${group.groupId}`}>
-                              <MdOutlineManageSearch
-                                style={{
-                                  cursor: 'pointer',
-                                  float: 'left',
-                                  color: 'blue',
-                                  marginLeft: '10',
-                                  transform: 'scale(1.5)',
+                                      (1000 * 60 * 60 * 24 * 7) >
+                                    2
+                                      ? 'red'
+                                      : 'black',
                                 }}
-                              />
-                            </Link>
-                          </td>
-                        </tr>
+                              >
+                                {
+                                  groups.lastMet[0].find(
+                                    (element) => element.groupId === group.groupId
+                                  ).date
+                                }
+                              </td>
+                            </tr>
+                            <tr>
+                              <td colSpan="2">
+                                <Link to={`/group/${group.groupId}`}>
+                                  <MdOutlineManageSearch
+                                    style={{
+                                      cursor: 'pointer',
+                                      float: 'left',
+                                      color: 'blue',
+                                      marginLeft: '10',
+                                      transform: 'scale(1.5)',
+                                    }}
+                                  />
+                                </Link>
+                              </td>
+                            </tr>{' '}
+                          </Fragment>
+                        ) : (
+                          <tr>
+                            <td className="fst-italic">Sessions:</td>
+                            <td>No Meetings Yet</td>
+                          </tr>
+                        )}
                       </tbody>
                     </table>
                   ))
@@ -468,65 +483,11 @@ const DashboardGroups = ({ getGroups, loading, groups }) => {
                             </tr>
                           ) : null
                         )}
-                        <tr>
-                          <td className="fst-italic">Age:</td>
-                          <td>
-                            {parseInt(
-                              (new Date() -
-                                new Date(
-                                  groups.firstMet[0].find(
-                                    (element) => element.groupId === group.groupId
-                                  ).date
-                                )) /
-                                (1000 * 60 * 60 * 24 * 7)
-                            )}{' '}
-                            Weeks
-                          </td>
-                        </tr>
-                        <tr>
-                          <td className="fst-italic">Sessions:</td>
-                          <td>
-                            {
-                              groups.sessionCount[0].find(
-                                (element) => element.groupId === group.groupId
-                              ).sessionCount
-                            }
-                          </td>
-                        </tr>
-                        <tr>
-                          <td className="fst-italic">Sessions/Week:</td>
-                          <td>
-                            <div className="progress">
-                              <div
-                                className="progress-bar"
-                                role="progressbar"
-                                style={{
-                                  width:
-                                    (parseInt(
-                                      (new Date() -
-                                        new Date(
-                                          groups.firstMet[0].find(
-                                            (element) => element.groupId === group.groupId
-                                          ).date
-                                        )) /
-                                        (1000 * 60 * 60 * 24 * 7)
-                                    ) === 0
-                                      ? 0
-                                      : (groups.sessionCount[0].find(
-                                          (element) => element.groupId === group.groupId
-                                        ).sessionCount /
-                                          parseInt(
-                                            (new Date() -
-                                              new Date(
-                                                groups.firstMet[0].find(
-                                                  (element) => element.groupId === group.groupId
-                                                ).date
-                                              )) /
-                                              (1000 * 60 * 60 * 24 * 7)
-                                          )) *
-                                        100) + '%',
-                                }}
-                              >
+                        {groups.firstMet[0].find((element) => element.groupId === group.groupId) ? (
+                          <Fragment>
+                            <tr>
+                              <td className="fst-italic">Age:</td>
+                              <td>
                                 {parseInt(
                                   (new Date() -
                                     new Date(
@@ -534,41 +495,41 @@ const DashboardGroups = ({ getGroups, loading, groups }) => {
                                         (element) => element.groupId === group.groupId
                                       ).date
                                     )) /
-                                    (1000 * 60 * 60 * 24 * 7)
-                                ) === 0
-                                  ? 'New Group'
-                                  : groups.sessionCount[0].find(
-                                      (element) => element.groupId === group.groupId
-                                    ).sessionCount /
-                                    parseInt(
-                                      (new Date() -
-                                        new Date(
-                                          groups.firstMet[0].find(
-                                            (element) => element.groupId === group.groupId
-                                          ).date
-                                        )) /
-                                        (1000 * 60 * 60 * 24 * 7)
-                                    )}
-                              </div>
-                              <div
-                                className="progress-bar bg-transparent text-black"
-                                role="progressbar"
-                                style={{
-                                  width:
-                                    parseInt(
-                                      (new Date() -
-                                        new Date(
-                                          groups.firstMet[0].find(
-                                            (element) => element.groupId === group.groupId
-                                          ).date
-                                        )) /
-                                        (1000 * 60 * 60 * 24 * 7)
-                                    ) === 0
-                                      ? 100
-                                      : Math.max(
-                                          0,
-                                          100 -
-                                            (groups.sessionCount[0].find(
+                                    (1000 * 60 * 60 * 24 * 7),
+                                  10
+                                ) + ' Weeks'}
+                              </td>
+                            </tr>
+                            <tr>
+                              <td className="fst-italic">Sessions:</td>
+                              <td>
+                                {
+                                  groups.sessionCount[0].find(
+                                    (element) => element.groupId === group.groupId
+                                  ).sessionCount
+                                }
+                              </td>
+                            </tr>
+                            <tr>
+                              <td className="fst-italic">Sessions/Week:</td>
+                              <td>
+                                <div className="progress">
+                                  <div
+                                    className="progress-bar"
+                                    role="progressbar"
+                                    style={{
+                                      width:
+                                        (parseInt(
+                                          (new Date() -
+                                            new Date(
+                                              groups.firstMet[0].find(
+                                                (element) => element.groupId === group.groupId
+                                              ).date
+                                            )) /
+                                            (1000 * 60 * 60 * 24 * 7)
+                                        ) === 0
+                                          ? 0
+                                          : (groups.sessionCount[0].find(
                                               (element) => element.groupId === group.groupId
                                             ).sessionCount /
                                               parseInt(
@@ -580,53 +541,118 @@ const DashboardGroups = ({ getGroups, loading, groups }) => {
                                                   )) /
                                                   (1000 * 60 * 60 * 24 * 7)
                                               )) *
-                                              100
-                                        ) + '%',
-                                }}
-                              >
-                                {(groups.sessionCount[0].find(
-                                  (element) => element.groupId === group.groupId
-                                ).sessionCount /
-                                  parseInt(
+                                            100) + '%',
+                                    }}
+                                  >
+                                    {parseInt(
+                                      (new Date() -
+                                        new Date(
+                                          groups.firstMet[0].find(
+                                            (element) => element.groupId === group.groupId
+                                          ).date
+                                        )) /
+                                        (1000 * 60 * 60 * 24 * 7)
+                                    ) === 0
+                                      ? 'New Group'
+                                      : groups.sessionCount[0].find(
+                                          (element) => element.groupId === group.groupId
+                                        ).sessionCount /
+                                        parseInt(
+                                          (new Date() -
+                                            new Date(
+                                              groups.firstMet[0].find(
+                                                (element) => element.groupId === group.groupId
+                                              ).date
+                                            )) /
+                                            (1000 * 60 * 60 * 24 * 7)
+                                        )}
+                                  </div>
+                                  <div
+                                    className="progress-bar bg-transparent text-black"
+                                    role="progressbar"
+                                    style={{
+                                      width:
+                                        parseInt(
+                                          (new Date() -
+                                            new Date(
+                                              groups.firstMet[0].find(
+                                                (element) => element.groupId === group.groupId
+                                              ).date
+                                            )) /
+                                            (1000 * 60 * 60 * 24 * 7)
+                                        ) === 0
+                                          ? 100
+                                          : Math.max(
+                                              0,
+                                              100 -
+                                                (groups.sessionCount[0].find(
+                                                  (element) => element.groupId === group.groupId
+                                                ).sessionCount /
+                                                  parseInt(
+                                                    (new Date() -
+                                                      new Date(
+                                                        groups.firstMet[0].find(
+                                                          (element) =>
+                                                            element.groupId === group.groupId
+                                                        ).date
+                                                      )) /
+                                                      (1000 * 60 * 60 * 24 * 7)
+                                                  )) *
+                                                  100
+                                            ) + '%',
+                                    }}
+                                  >
+                                    {(groups.sessionCount[0].find(
+                                      (element) => element.groupId === group.groupId
+                                    ).sessionCount /
+                                      parseInt(
+                                        (new Date() -
+                                          new Date(
+                                            groups.firstMet[0].find(
+                                              (element) => element.groupId === group.groupId
+                                            ).date
+                                          )) /
+                                          (1000 * 60 * 60 * 24 * 7)
+                                      )) *
+                                      100 >
+                                    0
+                                      ? ''
+                                      : '0'}
+                                  </div>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td className="fst-italic">Last Met:</td>
+                              <td
+                                style={{
+                                  color:
                                     (new Date() -
                                       new Date(
                                         groups.firstMet[0].find(
                                           (element) => element.groupId === group.groupId
                                         ).date
                                       )) /
-                                      (1000 * 60 * 60 * 24 * 7)
-                                  )) *
-                                  100 >
-                                0
-                                  ? ''
-                                  : '0'}
-                              </div>
-                            </div>
-                          </td>
-                        </tr>
-                        <tr>
-                          <td className="fst-italic">Last Met:</td>
-                          <td
-                            style={{
-                              color:
-                                (new Date() -
-                                  new Date(
-                                    groups.firstMet[0].find(
-                                      (element) => element.groupId === group.groupId
-                                    ).date
-                                  )) /
-                                  (1000 * 60 * 60 * 24 * 7) >
-                                2
-                                  ? 'red'
-                                  : 'black',
-                            }}
-                          >
-                            {
-                              groups.lastMet[0].find((element) => element.groupId === group.groupId)
-                                .date
-                            }
-                          </td>
-                        </tr>
+                                      (1000 * 60 * 60 * 24 * 7) >
+                                    2
+                                      ? 'red'
+                                      : 'black',
+                                }}
+                              >
+                                {
+                                  groups.lastMet[0].find(
+                                    (element) => element.groupId === group.groupId
+                                  ).date
+                                }
+                              </td>
+                            </tr>
+                          </Fragment>
+                        ) : (
+                          <tr>
+                            <td className="fst-italic">Sessions:</td>
+                            <td>No Meetings Yet</td>
+                          </tr>
+                        )}
                         <tr>
                           <td colSpan="2">
                             <Link to={`/group/${group.groupId}`}>

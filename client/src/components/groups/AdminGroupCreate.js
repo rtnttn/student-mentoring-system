@@ -1,3 +1,4 @@
+/* eslint-disable object-shorthand */
 /* eslint-disable no-useless-return */
 /* eslint-disable no-prototype-builtins */
 /* eslint-disable react/no-unused-prop-types */
@@ -22,16 +23,18 @@
 
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
-import { useParams, Link } from 'react-router-dom';
+import { useParams, Link, useNavigate } from 'react-router-dom';
 import { connect } from 'react-redux';
 import classnames from 'classnames';
 import { FaSortDown, FaCaretUp, FaTrash } from 'react-icons/fa';
 import { IoCheckmarkCircleOutline, IoCheckmarkCircle } from 'react-icons/io5';
 import { MdOutlinePersonSearch, MdOutlineGroupAdd, MdOutlineManageSearch } from 'react-icons/md';
 import { BsXLg, BsCheckLg, BsCloudLightning } from 'react-icons/bs';
-import { getGroupForAdd, addGroup } from '../../actions/groupActions';
+import { getGroupForAdd, addGroup, addMenteeToGroup } from '../../actions/groupActions';
 
 const AdminGroupProfile = ({ infoForAdd, getGroupForAdd, addGroup, loading }) => {
+  const navigate = useNavigate();
+
   const [selectData, setSelectData] = useState({
     subjectId: '',
     subjectName: '',
@@ -43,12 +46,11 @@ const AdminGroupProfile = ({ infoForAdd, getGroupForAdd, addGroup, loading }) =>
 
   const [formData, setFormData] = useState({
     supervisorId: 0,
-    semesterCode: 1,
     mentorId: 0,
     mentees: { menteeId1: 0, menteeId2: 0, menteeId3: 0, menteeId4: 0, menteeId5: 0 },
     errors: {},
   });
-  const { supervisorId, semesterCode, mentorId, mentees, errors } = formData;
+  const { supervisorId, mentorId, mentees, errors } = formData;
 
   const { id } = useParams();
 
@@ -124,11 +126,13 @@ const AdminGroupProfile = ({ infoForAdd, getGroupForAdd, addGroup, loading }) =>
       mentees.menteeId4,
       mentees.menteeId5,
     ];
-    console.log(menteesFiltered);
+
+    // console.log(menteesFiltered);
     menteesFiltered = menteesFiltered.filter((id) => id !== 0);
-    console.log(menteesFiltered);
-    console.log(new Set(menteesFiltered).size);
-    console.log(menteesFiltered.length);
+
+    // console.log(menteesFiltered);
+    // console.log(new Set(menteesFiltered).size);
+    // console.log(menteesFiltered.length);
 
     if (supervisorId === 0) {
       setFormData({ ...formData, errors: { supervisorId: 'Teacher is Required' } });
@@ -146,6 +150,32 @@ const AdminGroupProfile = ({ infoForAdd, getGroupForAdd, addGroup, loading }) =>
       setFormData({ ...formData, errors: { mentees: 'No Duplicate Mentees' } });
       return;
     }
+
+    menteesFiltered = menteesFiltered.map((mentee) => ({
+      studentId: mentee,
+      isMentor: false,
+    }));
+
+    // console.log(menteesFiltered);
+
+    const newGroup = {
+      group: {
+        supervisorId: supervisorId,
+        subjectId: selectData.subjectId,
+      },
+      students: [
+        ...menteesFiltered,
+        {
+          studentId: mentorId,
+          isMentor: true,
+        },
+      ],
+    };
+    // console.log('newGroup');
+    // console.log(newGroup);
+
+    addGroup(newGroup);
+    navigate('/');
   };
 
   const onChange = (e) => {
@@ -162,6 +192,28 @@ const AdminGroupProfile = ({ infoForAdd, getGroupForAdd, addGroup, loading }) =>
       },
     });
     // console.log(formData);
+  };
+
+  const onGroupSubmit = async (groupId) => {
+    console.log('onGroupSubmit');
+    console.log(groupId);
+
+    const newMember = {
+      students: [
+        {
+          studentId: parseInt(
+            selectData.menteeApplications.find(
+              (application) => application.applicationId === parseInt(id, 10)
+            ).studentId,
+            10
+          ),
+          isMentor: false,
+        },
+      ],
+    };
+
+    addMenteeToGroup(newMember, groupId);
+    navigate('/');
   };
 
   // console.log(selectData.mentorApplications.find((mentor) => mentor.studentId === mentorId));
@@ -669,86 +721,101 @@ const AdminGroupProfile = ({ infoForAdd, getGroupForAdd, addGroup, loading }) =>
 
         <br />
 
-        {/* <ul className="list-group">
+        <ul className="list-group">
           <li className="list-group-item mt-4">
-            <h3 className="text-center">Groups</h3>
+            <h3 className="text-center">
+              Or Add &quot;
+              {
+                selectData.menteeApplications.find(
+                  (application) => application.applicationId === parseInt(id, 10)
+                ).Student.studentName
+              }
+              &quot; to an Existing Group
+            </h3>
             <ul className="list-group">
               <li className="list-group-item pt-4">
-                <h4 className="text-center">Mentee</h4>
-                {studentData.menteeGroups.map((group) => (
+                <h4 className="text-center">{selectData.subjectName} Groups:</h4>
+                {infoForAdd.group.map((group) => (
                   <table className="table table-bordered">
                     <tbody>
-                      <tr>
-                        <td className="fst-italic fs-5" style={{ width: '15%' }}>
-                          Subject:
-                        </td>
-                        <td className="fs-5" style={{ width: '85%' }}>
-                          {group.Group.Subject.subjectName}
-                        </td>
-                      </tr>
                       <tr>
                         <td className="fst-italic fs-5" style={{ width: '15%' }}>
                           Teacher:
                         </td>
                         <td className="fs-5" style={{ width: '85%' }}>
-                          {group.Group.Staff.staffName}
-                        </td>
-                      </tr>
-                      <tr>
-                        <td colSpan="2">
-                          <Link to={`/group/${group.groupId}`}>
-                            <MdOutlineManageSearch
-                              // onClick={(e) => userProfile(e)}
-                              style={{
-                                cursor: 'pointer',
-                                float: 'left',
-                                color: 'blue',
-                                marginLeft: '10',
-                                transform: 'scale(1.5)',
-                              }}
-                            />
-                          </Link>
-                        </td>
-                      </tr>
-                    </tbody>
-                  </table>
-                ))}
-              </li>
-              <li className="list-group-item pt-4">
-                <h4 className="text-center">Mentor</h4>
-                {studentData.mentorGroups.map((group) => (
-                  <table className="table table-bordered">
-                    <tbody>
-                      <tr>
-                        <td className="fst-italic fs-5" style={{ width: '15%' }}>
-                          Subject:
-                        </td>
-                        <td className="fs-5" style={{ width: '85%' }}>
-                          {group.Group.Subject.subjectName}
+                          {group.Staff.staffName}
                         </td>
                       </tr>
                       <tr>
                         <td className="fst-italic fs-5" style={{ width: '15%' }}>
-                          Teacher:
+                          Mentor:
                         </td>
                         <td className="fs-5" style={{ width: '85%' }}>
-                          {group.Group.Staff.staffName}
+                          {group.Members.find((student) => student.isMentor).Student.studentName}
+                        </td>
+                      </tr>
+                      {group.Members.map((student) =>
+                        student.isMentor ? null : (
+                          <tr>
+                            <td className="fst-italic fs-5" style={{ width: '15%' }}>
+                              Mentee:
+                            </td>
+                            <td className="fs-5" style={{ width: '85%' }}>
+                              {student.Student.studentName}
+                            </td>
+                          </tr>
+                        )
+                      )}
+                      {group.Members.map((student, index) => (
+                        <tr>
+                          <td className="fst-italic fs-5" style={{ width: '15%' }}>
+                            {student.Student.studentName} availabilities
+                          </td>
+                          <td className="fs-5" style={{ width: '85%' }}>
+                            {student.Student.Availabilities.map(
+                              (time) => time.Timeslot.timeslotName + ', '
+                            )}
+                          </td>
+                        </tr>
+                      ))}
+                      <tr>
+                        <td className="fst-italic fs-5" style={{ width: '15%' }}>
+                          Meetings:
+                        </td>
+                        <td className="fs-5" style={{ width: '85%' }}>
+                          {infoForAdd.sessionCount[0].find(
+                            (count) => count.groupId === group.groupId
+                          )
+                            ? infoForAdd.sessionCount[0].find(
+                                (count) => count.groupId === group.groupId
+                              ).sessionCount
+                            : 0}
                         </td>
                       </tr>
                       <tr>
+                        <td className="fst-italic fs-5" style={{ width: '15%' }}>
+                          Last Met:
+                        </td>
+                        <td className="fs-5" style={{ width: '85%' }}>
+                          {infoForAdd.lastMet[0].find((date) => date.groupId === group.groupId)
+                            ? infoForAdd.lastMet[0].find((date) => date.groupId === group.groupId)
+                                .date
+                            : 'No Meetings Yet'}
+                        </td>
+                      </tr>
+
+                      <tr>
                         <td colSpan="2">
-                          <Link to={`/group/${group.groupId}`}>
-                            <MdOutlineManageSearch
-                              // onClick={(e) => userProfile(e)}
-                              style={{
-                                cursor: 'pointer',
-                                float: 'left',
-                                color: 'blue',
-                                marginLeft: '10',
-                                transform: 'scale(1.5)',
-                              }}
-                            />
-                          </Link>
+                          <div className="text-center mb-2 mt-2">
+                            <button
+                              // value={group.groupId}
+                              type="submit"
+                              onClick={(e) => onGroupSubmit(group.groupId)}
+                              className="btn btn-primary justify-content-center"
+                            >
+                              Add to Group
+                            </button>
+                          </div>
                         </td>
                       </tr>
                     </tbody>
@@ -757,7 +824,7 @@ const AdminGroupProfile = ({ infoForAdd, getGroupForAdd, addGroup, loading }) =>
               </li>
             </ul>
           </li>
-        </ul> */}
+        </ul>
       </div>
     </div>
   );
