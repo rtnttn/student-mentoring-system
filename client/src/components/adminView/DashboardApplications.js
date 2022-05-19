@@ -979,10 +979,8 @@ const DashboardApplications = ({
                             <td>{mentor.Subject.subjectName}</td>
                           </tr>
                           <tr>
-                            <td className="fst-italic">Active Mentor Groups:</td>
-                            <td>
-                              {mentor.Student.Members.filter((m) => m.isMentor === true).length}
-                            </td>
+                            <td className="fst-italic">Status:</td>
+                            <td>Approved</td>
                           </tr>
                           <tr>
                             <td colSpan="2">
