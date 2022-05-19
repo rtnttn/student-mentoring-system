@@ -8,6 +8,7 @@ import {
   GET_GROUP_ADMIN,
   GET_GROUP_FOR_ADD,
   ADD_GROUP,
+  ADD_MENTEE_TO_GROUP,
   UPDATE_GROUP,
   DELETE_GROUP,
   GROUP_DEL_ERROR,
@@ -48,6 +49,11 @@ export default function groupReducer(state = initialState, action) {
       return {
         ...state,
         groups: [action.payload, ...state.groups],
+        loading: false,
+      };
+    case ADD_MENTEE_TO_GROUP:
+      return {
+        ...state,
         loading: false,
       };
     case UPDATE_GROUP:

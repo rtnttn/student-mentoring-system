@@ -7,6 +7,7 @@ import {
   GET_GROUP_ADMIN,
   GET_GROUP_FOR_ADD,
   ADD_GROUP,
+  ADD_MENTEE_TO_GROUP,
   UPDATE_GROUP,
   DELETE_GROUP,
   GROUP_DEL_ERROR,
@@ -53,10 +54,21 @@ export const getGroupForAdd = () => async (dispatch) => {
 export const addGroup = (group) => async (dispatch) => {
   // make a call to our api
   // endpoint: /api/contact/id
-  const res = await axios.post(`/groups/add`);
+  const res = await axios.post(`/groups/add`, group);
   // dispatch our action and the payload to the reducer.
   dispatch({
     type: ADD_GROUP,
+    payload: res.data,
+  });
+};
+
+export const addMenteeToGroup = (students, groupId) => async (dispatch) => {
+  // make a call to our api
+  // endpoint: /api/contact/id
+  const res = await axios.put(`/groups/add/${groupId}`, students);
+  // dispatch our action and the payload to the reducer.
+  dispatch({
+    type: ADD_MENTEE_TO_GROUP,
     payload: res.data,
   });
 };
