@@ -4,8 +4,9 @@
 /* eslint-disable react/jsx-filename-extension */
 /* eslint-disable arrow-body-style */
 /* eslint-disable react/function-component-definition */
-// import PropTypes from 'prop-types';
+import PropTypes from 'prop-types';
 import React  from 'react';
+import { connect } from 'react-redux';
 import StudentApplication from './StudentApplication';
 import StudentGroup from './StudentGroup';
 
@@ -29,6 +30,10 @@ import '../../styles.css';
           </div>
         </div>
       );
-}
+};
 
-export default StudentDashboard;
+StudentDashboard.defaultProps = {};
+
+StudentDashboard.propTypes = {};
+
+export default connect(null, {})(StudentDashboard);
