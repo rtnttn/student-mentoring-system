@@ -143,6 +143,14 @@ module.exports = () => {
     console.log(req.body);
     const { isMentor } = req.body;
     const student = await Student.update({ isMentor }, { where: { studentId: id } });
+    const subject = await Subject.findOne({ where: { subjectName: 'Mentor Application' } });
+    const { subjectId } = subject;
+    Application.destroy({
+      where: {
+        studentId: id,
+        subjectId,
+      },
+    });
     console.log(student);
     res.send(student);
   });

@@ -182,7 +182,9 @@ module.exports = () => {
     const { groupId } = newGroup;
     console.log(groupId);
 
-    // Member creation
+    // Member creation, application deletion
+    // eslint-disable-next-line prefer-const
+    let menteeIds = [];
     for (let i = 0; i < students.length; i += 1) {
       // eslint-disable-next-line prefer-const
       let { studentId, isMentor } = students[i];
@@ -191,8 +193,17 @@ module.exports = () => {
         isMentor,
         groupId,
       };
+      if (!isMentor) {
+        menteeIds.push(studentId);
+      }
     }
     const members = await Member.bulkCreate(students);
+    Application.destroy({
+      where: {
+        studentId: { [db.Op.in]: menteeIds },
+        subjectId,
+      },
+    });
     console.log(members);
 
     res.send({ newGroup, members });
@@ -207,6 +218,10 @@ module.exports = () => {
     console.log(req.body);
     const { students } = req.body;
     console.log(students);
+    const group = await Group.findByPk(id);
+    const { subjectId } = group;
+    // eslint-disable-next-line prefer-const
+    let menteeIds = [];
     for (let i = 0; i < students.length; i += 1) {
       // eslint-disable-next-line prefer-const
       let { studentId, isMentor } = students[i];
@@ -215,8 +230,17 @@ module.exports = () => {
         isMentor,
         groupId: id,
       };
+      if (!isMentor) {
+        menteeIds.push(studentId);
+      }
     }
     const members = await Member.bulkCreate(students);
+    Application.destroy({
+      where: {
+        studentId: { [db.Op.in]: menteeIds },
+        subjectId,
+      },
+    });
     console.log(members);
     res.send(members);
   });
