@@ -11,6 +11,7 @@ import {
   APPROVE_MENTOR_SUBJECT,
   DELETE_APPLICATION,
   APPLICATION_DEL_ERROR,
+  GET_APPLICATIONS_BY_STUDENT,
 } from '../actions/types';
 
 const initialState = {
@@ -30,9 +31,17 @@ export default function applicationReducer(state = initialState, action) {
         loading: false,
       };
     case GET_APPLICATION:
-      return {};
+      return {
+        ...state,
+          application: action.payload,
+          loading: false
+      };
     case ADD_APPLICATION:
-      return {};
+      return {
+        ...state,
+        application: action.payload,
+        loading: false
+      };
     case UPDATE_APPLICATION:
       return {};
     case APPROVE_MENTORSHIP:
@@ -60,11 +69,21 @@ export default function applicationReducer(state = initialState, action) {
         },
         loading: false,
       };
-    case APPLICATION_DEL_ERROR:
+    
+
+      return {};
+    case GET_APPLICATIONS_BY_STUDENT:
+      return {
+        ...state,
+        applications: action.payload,
+        loading: false
+      };
+        case APPLICATION_DEL_ERROR:
       return {
         ...state,
         errors: action.payload,
         loading: false,
+
       };
     default:
       return state;

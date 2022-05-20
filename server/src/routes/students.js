@@ -1,4 +1,5 @@
 /* eslint-disable radix */
+/* eslint-disable no-debugger, no-console */
 const express = require('express');
 const jwt = require('jsonwebtoken');
 const bcrypt = require('bcrypt');
