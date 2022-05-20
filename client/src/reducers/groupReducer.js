@@ -6,7 +6,9 @@ import {
   GET_GROUPS,
   GET_GROUP,
   GET_GROUP_ADMIN,
+  GET_GROUP_FOR_ADD,
   ADD_GROUP,
+  ADD_MENTEE_TO_GROUP,
   UPDATE_GROUP,
   DELETE_GROUP,
   GROUP_DEL_ERROR,
@@ -15,6 +17,7 @@ import {
 const initialState = {
   groups: {},
   group: {},
+  infoForAdd: {},
   loading: true,
   errors: {},
 };
@@ -36,8 +39,23 @@ export default function groupReducer(state = initialState, action) {
         group: action.payload,
         loading: false,
       };
+    case GET_GROUP_FOR_ADD:
+      return {
+        ...state,
+        infoForAdd: action.payload,
+        loading: false,
+      };
     case ADD_GROUP:
-      return {};
+      return {
+        ...state,
+        groups: [action.payload, ...state.groups],
+        loading: false,
+      };
+    case ADD_MENTEE_TO_GROUP:
+      return {
+        ...state,
+        loading: false,
+      };
     case UPDATE_GROUP:
       return {};
     case DELETE_GROUP:

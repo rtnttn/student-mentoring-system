@@ -1,5 +1,6 @@
 /* eslint-disable radix */
 const express = require('express');
+const { sequelize } = require('../models');
 const db = require('../models');
 
 const router = express.Router();
@@ -56,6 +57,8 @@ module.exports = () => {
   // Pull data for group creation
   router.get('/add', async (req, res) => {
     console.log('/groups/add - get');
+
+    // Application data
     const applications = await Application.findAll({
       include: [
         {
@@ -97,16 +100,154 @@ module.exports = () => {
       ],
     });
     console.log(applications);
+
+    // Staff data
     const staff = await Staff.findAll({
-      attributes: ['staffName'],
+      attributes: ['staffName', 'staffId'],
     });
     console.log(staff);
-    res.send({ applications, staff });
+
+    // Group data
+    const group = await Group.findAll({
+      include: [
+        {
+          model: Staff,
+          attributes: ['staffName', 'staffId'],
+        },
+        {
+          model: Subject,
+          attributes: ['subjectName'],
+        },
+        {
+          model: Attendance,
+        },
+        {
+          model: Member,
+          include: [
+            {
+              model: Student,
+              attributes: ['studentName'],
+              include: [
+                {
+                  model: Availability,
+                  include: [
+                    {
+                      model: Timeslot,
+                      attributes: ['timeslotName'],
+                    },
+                  ],
+                },
+              ],
+            },
+          ],
+        },
+      ],
+      // order: [[Attendance, sequelize.fn('max', sequelize.col('date')), 'ASC']],
+    });
+    console.log(group);
+
+    // Group aggregates
+    const lastMet = await sequelize.query(
+      'SELECT MAX(date) AS date, groupId from Attendance where confirmed = true GROUP BY groupId'
+    );
+    const firstMet = await sequelize.query(
+      'SELECT MIN(date) AS date, groupId from Attendance where confirmed = true GROUP BY groupId'
+    );
+    const sessionCount = await sequelize.query(
+      'SELECT Members.groupId, COUNT(Attendance.date) as sessionCount FROM Members INNER JOIN Attendance ON Members.groupId = Attendance.groupId WHERE Members.isMentor = "1" AND Attendance.studentId = Members.studentId GROUP BY Members.groupId'
+    );
+    const menteeCount = await sequelize.query(
+      'SELECT Members.groupId, COUNT(Members.studentId) AS menteeCount FROM Members WHERE Members.isMentor = "0" GROUP BY Members.groupId;'
+    );
+    console.log(lastMet);
+    console.log(firstMet);
+    console.log(sessionCount);
+    console.log(menteeCount);
+    res.send({ applications, staff, group, lastMet, firstMet, sessionCount, menteeCount });
   });
 
-  // Create a group
+  // Create a group NEW
   router.post('/add', async (req, res) => {
     console.log('/groups/add - post');
+    console.log(req.body);
+    const { group, students } = req.body;
+    console.log(group);
+    console.log(students);
+
+    // Group creation
+    const { supervisorId, subjectId } = group;
+    const semesterCode = 1; // TODO
+    const newGroup = await Group.create({ supervisorId, subjectId, semesterCode });
+    console.log(newGroup);
+    const { groupId } = newGroup;
+    console.log(groupId);
+
+    // Member creation, application deletion
+    // eslint-disable-next-line prefer-const
+    let menteeIds = [];
+    for (let i = 0; i < students.length; i += 1) {
+      // eslint-disable-next-line prefer-const
+      let { studentId, isMentor } = students[i];
+      students[i] = {
+        studentId,
+        isMentor,
+        groupId,
+      };
+      if (!isMentor) {
+        menteeIds.push(studentId);
+      }
+    }
+    const members = await Member.bulkCreate(students);
+    Application.destroy({
+      where: {
+        studentId: { [db.Op.in]: menteeIds },
+        subjectId,
+      },
+    });
+    console.log(members);
+
+    res.send({ newGroup, members });
+  });
+
+  // Add members to a group
+  router.put('/add/:id', async (req, res) => {
+    console.log('/groups/add/:id - put');
+    let { id } = req.params;
+    id = parseInt(id);
+    console.log(id);
+    console.log(req.body);
+    const { students } = req.body;
+    console.log(students);
+    const group = await Group.findByPk(id);
+    const { subjectId } = group;
+    // eslint-disable-next-line prefer-const
+    let menteeIds = [];
+    for (let i = 0; i < students.length; i += 1) {
+      // eslint-disable-next-line prefer-const
+      let { studentId, isMentor } = students[i];
+      students[i] = {
+        studentId,
+        isMentor,
+        groupId: id,
+      };
+      if (!isMentor) {
+        menteeIds.push(studentId);
+      }
+    }
+    const members = await Member.bulkCreate(students);
+    Application.destroy({
+      where: {
+        studentId: { [db.Op.in]: menteeIds },
+        subjectId,
+      },
+    });
+    console.log(members);
+    res.send(members);
+  });
+
+  // Create a group LEGACY
+  router.post('/legacy/add', async (req, res) => {
+    console.log('/groups/legacy/add - post');
     console.log(req.body);
     const { supervisorId, subjectId, semesterCode } = req.body;
     const group = await Group.create({ supervisorId, subjectId, semesterCode });

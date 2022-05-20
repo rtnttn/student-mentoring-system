@@ -14,8 +14,12 @@ import Register from './components/auth/Register';
 import AdminLayout from './components/layouts/AdminLayout';
 import AdminStudentProfile from './components/students/AdminStudentProfile';
 import AdminGroupProfile from './components/groups/AdminGroupProfile';
+
 import StudentLayout from './components/layouts/StudentLayout';
 import StudentDashboard from './components/studentView/StudentDashboard';
+
+import AdminGroupCreate from './components/groups/AdminGroupCreate';
+
 
 import './styles.css';
 
@@ -29,6 +33,7 @@ const App = () => {
               <Route path="/" element={<Dashboard />} />
               <Route path="/student/:id" element={<AdminStudentProfile />} />
               <Route path="/group/:id" element={<AdminGroupProfile />} />
+              <Route path="/group/add/:id" element={<AdminGroupCreate />} />
             </Route>
 
             <Route path="register" element={<Register />} />

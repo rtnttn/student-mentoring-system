@@ -7,6 +7,8 @@ import {
   GET_APPLICATION,
   ADD_APPLICATION,
   UPDATE_APPLICATION,
+  APPROVE_MENTORSHIP,
+  APPROVE_MENTOR_SUBJECT,
   DELETE_APPLICATION,
   APPLICATION_DEL_ERROR,
   GET_APPLICATIONS_BY_STUDENT,
@@ -42,15 +44,46 @@ export default function applicationReducer(state = initialState, action) {
       };
     case UPDATE_APPLICATION:
       return {};
+    case APPROVE_MENTORSHIP:
+      return {
+        ...state,
+      };
+    case APPROVE_MENTOR_SUBJECT:
+      return {
+        ...state,
+      };
     case DELETE_APPLICATION:
-      return {};
-    case APPLICATION_DEL_ERROR:
+      return {
+        ...state,
+        applications: {
+          ...state.applications,
+          mentors: state.applications.mentors.filter(
+            (application) => application.applicationId !== action.payload
+          ),
+          mentees: state.applications.mentees.filter(
+            (application) => application.applicationId !== action.payload
+          ),
+          mentorEoI: state.applications.mentorEoI.filter(
+            (application) => application.applicationId !== action.payload
+          ),
+        },
+        loading: false,
+      };
+    
+
       return {};
     case GET_APPLICATIONS_BY_STUDENT:
       return {
         ...state,
         applications: action.payload,
         loading: false
+      };
+        case APPLICATION_DEL_ERROR:
+      return {
+        ...state,
+        errors: action.payload,
+        loading: false,
+
       };
     default:
       return state;
