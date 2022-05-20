@@ -84,28 +84,29 @@ const StudentApplications = ({ getStudentInfo, loading, student }) => {
           </h5>
           {showGroup ? (
             <ul className="list-group columnSubListColor">
-              {student.student.Applications.filter(application => application.isApproved).map((groups) => (
+              {student.student.Members.map((groups) => (
                     <table className="table table-bordered">
                       <tbody>
                       <tr>
                           <td className="fst-italic">Role:</td>
-                          <td style={{ width: '75%' }}>{groups.forMentor ? 'Mentor' : 'Mentee'}</td>
+                          <td style={{ width: '75%' }}>{groups.isMentor ? 'Mentor' : 'Mentee'}</td>
                         </tr>
                         <tr>
                           <td className="fst-italic">Subject:</td>
-                          <td style={{ width: '75%' }}>{groups.Subject.subjectName}</td>
+                          <td style={{ width: '75%' }}>{groups.Group.Subject.subjectName}</td>
                         </tr>
+                        {student.mentees.filter((mentee) =>  mentee.groupId ===  groups.groupId && mentee.studentId !== student.student.studentId).map((mentee) => 
+                        (
+                          <tr>
+                          <td className="fst-italic">Mentee:</td>
+                          <td>{mentee.Student.studentName}</td>
+                        </tr>
+                        )) }
+  
                       </tbody>
                     </table>
                   )
-                  )}  {student.student.Members.map ((member) =>  member.isMentor ?(
-                    <tr>
-                      <td className="fst-italic">Mentee:</td>
-                      <td>{member.Sub}</td>
-                    </tr>
-                  ) : null )
-                  
-                  } 
+                  )}   
                   
             </ul>
           ) : null}

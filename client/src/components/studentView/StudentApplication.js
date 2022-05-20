@@ -20,20 +20,19 @@ import { useParams } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { FaRegClock, FaRegCheckCircle } from 'react-icons/fa';
-import { addApplication } from '../../actions/applicationActions';
+import { addApplicationByStudent } from '../../actions/applicationActions';
 import { getStudentInfo } from '../../actions/studentActions';
 
 
 
 
-const StudentApplications = ({ addApplication, getStudentInfo, loading, student }) => {
+const StudentApplications = ({ addApplicationByStudent, getStudentInfo, loading, student }) => {
   // subApplications is a filtered version of applications
-
   const { id } = useParams();
 
   // data for the submit form
   const [formData, setFormData] = useState({
-    applyAs: '',
+    applyAs: null,
     subject: '',
   });
   const {applyAs, subject } = formData; // destructuring
@@ -60,7 +59,7 @@ const StudentApplications = ({ addApplication, getStudentInfo, loading, student 
   };
   
 
-  const onSubmit= async e =>{
+  const onSubmit= async (e) =>{
     e.preventDefault();
     console.log("OnSubmit running...");
 
@@ -79,7 +78,7 @@ const StudentApplications = ({ addApplication, getStudentInfo, loading, student 
       subject
     }
       console.log(newApplication);
-      addApplication(newApplication);
+      addApplicationByStudent(newApplication);
   }
 
   // return loading while gathering application list
@@ -92,29 +91,42 @@ const StudentApplications = ({ addApplication, getStudentInfo, loading, student 
       {/* Submit FORM */}
       
       <form onSubmit={(e) => onSubmit(e)}>
-        <div>
+        <div >
               <div className="col-sm-4">
-                <label for="exampleInputEmail1" className="col-form-label">Apply As</label>
+                <label htmlFor="exampleInputEmail1" className="col-form-label">Apply As</label>
               </div>
             <div className="form-check">
-              <input className="form-check-input" type="radio" name="MentorMentee" id="mentor" value="applyAs"/>
-              <label className="form-check-label" for="mentor">
+              <input 
+              className="form-check-input" 
+              type="radio" 
+              name="MentorMentee" 
+              id="mentor" 
+              value="applyAs" 
+              onChange= {e => onChange(e)} />
+              <label className="form-check-label" htmlFor="mentor">
                 Mentor
               </label>
             </div>
             <div className="form-check">
-              <input className="form-check-input" type="radio" name="MentorMentee" id="mentee" value="applyAs" checked/>
-              <label className="form-check-label" for="mentee">
+              <input 
+              className="form-check-input" 
+              type="radio" 
+              name="MentorMentee" 
+              id="mentee" 
+              value="applyAs" 
+              onChange= {e => onChange(e)} 
+              checked/>
+              <label className="form-check-label" htmlFor="mentee">
                 Mentee
               </label>
             </div>
             </div>
             <div className="row g-2 mb-1">
               <div className="col-sm-4">
-                <label for="exampleInputEmail1" className="col-form-label">Subject</label>
+                <label htmlFor="exampleInputEmail1" className="col-form-label">Subject</label>
               </div>
               <div className="col-sm-8">
-                <select className="form-select" aria-label="Default select example">
+                <select className="form-select" aria-label="Default select example" onChange= {e => onChange(e)} >
                   <option selected>Select Subject</option>
                   <option value="1">Networking</option>
                   <option value="2">Database</option>
@@ -215,7 +227,7 @@ const StudentApplications = ({ addApplication, getStudentInfo, loading, student 
 };
 
 StudentApplications.propTypes = {
-  addApplication: PropTypes.func.isRequired,
+  addApplicationByStudent: PropTypes.func.isRequired,
   getStudentInfo: PropTypes.func.isRequired,
   student: PropTypes.object.isRequired,
 };
@@ -225,4 +237,4 @@ const mapStateToProps = (state) => ({
   loading: state.student.loading,
 });
 
-export default connect(mapStateToProps,{addApplication, getStudentInfo})(StudentApplications);
+export default connect(mapStateToProps,{addApplicationByStudent, getStudentInfo})(StudentApplications);
