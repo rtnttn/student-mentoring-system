@@ -52,11 +52,6 @@ const Header = () => {
                 </Link>
               </li>
               <li className="nav-item ps-2 pe-2">
-                <Link className="nav-link text-primary" to="/createGroup">
-                  Create Group
-                </Link>
-              </li>
-              <li className="nav-item ps-2 pe-2">
                 <Link className="nav-link text-primary" to="/login">
                   Logout
                 </Link>

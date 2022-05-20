@@ -535,7 +535,7 @@ const DashboardApplications = ({
                                   }}
                                 />
                               </Link>
-                              <Link to={`/group/add/${mentee.studentId}`}>
+                              <Link to={`/group/add/${mentee.applicationId}`}>
                                 <MdOutlineGroupAdd
                                   style={{
                                     cursor: 'pointer',
@@ -596,7 +596,7 @@ const DashboardApplications = ({
                                 }}
                               />
                             </Link>
-                            <Link to={`/group/add/${mentee.studentId}`}>
+                            <Link to={`/group/add/${mentee.applicationId}`}>
                               <MdOutlineGroupAdd
                                 style={{
                                   cursor: 'pointer',

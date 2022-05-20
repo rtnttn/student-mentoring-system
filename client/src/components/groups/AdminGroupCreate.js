@@ -32,7 +32,7 @@ import { MdOutlinePersonSearch, MdOutlineGroupAdd, MdOutlineManageSearch } from 
 import { BsXLg, BsCheckLg, BsCloudLightning } from 'react-icons/bs';
 import { getGroupForAdd, addGroup, addMenteeToGroup } from '../../actions/groupActions';
 
-const AdminGroupProfile = ({ infoForAdd, getGroupForAdd, addGroup, loading }) => {
+const AdminGroupProfile = ({ infoForAdd, getGroupForAdd, addMenteeToGroup, addGroup, loading }) => {
   const navigate = useNavigate();
 
   const [selectData, setSelectData] = useState({
@@ -195,8 +195,8 @@ const AdminGroupProfile = ({ infoForAdd, getGroupForAdd, addGroup, loading }) =>
   };
 
   const onGroupSubmit = async (groupId) => {
-    console.log('onGroupSubmit');
-    console.log(groupId);
+    // console.log('onGroupSubmit');
+    // console.log(groupId);
 
     const newMember = {
       students: [
@@ -211,6 +211,8 @@ const AdminGroupProfile = ({ infoForAdd, getGroupForAdd, addGroup, loading }) =>
         },
       ],
     };
+
+    // console.log(newMember);
 
     addMenteeToGroup(newMember, groupId);
     navigate('/');
@@ -834,6 +836,7 @@ const AdminGroupProfile = ({ infoForAdd, getGroupForAdd, addGroup, loading }) =>
 AdminGroupProfile.propTypes = {
   getGroupForAdd: PropTypes.func.isRequired,
   addGroup: PropTypes.func.isRequired,
+  addMenteeToGroup: PropTypes.func.isRequired,
   infoForAdd: PropTypes.object.isRequired,
   loading: PropTypes.bool,
 };
@@ -843,4 +846,6 @@ const mapStateToProps = (state) => ({
   loading: state.group.loading,
 });
 
-export default connect(mapStateToProps, { getGroupForAdd, addGroup })(AdminGroupProfile);
+export default connect(mapStateToProps, { getGroupForAdd, addGroup, addMenteeToGroup })(
+  AdminGroupProfile
+);
