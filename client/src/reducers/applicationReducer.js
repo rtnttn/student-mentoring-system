@@ -9,6 +9,7 @@ import {
   UPDATE_APPLICATION,
   DELETE_APPLICATION,
   APPLICATION_DEL_ERROR,
+  GET_APPLICATIONS_BY_STUDENT,
 } from '../actions/types';
 
 const initialState = {
@@ -45,6 +46,12 @@ export default function applicationReducer(state = initialState, action) {
       return {};
     case APPLICATION_DEL_ERROR:
       return {};
+    case GET_APPLICATIONS_BY_STUDENT:
+      return {
+        ...state,
+        applications: action.payload,
+        loading: false
+      };
     default:
       return state;
   }

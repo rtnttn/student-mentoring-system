@@ -16,20 +16,20 @@
 /* eslint-disable no-debugger, no-console */
 
 import React, { useEffect, useState } from 'react';
+import { useParams } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { FaClock } from 'react-icons/fa';
+import { FaRegClock, FaRegCheckCircle } from 'react-icons/fa';
 import { addApplication } from '../../actions/applicationActions';
+import { getStudentInfo } from '../../actions/studentActions';
 
 
-const StudentApplications = ({ addApplication, loading, applications }) => {
+
+
+const StudentApplications = ({ addApplication, getStudentInfo, loading, student }) => {
   // subApplications is a filtered version of applications
-  const [subApplications, setSubApplications] = useState({
-    pendings: {
-      count: -1,
-    },
-    useSubApplications: false,
-  });
+
+  const { id } = useParams();
 
   // data for the submit form
   const [formData, setFormData] = useState({
@@ -42,8 +42,8 @@ const StudentApplications = ({ addApplication, loading, applications }) => {
 
   // adds applications 
   useEffect(() => {
-    addApplication();
-  }, [addApplication],);
+    getStudentInfo(id);
+  }, [ getStudentInfo ],);
   
 
   // Hidden List logic
@@ -52,14 +52,13 @@ const StudentApplications = ({ addApplication, loading, applications }) => {
     // console.log('onShowClickPending called');
     setShowPending(!showPending);
   };
-  // End of Hidden list logic
 
-  /* setSubApplications({
-    pendings: {
-      count: pendingsCount,
-    },
-    useSubApplications: true,
-  }); */
+  const [showApproved, setShowApproved] = useState(false);
+  const onShowClickApproved = (e) => {
+    // console.log('onShowClickPending called');
+    setShowApproved(!showApproved);
+  };
+  
 
   const onSubmit= async e =>{
     e.preventDefault();
@@ -81,7 +80,6 @@ const StudentApplications = ({ addApplication, loading, applications }) => {
     }
       console.log(newApplication);
       addApplication(newApplication);
-      setSubApplications({...subApplications, pendings: {count: subApplications.pendings.count +1}});
   }
 
   // return loading while gathering application list
@@ -131,17 +129,21 @@ const StudentApplications = ({ addApplication, loading, applications }) => {
       </form>
       {/* END Application FORM */}
       {/* APPLICATION COUNT */}
+      <br></br>
       <h5 className="align-self-center">
         <table style={{ margin: 'auto' }}>
           <tbody>
             <tr>
               <td>Pending:</td>
-              {subApplications.useSubApplications ? (
-                <td>{subApplications.pendings.count}</td>
-              ) : (
-                <td>{applications.pendings.count}</td>
-              )} 
+               
+                <td>{student.student.Applications.filter(application => !application.isApproved).length}</td>
             </tr>
+            {student.student.Applications.filter(application => application.isApproved).length === 0 ? null : 
+            <tr> 
+            <td>Approved:</td>
+              <td >{student.student.Applications.filter(application => application.isApproved).length}</td>
+          </tr> }
+            
           </tbody>
         </table>
       </h5>
@@ -153,46 +155,23 @@ const StudentApplications = ({ addApplication, loading, applications }) => {
           <h5 className="text-center">
             Pending
             {showPending ? (
-              <FaClock onClick={(e) => onShowClickPending(e)} style={{ cursor: 'pointer' }} />
+              <FaRegClock onClick={(e) => onShowClickPending(e)} style={{ cursor: 'pointer' }} />
             ) : (
-              <FaClock onClick={(e) => onShowClickPending(e)} style={{ cursor: 'pointer' }} />
+              <FaRegClock onClick={(e) => onShowClickPending(e)} style={{ cursor: 'pointer' }} />
             )}
           </h5>
           {showPending ? (
             <ul className="list-group columnSubListColor">
-              {subApplications.useSubApplications
-                ? subApplications.pendings.rows.map((pending) => (
+              {student.student.Applications.filter(application => !application.isApproved).map((pendings) => (
                     <table className="table table-bordered">
                       <tbody>
-                        <tr>
-                          <td style={{ width: '30%' }} className="fst-italic">
-                            Name:
-                          </td>
-                          <td style={{ width: '70%' }} className="fw-bold">
-                            {pending.Student.studentName}
-                          </td>
+                      <tr>
+                          <td className="fst-italic">Type:</td>
+                          <td style={{ width: '75%' }}>{pendings.forMentor ? 'Mentor' : 'Mentee'}</td>
                         </tr>
                         <tr>
                           <td className="fst-italic">Subject:</td>
-                          <td>{pending.Subject.subjectName}</td>
-                        </tr>
-                      </tbody>
-                    </table>
-                  ))
-                : applications.pendings.rows.map((pendings) => (
-                    <table className="table table-bordered">
-                      <tbody>
-                        <tr>
-                          <td style={{ width: '30%' }} className="fst-italic">
-                            Name:
-                          </td>
-                          <td style={{ width: '70%' }} className="fw-bold">
-                            {pendings.Student.studentName}
-                          </td>
-                        </tr>
-                        <tr>
-                          <td className="fst-italic">Subject:</td>
-                          <td>{pendings.Subject.subjectName}</td>
+                          <td style={{ width: '75%' }}>{pendings.Subject.subjectName}</td>
                         </tr>
                       </tbody>
                     </table>
@@ -200,6 +179,35 @@ const StudentApplications = ({ addApplication, loading, applications }) => {
             </ul>
           ) : null}
         </li>
+        {student.student.Applications.filter(application => application.isApproved).length === 0 ? null : 
+        <li className="list-group-item">
+          <h5 className="text-center">
+            Approved
+            {showApproved ? (
+              <FaRegCheckCircle onClick={(e) => onShowClickApproved(e)} style={{ cursor: 'pointer' }} />
+            ) : (
+              <FaRegCheckCircle onClick={(e) => onShowClickApproved(e)} style={{ cursor: 'pointer' }} />
+            )}
+          </h5>
+          {showApproved ? (
+            <ul className="list-group columnSubListColor">
+              {student.student.Applications.filter(application => application.isApproved).map((pendings) => (
+                    <table className="table table-bordered">
+                      <tbody>
+                      <tr>
+                          <td className="fst-italic">Type:</td>
+                          <td style={{ width: '75%' }} >{pendings.forMentor ? 'Mentor' : 'Mentee'}</td>
+                        </tr>
+                        <tr>
+                          <td className="fst-italic">Subject:</td>
+                          <td style={{ width: '75%' }}>{pendings.Subject.subjectName}</td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  ))}
+            </ul>
+          ) : null}
+        </li>}
         {/* END PENDING APPLICATIONS */}
       </ul>
     </div>
@@ -208,13 +216,13 @@ const StudentApplications = ({ addApplication, loading, applications }) => {
 
 StudentApplications.propTypes = {
   addApplication: PropTypes.func.isRequired,
-//   getApplications: PropTypes.func.isRequired,
-  applications: PropTypes.object.isRequired,
+  getStudentInfo: PropTypes.func.isRequired,
+  student: PropTypes.object.isRequired,
 };
 
 const mapStateToProps = (state) => ({
-  applications: state.application.applications,
-  loading: state.application.loading,
+  student: state.student.student,
+  loading: state.student.loading,
 });
 
-export default connect(mapStateToProps,addApplication)(StudentApplications);
+export default connect(mapStateToProps,{addApplication, getStudentInfo})(StudentApplications);

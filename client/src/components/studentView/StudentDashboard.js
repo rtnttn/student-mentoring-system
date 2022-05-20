@@ -21,11 +21,13 @@ import '../../styles.css';
             {/* Column 1 */}
             <div className="col-md card m-1 columnColor shadow"  id="colBackground">
               <StudentApplication />
+              {/* <h1>Student Application</h1> */}
             </div>
     
             {/* Column 2 */}
             <div className="col-md card m-1 columnColor shadow"  id="colBackground">
               <StudentGroup />
+              {/* <h1>Student Application1</h1> */}
             </div>
           </div>
         </div>
