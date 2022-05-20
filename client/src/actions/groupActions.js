@@ -63,6 +63,7 @@ export const addGroup = (group) => async (dispatch) => {
 };
 
 export const addMenteeToGroup = (students, groupId) => async (dispatch) => {
+  // console.log('addMenteeToGroup');
   // make a call to our api
   // endpoint: /api/contact/id
   const res = await axios.put(`/groups/add/${groupId}`, students);

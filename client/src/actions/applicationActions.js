@@ -49,17 +49,17 @@ export const approveMentorSubject = (id) => async (dispatch) => {
 };
 
 export const deleteApplication = (id) => async (dispatch) => {
-  console.log('DC id: ', id);
+  // console.log('DC id: ', id);
   try {
     await axios.delete(`/applications/${id}`);
-    console.log('first');
+    // console.log('first');
     dispatch({
       type: DELETE_APPLICATION,
       payload: id,
     });
-    console.log('second');
+    // console.log('second');
   } catch (error) {
-    console.log(error);
+    // console.log(error);
     dispatch({
       type: APPLICATION_DEL_ERROR,
       payload: error,
