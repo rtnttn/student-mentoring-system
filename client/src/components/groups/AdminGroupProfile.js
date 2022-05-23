@@ -93,8 +93,18 @@ const AdminGroupProfile = ({ group, getGroupAdmin, loading }) => {
         }),
         loading: false,
       });
+
+      console.log('groupData');
+      console.log(groupData);
     }
   }, [group]);
+
+  useEffect(() => {
+    console.log('groupData');
+    console.log(groupData);
+  }, [groupData]);
+
+  console.log(groupData);
 
   return groupData.loading ? (
     <h1>Loading...</h1>
@@ -191,7 +201,7 @@ const AdminGroupProfile = ({ group, getGroupAdmin, loading }) => {
                   <td className="text-center">
                     {mentor.attendances.find(
                       (element) => element.date === date.date && element.confirmed
-                    ).confirmed ? (
+                    ) ? (
                       <BsCheckLg
                         style={{
                           color: 'green',

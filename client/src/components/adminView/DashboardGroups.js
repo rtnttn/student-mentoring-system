@@ -335,18 +335,20 @@ const DashboardGroups = ({ getGroups, loading, groups }) => {
                                         (1000 * 60 * 60 * 24 * 7)
                                     ) === 0
                                       ? 'New Group'
-                                      : groups.sessionCount[0].find(
-                                          (element) => element.groupId === group.groupId
-                                        ).sessionCount /
-                                        parseInt(
-                                          (new Date() -
-                                            new Date(
-                                              groups.firstMet[0].find(
-                                                (element) => element.groupId === group.groupId
-                                              ).date
-                                            )) /
-                                            (1000 * 60 * 60 * 24 * 7)
-                                        )}
+                                      : (
+                                          groups.sessionCount[0].find(
+                                            (element) => element.groupId === group.groupId
+                                          ).sessionCount /
+                                          parseInt(
+                                            (new Date() -
+                                              new Date(
+                                                groups.firstMet[0].find(
+                                                  (element) => element.groupId === group.groupId
+                                                ).date
+                                              )) /
+                                              (1000 * 60 * 60 * 24 * 7)
+                                          )
+                                        ).toFixed(2)}
                                   </div>
                                   <div
                                     className="progress-bar bg-transparent text-black"
@@ -410,7 +412,7 @@ const DashboardGroups = ({ getGroups, loading, groups }) => {
                                   color:
                                     (new Date() -
                                       new Date(
-                                        groups.firstMet[0].find(
+                                        groups.lastMet[0].find(
                                           (element) => element.groupId === group.groupId
                                         ).date
                                       )) /
@@ -554,18 +556,20 @@ const DashboardGroups = ({ getGroups, loading, groups }) => {
                                         (1000 * 60 * 60 * 24 * 7)
                                     ) === 0
                                       ? 'New Group'
-                                      : groups.sessionCount[0].find(
-                                          (element) => element.groupId === group.groupId
-                                        ).sessionCount /
-                                        parseInt(
-                                          (new Date() -
-                                            new Date(
-                                              groups.firstMet[0].find(
-                                                (element) => element.groupId === group.groupId
-                                              ).date
-                                            )) /
-                                            (1000 * 60 * 60 * 24 * 7)
-                                        )}
+                                      : (
+                                          groups.sessionCount[0].find(
+                                            (element) => element.groupId === group.groupId
+                                          ).sessionCount /
+                                          parseInt(
+                                            (new Date() -
+                                              new Date(
+                                                groups.firstMet[0].find(
+                                                  (element) => element.groupId === group.groupId
+                                                ).date
+                                              )) /
+                                              (1000 * 60 * 60 * 24 * 7)
+                                          )
+                                        ).toFixed(2)}
                                   </div>
                                   <div
                                     className="progress-bar bg-transparent text-black"
@@ -629,7 +633,7 @@ const DashboardGroups = ({ getGroups, loading, groups }) => {
                                   color:
                                     (new Date() -
                                       new Date(
-                                        groups.firstMet[0].find(
+                                        groups.lastMet[0].find(
                                           (element) => element.groupId === group.groupId
                                         ).date
                                       )) /
