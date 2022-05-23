@@ -737,92 +737,94 @@ const AdminGroupProfile = ({ infoForAdd, getGroupForAdd, addMenteeToGroup, addGr
             <ul className="list-group">
               <li className="list-group-item pt-4">
                 <h4 className="text-center">{selectData.subjectName} Groups:</h4>
-                {infoForAdd.group.map((group) => (
-                  <table className="table table-bordered">
-                    <tbody>
-                      <tr>
-                        <td className="fst-italic fs-5" style={{ width: '15%' }}>
-                          Teacher:
-                        </td>
-                        <td className="fs-5" style={{ width: '85%' }}>
-                          {group.Staff.staffName}
-                        </td>
-                      </tr>
-                      <tr>
-                        <td className="fst-italic fs-5" style={{ width: '15%' }}>
-                          Mentor:
-                        </td>
-                        <td className="fs-5" style={{ width: '85%' }}>
-                          {group.Members.find((student) => student.isMentor).Student.studentName}
-                        </td>
-                      </tr>
-                      {group.Members.map((student) =>
-                        student.isMentor ? null : (
-                          <tr>
-                            <td className="fst-italic fs-5" style={{ width: '15%' }}>
-                              Mentee:
-                            </td>
-                            <td className="fs-5" style={{ width: '85%' }}>
-                              {student.Student.studentName}
-                            </td>
-                          </tr>
-                        )
-                      )}
-                      {group.Members.map((student, index) => (
+                {infoForAdd.group
+                  .filter((group) => group.subjectId === selectData.subjectId)
+                  .map((group) => (
+                    <table className="table table-bordered">
+                      <tbody>
                         <tr>
                           <td className="fst-italic fs-5" style={{ width: '15%' }}>
-                            {student.Student.studentName} availabilities
+                            Teacher:
                           </td>
                           <td className="fs-5" style={{ width: '85%' }}>
-                            {student.Student.Availabilities.map(
-                              (time) => time.Timeslot.timeslotName + ', '
-                            )}
+                            {group.Staff.staffName}
                           </td>
                         </tr>
-                      ))}
-                      <tr>
-                        <td className="fst-italic fs-5" style={{ width: '15%' }}>
-                          Meetings:
-                        </td>
-                        <td className="fs-5" style={{ width: '85%' }}>
-                          {infoForAdd.sessionCount[0].find(
-                            (count) => count.groupId === group.groupId
+                        <tr>
+                          <td className="fst-italic fs-5" style={{ width: '15%' }}>
+                            Mentor:
+                          </td>
+                          <td className="fs-5" style={{ width: '85%' }}>
+                            {group.Members.find((student) => student.isMentor).Student.studentName}
+                          </td>
+                        </tr>
+                        {group.Members.map((student) =>
+                          student.isMentor ? null : (
+                            <tr>
+                              <td className="fst-italic fs-5" style={{ width: '15%' }}>
+                                Mentee:
+                              </td>
+                              <td className="fs-5" style={{ width: '85%' }}>
+                                {student.Student.studentName}
+                              </td>
+                            </tr>
                           )
-                            ? infoForAdd.sessionCount[0].find(
-                                (count) => count.groupId === group.groupId
-                              ).sessionCount
-                            : 0}
-                        </td>
-                      </tr>
-                      <tr>
-                        <td className="fst-italic fs-5" style={{ width: '15%' }}>
-                          Last Met:
-                        </td>
-                        <td className="fs-5" style={{ width: '85%' }}>
-                          {infoForAdd.lastMet[0].find((date) => date.groupId === group.groupId)
-                            ? infoForAdd.lastMet[0].find((date) => date.groupId === group.groupId)
-                                .date
-                            : 'No Meetings Yet'}
-                        </td>
-                      </tr>
+                        )}
+                        {group.Members.map((student, index) => (
+                          <tr>
+                            <td className="fst-italic fs-5" style={{ width: '15%' }}>
+                              {student.Student.studentName} availabilities
+                            </td>
+                            <td className="fs-5" style={{ width: '85%' }}>
+                              {student.Student.Availabilities.map(
+                                (time) => time.Timeslot.timeslotName + ', '
+                              )}
+                            </td>
+                          </tr>
+                        ))}
+                        <tr>
+                          <td className="fst-italic fs-5" style={{ width: '15%' }}>
+                            Meetings:
+                          </td>
+                          <td className="fs-5" style={{ width: '85%' }}>
+                            {infoForAdd.sessionCount[0].find(
+                              (count) => count.groupId === group.groupId
+                            )
+                              ? infoForAdd.sessionCount[0].find(
+                                  (count) => count.groupId === group.groupId
+                                ).sessionCount
+                              : 0}
+                          </td>
+                        </tr>
+                        <tr>
+                          <td className="fst-italic fs-5" style={{ width: '15%' }}>
+                            Last Met:
+                          </td>
+                          <td className="fs-5" style={{ width: '85%' }}>
+                            {infoForAdd.lastMet[0].find((date) => date.groupId === group.groupId)
+                              ? infoForAdd.lastMet[0].find((date) => date.groupId === group.groupId)
+                                  .date
+                              : 'No Meetings Yet'}
+                          </td>
+                        </tr>
 
-                      <tr>
-                        <td colSpan="2">
-                          <div className="text-center mb-2 mt-2">
-                            <button
-                              // value={group.groupId}
-                              type="submit"
-                              onClick={(e) => onGroupSubmit(group.groupId)}
-                              className="btn btn-primary justify-content-center"
-                            >
-                              Add to Group
-                            </button>
-                          </div>
-                        </td>
-                      </tr>
-                    </tbody>
-                  </table>
-                ))}
+                        <tr>
+                          <td colSpan="2">
+                            <div className="text-center mb-2 mt-2">
+                              <button
+                                // value={group.groupId}
+                                type="submit"
+                                onClick={(e) => onGroupSubmit(group.groupId)}
+                                className="btn btn-primary justify-content-center"
+                              >
+                                Add to Group
+                              </button>
+                            </div>
+                          </td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  ))}
               </li>
             </ul>
           </li>

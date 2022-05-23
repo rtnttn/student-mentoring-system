@@ -33,14 +33,14 @@ export default function applicationReducer(state = initialState, action) {
     case GET_APPLICATION:
       return {
         ...state,
-          application: action.payload,
-          loading: false
+        application: action.payload,
+        loading: false,
       };
     case ADD_APPLICATION:
       return {
         ...state,
         application: action.payload,
-        loading: false
+        loading: false,
       };
     case UPDATE_APPLICATION:
       return {};
@@ -69,21 +69,17 @@ export default function applicationReducer(state = initialState, action) {
         },
         loading: false,
       };
-    
-
-      return {};
     case GET_APPLICATIONS_BY_STUDENT:
       return {
         ...state,
         applications: action.payload,
-        loading: false
+        loading: false,
       };
-        case APPLICATION_DEL_ERROR:
+    case APPLICATION_DEL_ERROR:
       return {
         ...state,
         errors: action.payload,
         loading: false,
-
       };
     default:
       return state;
