@@ -5,29 +5,28 @@
 /* eslint-disable react/function-component-definition */
 /* eslint-disable no-unused-vars */
 /* eslint-disable import/no-extraneous-dependencies */
+/* eslint-disable no-debugger, no-console */
 import React from 'react';
 // We can use PropTypes to enforce type checking.
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 // import { logout } from '../../actions/authActions';
-
 import '../../styles.css';
 
-const Header = () => {
+const StudentHeader = () => {
   // console.log(props);
   return (
     <div>
       <nav
         id="navBackground"
-        className="navbar navbar-expand-xl navbar-light nav nav-pills rounded-3 mt-2 border shadow-sm"
-      >
+        className="navbar navbar-expand-xl navbar-light nav nav-pills rounded-3 mt-2 border shadow-sm">
         <div className="container-fluid">
-          <a className="navbar-brand ps-2" href="#">
+          <Link className="navbar-brand ps-2" to="#">
             <h1 className="pb-1 border-bottom border-3 rounded" id="navTitle">
               Computer and IT Mentoring
             </h1>
-          </a>
+          </Link>
           <button
             className="navbar-toggler"
             type="button"
@@ -35,8 +34,7 @@ const Header = () => {
             data-bs-target="#navbarSupportedContent"
             aria-controls="navbarSupportedContent"
             aria-expanded="false"
-            aria-label="Toggle navigation"
-          >
+            aria-label="Toggle navigation">
             <span className="navbar-toggler-icon" />
           </button>
           <div className="collapse navbar-collapse" id="navbarSupportedContent">
@@ -47,18 +45,8 @@ const Header = () => {
                 </Link>
               </li>
               <li className="nav-item ps-2 pe-2">
-                <Link className="nav-link text-primary" to="/subjects">
-                  Subjects
-                </Link>
-              </li>
-              <li className="nav-item ps-2 pe-2">
                 <Link className="nav-link text-primary" to="/login">
                   Logout
-                </Link>
-              </li>
-              <li className="nav-item ps-2 pe-2">
-                <Link className="nav-link text-primary" to="/register">
-                  Register
                 </Link>
               </li>
             </ul>
@@ -72,10 +60,10 @@ const Header = () => {
 };
 
 // We can set default props for a component if nothing is passed through.
-Header.defaultProps = {};
+StudentHeader.defaultProps = {};
 
 // We can use prop types to check data that is passed through
-Header.propTypes = {};
+StudentHeader.propTypes = {};
 // Shortcut pts
 
-export default connect(null, {})(Header);
+export default connect(null, {})(StudentHeader);

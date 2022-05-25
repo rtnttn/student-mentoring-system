@@ -48,7 +48,7 @@ export default function groupReducer(state = initialState, action) {
     case ADD_GROUP:
       return {
         ...state,
-        groups: [action.payload, ...state.groups],
+        groups: [...state.groups, action.payload],
         loading: false,
       };
     case ADD_MENTEE_TO_GROUP:
