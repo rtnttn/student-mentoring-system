@@ -19,6 +19,7 @@ import StudentLayout from './components/layouts/StudentLayout';
 import StudentDashboard from './components/studentView/StudentDashboard';
 
 import AdminGroupCreate from './components/groups/AdminGroupCreate';
+import Subjects from './components/subjects/Subjects';
 
 
 import './styles.css';
@@ -34,6 +35,7 @@ const App = () => {
               <Route path="/student/:id" element={<AdminStudentProfile />} />
               <Route path="/group/:id" element={<AdminGroupProfile />} />
               <Route path="/group/add/:id" element={<AdminGroupCreate />} />
+              <Route path="/subjects" element={<Subjects />} />
             </Route>
 
             <Route path="register" element={<Register />} />
