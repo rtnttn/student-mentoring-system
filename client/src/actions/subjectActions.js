@@ -11,7 +11,7 @@ import {
   import axios from 'axios';
   
   // Get all subject
-  export const getsubjects = () => async (dispatch) => {
+  export const getSubjects = () => async (dispatch) => {
     // console.log('getsubjects');
     // the call to the api.
     // This will get all our subjects from the endpoint

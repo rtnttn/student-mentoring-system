@@ -22,12 +22,12 @@ import { connect } from 'react-redux';
 import { FaRegClock, FaRegCheckCircle } from 'react-icons/fa';
 import { addApplicationByStudent } from '../../actions/applicationActions';
 import { getStudentInfo } from '../../actions/studentActions';
-import {getSubject} from '../../actions/subjectActions';
+import {getSubjects} from '../../actions/subjectActions';
 
 
 
 
-const StudentApplications = ({ addApplicationByStudent, getStudentInfo, getSubject,loading, student }) => {
+const StudentApplications = ({ addApplicationByStudent, getStudentInfo, getSubjects,loading, student }) => {
   // subApplications is a filtered version of applications
   const { id } = useParams();
 
@@ -53,8 +53,10 @@ const subjectNameOptions = subjects.subjectName.filter(application)
   // adds applications 
   useEffect(() => {
     getStudentInfo(id);
+    getSubjects();
   }, [ getStudentInfo]);
   
+
   useEffect(() => {
     addApplicationByStudent(id);
   },[addApplicationByStudent]);
@@ -247,13 +249,14 @@ const subjectNameOptions = subjects.subjectName.filter(application)
 StudentApplications.propTypes = {
   addApplicationByStudent: PropTypes.func.isRequired,
   getStudentInfo: PropTypes.func.isRequired,
-  getSubject: PropTypes.func.isRequired,
+  getSubjects: PropTypes.func.isRequired,
   student: PropTypes.object.isRequired,
 };
 
 const mapStateToProps = (state) => ({
   student: state.student.student,
   loading: state.student.loading,
+  subject: state.subject.subjects
 });
 
-export default connect(mapStateToProps,{addApplicationByStudent, getStudentInfo, getSubject})(StudentApplications);
+export default connect(mapStateToProps,{addApplicationByStudent, getStudentInfo, getSubjects})(StudentApplications);
