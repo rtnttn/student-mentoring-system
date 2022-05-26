@@ -1,6 +1,7 @@
 /* eslint-disable import/prefer-default-export */
 /* eslint-disable import/order */
 /* eslint-disable no-unused-vars */
+
 import { GET_SUBJECTS, ADD_SUBJECT, DELETE_SUBJECT, SUBJECT_DEL_ERROR } from './types';
 // import axios
 import axios from 'axios';
@@ -48,3 +49,4 @@ export const deleteSubject = (id) => async (dispatch) => {
     });
   }
 };
+

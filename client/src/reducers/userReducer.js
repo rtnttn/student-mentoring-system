@@ -3,6 +3,7 @@
 /* eslint-disable import/prefer-default-export */
 /* eslint-disable import/order */
 /* eslint-disable no-unused-vars */
+/* eslint-disable no-console */
 import {
   GET_USERS,
   GET_USER,
