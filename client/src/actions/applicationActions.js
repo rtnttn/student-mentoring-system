@@ -11,7 +11,8 @@ import {
   APPROVE_MENTOR_SUBJECT,
   DELETE_APPLICATION,
   APPLICATION_DEL_ERROR,
-  GET_APPLICATIONS_BY_STUDENT
+  GET_APPLICATIONS_BY_STUDENT,
+  ADD_APPLICATION_BY_STUDENT,
 } from './types';
 // import axios
 import axios from 'axios';
@@ -55,6 +56,19 @@ export const approveMentorship = (id) => async (dispatch) => {
   });
 };
 
+// Add Application by student
+export const addApplicationByStudent = (id) => async (dispatch) => {
+  // console.log('addApplications');
+  // the call to the api.
+  // This will get all our contacts from the endpoint
+  const res = await axios.get(`/applications/add/student/${id}`);
+  // Dispatch the action and payload to the reducer to update the state.
+  // console.log(res.data);
+  dispatch({
+    type: ADD_APPLICATION_BY_STUDENT,
+    payload: res.data,
+  });
+}
 
 // Get Applications by student
 export const getApplicationByStudent = (id) => async (dispatch) => {
