@@ -22,28 +22,42 @@ import { connect } from 'react-redux';
 import { FaRegClock, FaRegCheckCircle } from 'react-icons/fa';
 import { addApplicationByStudent } from '../../actions/applicationActions';
 import { getStudentInfo } from '../../actions/studentActions';
+import {getSubject} from '../../actions/subjectActions';
 
 
 
 
-const StudentApplications = ({ addApplicationByStudent, getStudentInfo, loading, student }) => {
+const StudentApplications = ({ addApplicationByStudent, getStudentInfo, getSubject,loading, student }) => {
   // subApplications is a filtered version of applications
   const { id } = useParams();
 
-  // data for the submit form
-  const [formData, setFormData] = useState({
-    applyAs: null,
-    subject: '',
-  });
-  const {applyAs, subject } = formData; // destructuring
+  
+const subjectNameOptions = subjects.subjectName.filter(application)
 
-  const onChange = (e) => setFormData({ ...formData, [e.target.name]: e.target.value });
+  // data for the dropdown list 
+  const [dropdown, setDropdown] = useState({subject: ''})
+  const {subject} = dropdown;
+  const listHandleChange = (e) => {
+    setDropdown(e.target.value);
+  };
+  // stores current selection
+  const [forMentor, setForMentor] = useState()
+  // handles selection change
+  const handleChange = e => {
+    const {target} = e;
+    if (target.checked) {
+      setForMentor(target.value);
+    }
+  }
 
   // adds applications 
   useEffect(() => {
     getStudentInfo(id);
-  }, [ getStudentInfo ],);
+  }, [ getStudentInfo]);
   
+  useEffect(() => {
+    addApplicationByStudent(id);
+  },[addApplicationByStudent]);
 
   // Hidden List logic
   const [showPending, setShowPending] = useState(false);
@@ -63,18 +77,18 @@ const StudentApplications = ({ addApplicationByStudent, getStudentInfo, loading,
     e.preventDefault();
     console.log("OnSubmit running...");
 
-    if(applyAs === ''){
-      setFormData({...formData, errors: {applyAs:'Apply as is required'}});
+    if(forMentor === ''){
+      // setRadio({...radio, errors: {applyAs:'Apply as is required'}});
       return;
     }
     if(subject === ''){
-      setFormData({...formData, errors: {subject:'Subject is required'}});
+      setDropdown({...dropdown, errors: {subject:'Subject is required'}});
       return;
     }
 
 
     const newApplication = {
-      applyAs,
+      forMentor,
       subject
     }
       console.log(newApplication);
@@ -101,8 +115,9 @@ const StudentApplications = ({ addApplicationByStudent, getStudentInfo, loading,
               type="radio" 
               name="MentorMentee" 
               id="mentor" 
-              value="applyAs" 
-              onChange= {e => onChange(e)} />
+              value="mentor"
+              checked={forMentor === 'mentor'} 
+              onChange={handleChange} />
               <label className="form-check-label" htmlFor="mentor">
                 Mentor
               </label>
@@ -113,9 +128,9 @@ const StudentApplications = ({ addApplicationByStudent, getStudentInfo, loading,
               type="radio" 
               name="MentorMentee" 
               id="mentee" 
-              value="applyAs" 
-              onChange= {e => onChange(e)} 
-              checked/>
+              value="mentee"
+              checked={forMentor === 'mentee'} 
+              onChange={handleChange} />
               <label className="form-check-label" htmlFor="mentee">
                 Mentee
               </label>
@@ -126,12 +141,15 @@ const StudentApplications = ({ addApplicationByStudent, getStudentInfo, loading,
                 <label htmlFor="exampleInputEmail1" className="col-form-label">Subject</label>
               </div>
               <div className="col-sm-8">
-                <select className="form-select" aria-label="Default select example" onChange= {e => onChange(e)} >
-                  <option selected>Select Subject</option>
-                  <option value="1">Networking</option>
-                  <option value="2">Database</option>
-                  <option value="3">OOP</option>
-                  <option value="4">Intro to Java</option>
+                <select className="form-select" aria-label="Default select example" value={dropdown} onChange={listHandleChange} >
+                  {subjectNameOptions.map((option) => (
+                  <option value={option.dropdown}>Select Subject</option>
+                    ))}
+                  {/* <option >Select Subject</option>
+                  <option value="networking">Networking</option>
+                  <option value="database">Database</option>
+                  <option value="oop">OOP</option>
+                  <option value="java">Intro to Java</option> */}
                 </select>                
               </div>
             </div>
@@ -229,6 +247,7 @@ const StudentApplications = ({ addApplicationByStudent, getStudentInfo, loading,
 StudentApplications.propTypes = {
   addApplicationByStudent: PropTypes.func.isRequired,
   getStudentInfo: PropTypes.func.isRequired,
+  getSubject: PropTypes.func.isRequired,
   student: PropTypes.object.isRequired,
 };
 
@@ -237,4 +256,4 @@ const mapStateToProps = (state) => ({
   loading: state.student.loading,
 });
 
-export default connect(mapStateToProps,{addApplicationByStudent, getStudentInfo})(StudentApplications);
+export default connect(mapStateToProps,{addApplicationByStudent, getStudentInfo, getSubject})(StudentApplications);

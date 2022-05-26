@@ -39,3 +39,7 @@ export const GROUP_DEL_ERROR = 'GROUP_DEL_ERROR';
 export const GET_STUDENT_INFO = 'GET_STUDENT_INFO';
 export const GET_GROUP_FOR_ADD = 'GET_GROUP_FOR_ADD';
 
+// Subject Actions 
+export const GET_SUBJECTS = 'GET_SUBJECTS';
+export const GET_SUBJECT = 'GET_SUBJECT';
+export const ADD_SUBJECT = 'ADD_SUBJECT';

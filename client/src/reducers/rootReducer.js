@@ -4,7 +4,8 @@ import authReducer from './authReducer';
 import applicationReducer from './applicationReducer';
 import userReducer from './userReducer';
 import groupReducer from './groupReducer';
-import studentReducer from './studentReducer'
+import studentReducer from './studentReducer';
+import subjectReducer from './subjectReducer';
 
 export default combineReducers({
   auth: authReducer,
@@ -12,4 +13,5 @@ export default combineReducers({
   user: userReducer,
   group: groupReducer,
   student: studentReducer,
+  subject: subjectReducer,
 });
