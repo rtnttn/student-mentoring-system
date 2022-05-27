@@ -10,11 +10,11 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
-// import { logout } from '../../actions/authActions';
+import { staffLogout } from '../../actions/authActions';
 
 import '../../styles.css';
 
-const Header = () => {
+const Header = ({ staffLogout }) => {
   // console.log(props);
   return (
     <div>
@@ -52,7 +52,13 @@ const Header = () => {
                 </Link>
               </li>
               <li className="nav-item ps-2 pe-2">
-                <Link className="nav-link text-primary" to="/login">
+                <Link
+                  className="nav-link text-primary"
+                  onClick={(e) => {
+                    staffLogout();
+                    window.location.reload(false);
+                  }}
+                >
                   Logout
                 </Link>
               </li>
@@ -75,7 +81,9 @@ const Header = () => {
 Header.defaultProps = {};
 
 // We can use prop types to check data that is passed through
-Header.propTypes = {};
+Header.propTypes = {
+  staffLogout: PropTypes.func.isRequired,
+};
 // Shortcut pts
 
-export default connect(null, {})(Header);
+export default connect(null, { staffLogout })(Header);

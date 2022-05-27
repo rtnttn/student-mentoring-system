@@ -25,6 +25,7 @@ import AdminGroupCreate from './components/groups/AdminGroupCreate';
 import Subjects from './components/subjects/Subjects';
 
 import './styles.css';
+import Footer from './components/layouts/Footer';
 
 const App = () => {
   return (
@@ -50,6 +51,7 @@ const App = () => {
               <Route path="/studentDash/:id" element={<StudentDashboard />} />
             </Route>
           </Routes>
+          <Footer />
         </div>
       </Router>
     </Provider>
