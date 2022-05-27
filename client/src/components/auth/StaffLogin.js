@@ -25,6 +25,15 @@ const StaffLogin = ({ staffLogin, isAuthStaff }) => {
   const onSubmit = async (e) => {
     // This wil prevent the browser from refreshing the page.
     e.preventDefault();
+
+    if (staffEmail === '') {
+      setFormData({ ...formData, errors: { staffEmail: 'Email is required' } });
+      return;
+    }
+    if (staffPassword === '') {
+      setFormData({ ...formData, errors: { staffPassword: 'Password is required' } });
+      return;
+    }
     console.log('On Submit');
     const user = { staffEmail, staffPassword };
     staffLogin(user);

@@ -25,10 +25,21 @@ const StudentLogin = ({ studentLogin, isAuthStudent }) => {
   const onSubmit = async (e) => {
     // This wil prevent the browser from refreshing the page.
     e.preventDefault();
-    console.log('On Submit');
+
+    if (studentEmail === '') {
+      setFormData({ ...formData, errors: { studentEmail: 'Email is required' } });
+      return;
+    }
+    if (studentPassword === '') {
+      setFormData({ ...formData, errors: { studentPassword: 'Password is required' } });
+      return;
+    }
+
     const user = { studentEmail, studentPassword };
     studentLogin(user);
   };
+
+  console.log('On Submit');
 
   // check if they are already logged in
   if (isAuthStudent) {
