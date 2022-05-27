@@ -8,6 +8,7 @@ import studentReducer from './studentReducer';
 import subjectReducer from './subjectReducer';
 import alertReducer from './alertReducer';
 
+
 export default combineReducers({
   auth: authReducer,
   application: applicationReducer,
