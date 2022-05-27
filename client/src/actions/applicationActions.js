@@ -57,18 +57,18 @@ export const approveMentorship = (id) => async (dispatch) => {
 };
 
 // Add Application by student
-export const addApplicationByStudent = (id) => async (dispatch) => {
-  // console.log('addApplications');
+export const addApplicationByStudent = (application) => async (dispatch) => {
+  console.log('addApplications');
   // the call to the api.
   // This will get all our contacts from the endpoint
-  const res = await axios.get(`/applications/add/student/${id}`);
+  const res = await axios.post(`/applications/add`, application);
   // Dispatch the action and payload to the reducer to update the state.
-  // console.log(res.data);
+  console.log(res.data);
   dispatch({
     type: ADD_APPLICATION_BY_STUDENT,
     payload: res.data,
   });
-}
+};
 
 // Get Applications by student
 export const getApplicationByStudent = (id) => async (dispatch) => {
