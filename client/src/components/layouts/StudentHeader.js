@@ -11,16 +11,17 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
-// import { logout } from '../../actions/authActions';
+import { studentLogout } from '../../actions/authActions';
 import '../../styles.css';
 
-const StudentHeader = () => {
+const StudentHeader = ({ studentLogout }) => {
   // console.log(props);
   return (
     <div>
       <nav
         id="navBackground"
-        className="navbar navbar-expand-xl navbar-light nav nav-pills rounded-3 mt-2 border shadow-sm">
+        className="navbar navbar-expand-xl navbar-light nav nav-pills rounded-3 mt-2 border shadow-sm"
+      >
         <div className="container-fluid">
           <Link className="navbar-brand ps-2" to="#">
             <h1 className="pb-1 border-bottom border-3 rounded" id="navTitle">
@@ -34,7 +35,8 @@ const StudentHeader = () => {
             data-bs-target="#navbarSupportedContent"
             aria-controls="navbarSupportedContent"
             aria-expanded="false"
-            aria-label="Toggle navigation">
+            aria-label="Toggle navigation"
+          >
             <span className="navbar-toggler-icon" />
           </button>
           <div className="collapse navbar-collapse" id="navbarSupportedContent">
@@ -45,7 +47,13 @@ const StudentHeader = () => {
                 </Link>
               </li>
               <li className="nav-item ps-2 pe-2">
-                <Link className="nav-link text-primary" to="/login">
+                <Link
+                  onClick={(e) => {
+                    studentLogout();
+                    window.location.reload(false);
+                  }}
+                  className="nav-link text-primary"
+                >
                   Logout
                 </Link>
               </li>
@@ -63,7 +71,9 @@ const StudentHeader = () => {
 StudentHeader.defaultProps = {};
 
 // We can use prop types to check data that is passed through
-StudentHeader.propTypes = {};
+StudentHeader.propTypes = {
+  studentLogout: PropTypes.func.isRequired,
+};
 // Shortcut pts
 
-export default connect(null, {})(StudentHeader);
+export default connect(null, { studentLogout })(StudentHeader);
