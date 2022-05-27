@@ -13,6 +13,7 @@ import {
   APPLICATION_DEL_ERROR,
   GET_APPLICATIONS_BY_STUDENT,
   ADD_APPLICATION_BY_STUDENT,
+  APPLICATION_FORM_ERROR,
 } from '../actions/types';
 
 const initialState = {
@@ -89,6 +90,12 @@ export default function applicationReducer(state = initialState, action) {
         errors: action.payload,
         loading: false,
       };
+    case APPLICATION_FORM_ERROR:
+      return {
+        ...state,
+        errors: action.payload,
+        loading: false,
+      }
     default:
       return state;
   }

@@ -13,6 +13,7 @@ import {
   APPLICATION_DEL_ERROR,
   GET_APPLICATIONS_BY_STUDENT,
   ADD_APPLICATION_BY_STUDENT,
+  APPLICATION_FORM_ERROR,
 } from './types';
 // import axios
 import axios from 'axios';
@@ -61,6 +62,7 @@ export const addApplicationByStudent = (application) => async (dispatch) => {
   console.log('addApplications');
   // the call to the api.
   // This will get all our contacts from the endpoint
+  try{
   const res = await axios.post(`/applications/add`, application);
   // Dispatch the action and payload to the reducer to update the state.
   console.log(res.data);
@@ -68,6 +70,13 @@ export const addApplicationByStudent = (application) => async (dispatch) => {
     type: ADD_APPLICATION_BY_STUDENT,
     payload: res.data,
   });
+  } catch(error){
+    console.log(error);
+    dispatch({
+      type: APPLICATION_FORM_ERROR,
+      payload: error,
+    })
+  }
 };
 
 // Get Applications by student
