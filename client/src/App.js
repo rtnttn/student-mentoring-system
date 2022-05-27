@@ -8,9 +8,12 @@ import { Provider } from 'react-redux';
 import store from './store';
 
 // IMPORT COMPONENTS
-import Header from './components/layouts/Header';
+// import Header from './components/layouts/Header';
 import Dashboard from './components/adminView/Dashboard';
 import Register from './components/auth/Register';
+import StudentLogin from './components/auth/StudentLogin';
+import StaffLogin from './components/auth/StaffLogin';
+import Alert from './components/layouts/Alert';
 import AdminLayout from './components/layouts/AdminLayout';
 import AdminStudentProfile from './components/students/AdminStudentProfile';
 import AdminGroupProfile from './components/groups/AdminGroupProfile';
@@ -21,7 +24,6 @@ import StudentDashboard from './components/studentView/StudentDashboard';
 import AdminGroupCreate from './components/groups/AdminGroupCreate';
 import Subjects from './components/subjects/Subjects';
 
-
 import './styles.css';
 
 const App = () => {
@@ -29,6 +31,7 @@ const App = () => {
     <Provider store={store}>
       <Router>
         <div className="container">
+          <Alert />
           <Routes>
             <Route path="/" element={<AdminLayout />}>
               <Route path="/" element={<Dashboard />} />
@@ -38,7 +41,10 @@ const App = () => {
               <Route path="/subjects" element={<Subjects />} />
             </Route>
 
-            <Route path="register" element={<Register />} />
+            {/* AUTH */}
+            <Route path="/register" element={<Register />} />
+            <Route path="/login/student" element={<StudentLogin />} />
+            <Route path="/login/staff" element={<StaffLogin />} />
 
             <Route path="/studentDash" element={<StudentLayout />}>
               <Route path="/studentDash/:id" element={<StudentDashboard />} />

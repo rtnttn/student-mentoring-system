@@ -6,6 +6,7 @@ import userReducer from './userReducer';
 import groupReducer from './groupReducer';
 import studentReducer from './studentReducer';
 import subjectReducer from './subjectReducer';
+import alertReducer from './alertReducer';
 
 
 export default combineReducers({
@@ -15,4 +16,5 @@ export default combineReducers({
   group: groupReducer,
   subject: subjectReducer,
   student: studentReducer,
+  alert: alertReducer,
 });
