@@ -54,6 +54,7 @@ const Header = ({ staffLogout }) => {
               <li className="nav-item ps-2 pe-2">
                 <Link
                   className="nav-link text-primary"
+                  to="#!"
                   onClick={(e) => {
                     staffLogout();
                     window.location.reload(false);

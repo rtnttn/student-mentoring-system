@@ -34,12 +34,10 @@ const StudentLogin = ({ studentLogin, isAuthStudent }) => {
       setFormData({ ...formData, errors: { studentPassword: 'Password is required' } });
       return;
     }
-
+    console.log('On Submit');
     const user = { studentEmail, studentPassword };
     studentLogin(user);
   };
-
-  console.log('On Submit');
 
   // check if they are already logged in
   if (isAuthStudent) {

@@ -53,6 +53,7 @@ const StudentHeader = ({ studentLogout }) => {
                     window.location.reload(false);
                   }}
                   className="nav-link text-primary"
+                  to="#!"
                 >
                   Logout
                 </Link>
