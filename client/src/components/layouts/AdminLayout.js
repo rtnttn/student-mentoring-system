@@ -4,12 +4,12 @@
 import React from 'react';
 import { Outlet } from 'react-router-dom';
 
-import Header from './Header';
+// import StaffHeader from './StaffHeader';
 
 const AdminLayout = () => {
   return (
     <>
-      <Header />
+      {/* <StaffHeader /> */}
       <Outlet />
     </>
   );
