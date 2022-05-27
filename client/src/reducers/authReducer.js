@@ -15,7 +15,8 @@ import {
 } from '../actions/types';
 
 const intialState = {
-  token: localStorage.getItem('token'),
+  studentToken: localStorage.getItem('studentToken'),
+  staffToken: localStorage.getItem('staffToken'),
   isAuthStudent: false,
   isAuthStaff: false,
   loading: true,
@@ -70,7 +71,7 @@ export default function authReducer(state = intialState, action) {
       localStorage.removeItem('studentToken');
       return {
         ...state,
-        token: null,
+        studentToken: null,
         isAuthStudent: false,
         loading: false,
         student: null,
@@ -79,7 +80,7 @@ export default function authReducer(state = intialState, action) {
       localStorage.removeItem('staffToken');
       return {
         ...state,
-        token: null,
+        staffToken: null,
         isAuthStaff: false,
         loading: false,
         staff: null,
