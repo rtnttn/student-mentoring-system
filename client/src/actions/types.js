@@ -6,6 +6,10 @@ export const STAFF_LOADED = 'STAFF_LOADED';
 export const AUTH_ERROR = 'AUTH_ERROR';
 export const STUDENT_LOGIN_SUCCESS = 'STUDENT_LOGIN_SUCCESS';
 export const STUDENT_LOGIN_FAIL = 'STUDENT_LOGIN_FAIL';
+export const STAFF_LOGIN_SUCCESS = 'STAFF_LOGIN_SUCCESS';
+export const STAFF_LOGIN_FAIL = 'STAFF_LOGIN_FAIL';
+export const STUDENT_LOGOUT = 'STUDENT_LOGOUT';
+export const STAFF_LOGOUT = 'STAFF_LOGOUT';
 
 // Alert actions
 export const SET_ALERT = 'SET_ALERT';
