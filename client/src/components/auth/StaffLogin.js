@@ -7,7 +7,7 @@ import classnames from 'classnames';
 import PropTypes from 'prop-types';
 import { staffLogin } from '../../actions/authActions';
 
-const StaffLogin = ({ staffLogin, isAuthenticated }) => {
+const StaffLogin = ({ staffLogin, isAuthStaff }) => {
   // Set up form state
   const [formData, setFormData] = useState({
     staffEmail: '',
@@ -31,7 +31,7 @@ const StaffLogin = ({ staffLogin, isAuthenticated }) => {
   };
 
   // check if they are already logged in
-  if (isAuthenticated) {
+  if (isAuthStaff) {
     return <Navigate to="/" />;
   }
 
@@ -82,11 +82,11 @@ const StaffLogin = ({ staffLogin, isAuthenticated }) => {
 
 StaffLogin.propTypes = {
   staffLogin: PropTypes.func.isRequired,
-  isAuthenticated: PropTypes.bool,
+  isAuthStaff: PropTypes.bool.isRequired,
 };
 
 const mapStateToProps = (state) => ({
-  isAuthenticated: state.auth.isAuthenticated,
+  isAuthStaff: state.auth.isAuthStaff,
 });
 
 export default connect(mapStateToProps, { staffLogin })(StaffLogin);
