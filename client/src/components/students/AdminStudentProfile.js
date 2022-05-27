@@ -27,14 +27,27 @@ import { FaSortDown, FaCaretUp, FaTrash } from 'react-icons/fa';
 import { IoCheckmarkCircleOutline, IoCheckmarkCircle } from 'react-icons/io5';
 import { MdOutlinePersonSearch, MdOutlineGroupAdd, MdOutlineManageSearch } from 'react-icons/md';
 import { getStudentAdmin } from '../../actions/userActions';
+import {
+  deleteApplication,
+  approveMentorship,
+  approveMentorSubject,
+} from '../../actions/applicationActions';
 
-const AdminStudentProfile = ({ user, getStudentAdmin, loading }) => {
+const AdminStudentProfile = ({
+  user,
+  getStudentAdmin,
+  loading,
+  deleteApplication,
+  approveMentorship,
+  approveMentorSubject,
+}) => {
   const [studentData, setStudentData] = useState({
     studentName: '',
     studentEmail: '',
     studentCourse: '',
     approvedSubjects: [],
     openMenteeApplications: [],
+    openMentorshipApplications: [],
     openMentorApplications: [],
     menteeGroups: [],
     mentorGroups: [],
@@ -55,16 +68,22 @@ const AdminStudentProfile = ({ user, getStudentAdmin, loading }) => {
   useEffect(() => {
     // console.log('3. loading: ' + loading);
     // console.log('4. user:');
-    // console.log(user);
+    console.log(user);
     if (user.hasOwnProperty('student')) {
       setStudentData({
         studentName: user.student.studentName,
         studentEmail: user.student.studentEmail,
         studentCourse: user.student.courseName,
         approvedSubjects: user.student.Applications.filter((app) => app.isApproved),
-        openMenteeApplications: user.student.Applications.filter((app) => !app.forMentor),
+        openMenteeApplications: user.student.Applications.filter(
+          (app) => !app.forMentor && app.Subject.subjectName !== 'Mentor Application'
+        ),
+        openMentorshipApplications: user.student.Applications.filter(
+          (app) => app.Subject.subjectName === 'Mentor Application'
+        ),
         openMentorApplications: user.student.Applications.filter(
-          (app) => app.forMentor && !app.isApproved
+          (app) =>
+            app.forMentor && !app.isApproved && app.Subject.subjectName !== 'Mentor Application'
         ),
         menteeGroups: user.student.Members.filter((mem) => !mem.isMentor),
         mentorGroups: user.student.Members.filter((mem) => mem.isMentor),
@@ -72,6 +91,51 @@ const AdminStudentProfile = ({ user, getStudentAdmin, loading }) => {
       });
     }
   }, [user]);
+
+  const onDelete = async (applicationId) => {
+    // deleteApplication(applicationId);
+
+    await setStudentData({
+      ...studentData,
+      openMenteeApplications: studentData.openMenteeApplications.filter(
+        (app) => app.applicationId !== applicationId
+      ),
+      openMentorApplications: studentData.openMentorApplications.filter(
+        (app) => app.applicationId !== applicationId
+      ),
+      openMentorshipApplications: studentData.openMentorshipApplications.filter(
+        (app) => app.applicationId !== applicationId
+      ),
+    });
+
+    deleteApplication(applicationId);
+  };
+
+  const onApproveMentorship = async (applicationId) => {
+    setStudentData({
+      ...studentData,
+      openMentorshipApplications: studentData.openMentorshipApplications.filter(
+        (app) => app.applicationId !== applicationId
+      ),
+    });
+
+    approveMentorship(id);
+  };
+
+  const onApproveMentorSubject = async (applicationId) => {
+    setStudentData({
+      ...studentData,
+      approvedSubjects: [
+        ...studentData.approvedSubjects,
+        user.student.Applications.find((app) => app.applicationId === applicationId),
+      ],
+      openMentorApplications: studentData.openMentorApplications.filter(
+        (app) => app.applicationId !== applicationId
+      ),
+    });
+
+    approveMentorSubject(applicationId);
+  };
 
   return studentData.loading ? (
     <h1>Loading...</h1>
@@ -123,95 +187,140 @@ const AdminStudentProfile = ({ user, getStudentAdmin, loading }) => {
             <ul className="list-group">
               <li className="list-group-item pt-4">
                 <h4 className="text-center">Mentee</h4>
-                {studentData.openMenteeApplications.map((app) => (
-                  <table className="table table-bordered">
-                    <tbody>
-                      <tr>
-                        <td className="fst-italic fs-5" style={{ width: '15%' }}>
-                          Subject:
-                        </td>
-                        <td className="fs-5" style={{ width: '85%' }}>
-                          {app.Subject.subjectName}
-                        </td>
-                      </tr>
-                      <tr>
-                        <td colSpan="2">
-                          <FaTrash
-                            // onClick={(e) => deleteApplication(e)}
-                            style={{
-                              cursor: 'pointer',
-                              float: 'right',
-                              color: 'red',
-                              marginRight: '10',
-                              transform: 'scale(1.5)',
-                            }}
-                          />
-                          <MdOutlineGroupAdd
-                            // onClick={(e) => createGroup(e)}
-                            style={{
-                              cursor: 'pointer',
-                              float: 'left',
-                              color: 'blue',
-                              marginLeft: '10',
-                              transform: 'scale(1.5)',
-                            }}
-                          />
-                        </td>
-                      </tr>
-                    </tbody>
-                  </table>
-                ))}
+                {studentData.openMenteeApplications.length !== 0
+                  ? studentData.openMenteeApplications.map((app) =>
+                      app.hasOwnProperty('applicationId') ? (
+                        <table className="table table-bordered">
+                          <tbody>
+                            <tr>
+                              <td className="fst-italic fs-5" style={{ width: '15%' }}>
+                                Subject:
+                              </td>
+                              <td className="fs-5" style={{ width: '85%' }}>
+                                {app.Subject.subjectName}
+                              </td>
+                            </tr>
+                            <tr>
+                              <td colSpan="2">
+                                <FaTrash
+                                  onClick={(e) => onDelete(app.applicationId)}
+                                  style={{
+                                    cursor: 'pointer',
+                                    float: 'right',
+                                    color: 'red',
+                                    marginRight: '10',
+                                    transform: 'scale(1.5)',
+                                  }}
+                                />
+                                <Link to={`/group/add/${app.applicationId}`}>
+                                  <MdOutlineGroupAdd
+                                    style={{
+                                      cursor: 'pointer',
+                                      float: 'left',
+                                      color: 'blue',
+                                      marginLeft: '10',
+                                      transform: 'scale(1.5)',
+                                    }}
+                                  />
+                                </Link>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      ) : null
+                    )
+                  : null}
               </li>
               <li className="list-group-item pt-4">
-                <h4 className="text-center">Mentor</h4>
-                {studentData.openMentorApplications.map((app) => (
-                  <table className="table table-bordered">
-                    <tbody>
-                      <tr>
-                        <td className="fst-italic fs-5" style={{ width: '15%' }}>
-                          Subject:
-                        </td>
-                        <td className="fs-5" style={{ width: '85%' }}>
-                          {app.Subject.subjectName}
-                        </td>
-                      </tr>
-                      <tr>
-                        <td colSpan="2">
-                          <FaTrash
-                            // onClick={(e) => deleteApplication(e)}
-                            style={{
-                              cursor: 'pointer',
-                              float: 'right',
-                              color: 'red',
-                              marginRight: '10',
-                              transform: 'scale(1.5)',
-                            }}
-                          />
-                          <IoCheckmarkCircleOutline
-                            // onClick={(e) => approveMentor(e)}
-                            style={{
-                              cursor: 'pointer',
-                              float: 'right',
-                              color: 'green',
-                              marginRight: '20',
-                              transform: 'scale(1.5)',
-                            }}
-                          />
-                          <MdOutlineGroupAdd
-                            // onClick={(e) => createGroup(e)}
-                            style={{
-                              cursor: 'pointer',
-                              float: 'left',
-                              color: 'blue',
-                              marginLeft: '10',
-                              transform: 'scale(1.5)',
-                            }}
-                          />
-                        </td>
-                      </tr>
-                    </tbody>
-                  </table>
-                ))}
+                <h4 className="text-center">Mentorship</h4>
+                {studentData.openMentorshipApplications.length !== 0
+                  ? studentData.openMentorshipApplications.map((app) =>
+                      app.hasOwnProperty('applicationId') ? (
+                        <table className="table table-bordered">
+                          <tbody>
+                            <tr>
+                              <td className="fst-italic fs-5" style={{ width: '15%' }}>
+                                Type:
+                              </td>
+                              <td className="fs-5" style={{ width: '85%' }}>
+                                Application for Mentorship
+                              </td>
+                            </tr>
+                            <tr>
+                              <td colSpan="2">
+                                <FaTrash
+                                  onClick={(e) => onDelete(app.applicationId)}
+                                  style={{
+                                    cursor: 'pointer',
+                                    float: 'right',
+                                    color: 'red',
+                                    marginRight: '10',
+                                    transform: 'scale(1.5)',
+                                  }}
+                                />
+
+                                <IoCheckmarkCircleOutline
+                                  onClick={(e) => onApproveMentorship(app.applicationId)}
+                                  style={{
+                                    cursor: 'pointer',
+                                    float: 'left',
+                                    color: 'green',
+                                    marginLeft: '20',
+                                    transform: 'scale(1.5)',
+                                  }}
+                                />
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      ) : null
+                    )
+                  : null}
+              </li>
+              <li className="list-group-item pt-4">
+                <h4 className="text-center">Mentor Subjects</h4>
+                {studentData.openMentorApplications.length !== 0
+                  ? studentData.openMentorApplications.map((app) =>
+                      app.hasOwnProperty('applicationId') ? (
+                        <table className="table table-bordered">
+                          <tbody>
+                            <tr>
+                              <td className="fst-italic fs-5" style={{ width: '15%' }}>
+                                Subject:
+                              </td>
+                              <td className="fs-5" style={{ width: '85%' }}>
+                                {app.Subject.subjectName}
+                              </td>
+                            </tr>
+                            <tr>
+                              <td colSpan="2">
+                                <FaTrash
+                                  onClick={(e) => onDelete(app.applicationId)}
+                                  style={{
+                                    cursor: 'pointer',
+                                    float: 'right',
+                                    color: 'red',
+                                    marginRight: '10',
+                                    transform: 'scale(1.5)',
+                                  }}
+                                />
+                                <IoCheckmarkCircleOutline
+                                  onClick={(e) => onApproveMentorSubject(app.applicationId)}
+                                  style={{
+                                    cursor: 'pointer',
+                                    float: 'left',
+                                    color: 'green',
+                                    marginLeft: '20',
+                                    transform: 'scale(1.5)',
+                                  }}
+                                />
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      ) : null
+                    )
+                  : null}
               </li>
             </ul>
           </li>
@@ -314,6 +423,9 @@ const AdminStudentProfile = ({ user, getStudentAdmin, loading }) => {
 // Create our propTypes
 AdminStudentProfile.propTypes = {
   getStudentAdmin: PropTypes.func.isRequired,
+  deleteApplication: PropTypes.func.isRequired,
+  approveMentorship: PropTypes.func.isRequired,
+  approveMentorSubject: PropTypes.func.isRequired,
   user: PropTypes.object,
   loading: PropTypes.bool,
 };
@@ -323,4 +435,9 @@ const mapStateToProps = (state) => ({
   loading: state.user.loading,
 });
 
-export default connect(mapStateToProps, { getStudentAdmin })(AdminStudentProfile);
+export default connect(mapStateToProps, {
+  getStudentAdmin,
+  deleteApplication,
+  approveMentorship,
+  approveMentorSubject,
+})(AdminStudentProfile);
