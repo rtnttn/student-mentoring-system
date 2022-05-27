@@ -1,6 +1,15 @@
 // Auth Actions
 export const REGISTER_SUCCESS = 'REGISTER_SUCCESS';
 export const REGISTER_FAIL = 'REGISTER_FAIL';
+export const STUDENT_LOADED = 'STUDENT_LOADED';
+export const STAFF_LOADED = 'STAFF_LOADED';
+export const AUTH_ERROR = 'AUTH_ERROR';
+export const STUDENT_LOGIN_SUCCESS = 'STUDENT_LOGIN_SUCCESS';
+export const STUDENT_LOGIN_FAIL = 'STUDENT_LOGIN_FAIL';
+
+// Alert actions
+export const SET_ALERT = 'SET_ALERT';
+export const REMOVE_ALERT = 'REMOVE_ALERT';
 
 // Application Actions
 export const GET_APPLICATIONS = 'GET_APPLICATIONS';
@@ -34,15 +43,12 @@ export const UPDATE_GROUP = 'UPDATE_GROUP';
 export const DELETE_GROUP = 'DELETE_GROUP';
 export const GROUP_DEL_ERROR = 'GROUP_DEL_ERROR';
 
-
 // Student Actions
 export const GET_STUDENT_INFO = 'GET_STUDENT_INFO';
 export const GET_GROUP_FOR_ADD = 'GET_GROUP_FOR_ADD';
-
 
 // Subject Actions
 export const GET_SUBJECTS = 'GET_SUBJECTS';
 export const ADD_SUBJECT = 'ADD_SUBJECT';
 export const DELETE_SUBJECT = 'DELETE_SUBJECT';
 export const SUBJECT_DEL_ERROR = 'SUBJECT_DEL_ERROR';
-
