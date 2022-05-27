@@ -27,19 +27,20 @@ import {getSubjects} from '../../actions/subjectActions';
 
 
 
-const StudentApplications = ({ addApplicationByStudent, getStudentInfo, getSubjects,loading, student }) => {
+const StudentApplications = ({ addApplicationByStudent, getStudentInfo, getSubjects,loading, student, subjects}) => {
   // subApplications is a filtered version of applications
   const { id } = useParams();
 
-  
-const subjectNameOptions = subjects.subjectName.filter(application)
 
   // data for the dropdown list 
-  const [dropdown, setDropdown] = useState({subject: ''})
-  const {subject} = dropdown;
+  const [dropdown, setDropdown] = useState({subjectId: 0})
+  const {subjectId} = dropdown;
+
   const listHandleChange = (e) => {
-    setDropdown(e.target.value);
+    setDropdown({subjectId: parseInt(e.target.value, 10)});
+    console.log("Dropdown list" + dropdown.subjectId);
   };
+
   // stores current selection
   const [forMentor, setForMentor] = useState()
   // handles selection change
@@ -49,7 +50,7 @@ const subjectNameOptions = subjects.subjectName.filter(application)
       setForMentor(target.value);
     }
   }
-
+  
   // adds applications 
   useEffect(() => {
     getStudentInfo(id);
@@ -57,9 +58,9 @@ const subjectNameOptions = subjects.subjectName.filter(application)
   }, [ getStudentInfo]);
   
 
-  useEffect(() => {
-    addApplicationByStudent(id);
-  },[addApplicationByStudent]);
+  // useEffect(() => {
+  //   addApplicationByStudent(id);
+  // },[addApplicationByStudent]);
 
   // Hidden List logic
   const [showPending, setShowPending] = useState(false);
@@ -79,22 +80,31 @@ const subjectNameOptions = subjects.subjectName.filter(application)
     e.preventDefault();
     console.log("OnSubmit running...");
 
+
     if(forMentor === ''){
       // setRadio({...radio, errors: {applyAs:'Apply as is required'}});
       return;
     }
-    if(subject === ''){
+    if(subjectId === 0){
       setDropdown({...dropdown, errors: {subject:'Subject is required'}});
       return;
     }
 
+    let boolMentor = null;
+    if(forMentor === "mentor") {
+      boolMentor = true
+    } else {
+      boolMentor = false
+    }
 
     const newApplication = {
-      forMentor,
-      subject
+      studentId: id, 
+      forMentor: boolMentor,
+      subjectId
     }
       console.log(newApplication);
       addApplicationByStudent(newApplication);
+
   }
 
   // return loading while gathering application list
@@ -118,7 +128,7 @@ const subjectNameOptions = subjects.subjectName.filter(application)
               name="MentorMentee" 
               id="mentor" 
               value="mentor"
-              checked={forMentor === 'mentor'} 
+              checked={forMentor === "mentor"} 
               onChange={handleChange} />
               <label className="form-check-label" htmlFor="mentor">
                 Mentor
@@ -131,7 +141,7 @@ const subjectNameOptions = subjects.subjectName.filter(application)
               name="MentorMentee" 
               id="mentee" 
               value="mentee"
-              checked={forMentor === 'mentee'} 
+              checked={forMentor === "mentee"} 
               onChange={handleChange} />
               <label className="form-check-label" htmlFor="mentee">
                 Mentee
@@ -143,15 +153,11 @@ const subjectNameOptions = subjects.subjectName.filter(application)
                 <label htmlFor="exampleInputEmail1" className="col-form-label">Subject</label>
               </div>
               <div className="col-sm-8">
-                <select className="form-select" aria-label="Default select example" value={dropdown} onChange={listHandleChange} >
-                  {subjectNameOptions.map((option) => (
-                  <option value={option.dropdown}>Select Subject</option>
+                <select className="form-select" aria-label="Default select example" onChange={listHandleChange} >
+                <option defaultValue={0} value={0}> Select Subject</option>
+                  {subjects.length === 0 ? null : subjects.map((option) => (
+                  <option value={option.subjectId}>{option.subjectName}</option>
                     ))}
-                  {/* <option >Select Subject</option>
-                  <option value="networking">Networking</option>
-                  <option value="database">Database</option>
-                  <option value="oop">OOP</option>
-                  <option value="java">Intro to Java</option> */}
                 </select>                
               </div>
             </div>
@@ -251,12 +257,13 @@ StudentApplications.propTypes = {
   getStudentInfo: PropTypes.func.isRequired,
   getSubjects: PropTypes.func.isRequired,
   student: PropTypes.object.isRequired,
+  subjects: PropTypes.array.isRequired
 };
 
 const mapStateToProps = (state) => ({
   student: state.student.student,
   loading: state.student.loading,
-  subject: state.subject.subjects
+  subjects: state.subject.subjects,
 });
 
 export default connect(mapStateToProps,{addApplicationByStudent, getStudentInfo, getSubjects})(StudentApplications);
