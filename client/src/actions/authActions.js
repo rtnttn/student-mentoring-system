@@ -86,6 +86,8 @@ export const studentLogin = (details) => async (dispatch) => {
       type: STUDENT_LOGIN_SUCCESS,
       payload: res.data,
     });
+
+    dispatch(setAlert('You have logged in successfully', 'success'));
   } catch (error) {
     const { errors } = error.response.data;
     if (errors) {
@@ -108,6 +110,8 @@ export const staffLogin = (details) => async (dispatch) => {
       type: STAFF_LOGIN_SUCCESS,
       payload: res.data,
     });
+
+    dispatch(setAlert('You have logged in successfully', 'success'));
   } catch (error) {
     const { errors } = error.response.data;
     if (errors) {
