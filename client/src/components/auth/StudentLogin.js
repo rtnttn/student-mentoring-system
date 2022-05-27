@@ -1,21 +1,22 @@
-/* eslint-disable import/no-extraneous-dependencies */
-import React, { Fragment, useState } from 'react';
+/* eslint-disable react/require-default-props */
+/* eslint-disable jsx-a11y/label-has-associated-control */
+import React, { useState } from 'react';
 import { Link, Navigate } from 'react-router-dom';
 import { connect } from 'react-redux';
 import classnames from 'classnames';
 import PropTypes from 'prop-types';
-// import { login } from '../../actions/authActions';
+import { studentLogin } from '../../actions/authActions';
 
-const Login = ({ login, isAuthenticated }) => {
+const StudentLogin = ({ studentLogin, isAuthenticated }) => {
   // Set up form state
   const [formData, setFormData] = useState({
-    email: '',
-    password: '',
+    studentEmail: '',
+    studentPassword: '',
     errors: {},
   });
 
   // Destructure the state
-  const { email, password, errors } = formData;
+  const { studentEmail, studentPassword, errors } = formData;
 
   // On Change
   const onChange = (e) => setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -25,47 +26,49 @@ const Login = ({ login, isAuthenticated }) => {
     // This wil prevent the browser from refreshing the page.
     e.preventDefault();
     console.log('On Submit');
-    const user = { email, password };
-    login(user);
+    const user = { studentEmail, studentPassword };
+    studentLogin(user);
   };
 
-  //check if they are already logged in
+  // check if they are already logged in
   if (isAuthenticated) {
     return <Navigate to="/" />;
   }
 
   return (
-    <Fragment>
+    <>
       <h1 className="text-primary">Login</h1>
       <div className="card mb-3">
         <div className="card-header">Login</div>
         <div className="card-body">
           <form onSubmit={(e) => onSubmit(e)}>
             <div className="mb-3">
-              <label htmlFor="email">Email</label>
+              <label htmlFor="studentEmail">Email</label>
               <input
                 type="text"
-                className={classnames('form-control', { 'is-invalid': errors.email })}
-                id="email"
+                className={classnames('form-control', { 'is-invalid': errors.studentEmail })}
+                id="studentEmail"
                 placeholder="Email"
-                name="email"
-                value={email}
+                name="studentEmail"
+                value={studentEmail}
                 onChange={(e) => onChange(e)}
               />
-              {errors.email && <div className="invalid-feedback">{errors.email}</div>}
+              {errors.studentEmail && <div className="invalid-feedback">{errors.studentEmail}</div>}
             </div>
             <div className="mb-3">
-              <label htmlFor="password">password</label>
+              <label htmlFor="studentPassword">Password</label>
               <input
                 type="password"
-                className={classnames('form-control', { 'is-invalid': errors.password })}
-                id="password"
-                placeholder="password"
-                name="password"
-                value={password}
+                className={classnames('form-control', { 'is-invalid': errors.studentPassword })}
+                id="studentPassword"
+                placeholder="Password"
+                name="studentPassword"
+                value={studentPassword}
                 onChange={(e) => onChange(e)}
               />
-              {errors.password && <div className="invalid-feedback">{errors.password}</div>}
+              {errors.studentPassword && (
+                <div className="invalid-feedback">{errors.studentPassword}</div>
+              )}
             </div>
             <div className="d-grid gap-2">
               <input type="submit" value="Login" className="btn btn-light " />
@@ -73,15 +76,15 @@ const Login = ({ login, isAuthenticated }) => {
           </form>
         </div>
         <p className="m-1">
-          Don't have an account? <Link to="/register">Sign Up</Link>
+          Don&apos;t have an account? <Link to="/register">Sign Up</Link>
         </p>
       </div>
-    </Fragment>
+    </>
   );
 };
 
-Login.propTypes = {
-  login: PropTypes.func.isRequired,
+StudentLogin.propTypes = {
+  studentLogin: PropTypes.func.isRequired,
   isAuthenticated: PropTypes.bool,
 };
 
@@ -89,4 +92,4 @@ const mapStateToProps = (state) => ({
   isAuthenticated: state.auth.isAuthenticated,
 });
 
-export default connect(mapStateToProps, { login })(Login);
+export default connect(mapStateToProps, { studentLogin })(StudentLogin);
