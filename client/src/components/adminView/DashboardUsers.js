@@ -1,3 +1,4 @@
+/* eslint-disable no-prototype-builtins */
 /* eslint-disable prefer-const */
 /* eslint-disable prefer-template */
 /* eslint-disable react/style-prop-object */
@@ -41,7 +42,7 @@ const DashboardUsers = ({ getUsers, loading, users }) => {
   const [formData, setFormData] = useState({
     name: '',
     course: '',
-    groups: '',
+    groups: 10,
   });
   const { name, course, groups } = formData; // destructuring
 
@@ -51,6 +52,11 @@ const DashboardUsers = ({ getUsers, loading, users }) => {
   useEffect(() => {
     getUsers();
   }, [getUsers]);
+
+  useEffect(() => {
+    console.log('subUsers');
+    console.log(subUsers);
+  }, [subUsers]);
 
   // Hidden List logic
   const [showMenteeInfo, setShowMenteeInfo] = useState(false);
@@ -106,14 +112,16 @@ const DashboardUsers = ({ getUsers, loading, users }) => {
     // console.log(menteesCount);
 
     setSubUsers({
-      mentees: [menteesFiltered],
-      mentors: [mentorsFiltered],
-      staff: [staffFiltered],
+      mentees: menteesFiltered,
+      mentors: mentorsFiltered,
+      staff: staffFiltered,
       menteeCount: menteesCount,
       mentorCount: mentorsCount,
       staffCount: subStaffCount,
       useSubUsers: true,
     });
+
+    console.log(subUsers);
   }; // End of onSubmit
 
   // return loading while gathering users list
