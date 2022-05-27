@@ -14,7 +14,7 @@ import { staffLogout } from '../../actions/authActions';
 
 import '../../styles.css';
 
-const Header = ({ staffLogout }) => {
+const StaffHeader = ({ staffLogout }) => {
   // console.log(props);
   return (
     <div>
@@ -79,12 +79,12 @@ const Header = ({ staffLogout }) => {
 };
 
 // We can set default props for a component if nothing is passed through.
-Header.defaultProps = {};
+StaffHeader.defaultProps = {};
 
 // We can use prop types to check data that is passed through
-Header.propTypes = {
+StaffHeader.propTypes = {
   staffLogout: PropTypes.func.isRequired,
 };
 // Shortcut pts
 
-export default connect(null, { staffLogout })(Header);
+export default connect(null, { staffLogout })(StaffHeader);
