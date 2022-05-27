@@ -9,6 +9,7 @@ import store from './store';
 
 // IMPORT COMPONENTS
 // import Header from './components/layouts/Header';
+import HeaderSelector from './components/layouts/HeaderSelector';
 import Dashboard from './components/adminView/Dashboard';
 import Register from './components/auth/Register';
 import StudentLogin from './components/auth/StudentLogin';
@@ -31,6 +32,7 @@ const App = () => {
   return (
     <Provider store={store}>
       <Router>
+        <HeaderSelector />
         <div className="container">
           <Alert />
           <Routes>
