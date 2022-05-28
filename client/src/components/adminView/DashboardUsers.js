@@ -53,11 +53,6 @@ const DashboardUsers = ({ getUsers, loading, users }) => {
     getUsers();
   }, [getUsers]);
 
-  useEffect(() => {
-    console.log('subUsers');
-    console.log(subUsers);
-  }, [subUsers]);
-
   // Hidden List logic
   const [showMenteeInfo, setShowMenteeInfo] = useState(false);
   const onShowClickMentee = (e) => {
@@ -121,7 +116,7 @@ const DashboardUsers = ({ getUsers, loading, users }) => {
       useSubUsers: true,
     });
 
-    console.log(subUsers);
+    // console.log(subUsers);
   }; // End of onSubmit
 
   // return loading while gathering users list
