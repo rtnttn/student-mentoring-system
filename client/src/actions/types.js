@@ -17,6 +17,7 @@ export const REMOVE_ALERT = 'REMOVE_ALERT';
 
 // Application Actions
 export const GET_APPLICATIONS = 'GET_APPLICATIONS';
+export const GET_APPLICATIONS_BASIC = 'GET_APPLICATIONS_BASIC';
 export const GET_APPLICATION = 'GET_APPLICATION';
 export const ADD_APPLICATION = 'ADD_APPLICATION';
 export const UPDATE_APPLICATION = 'UPDATE_APPLICATION';
@@ -51,9 +52,15 @@ export const GROUP_DEL_ERROR = 'GROUP_DEL_ERROR';
 // Student Actions
 export const GET_STUDENT_INFO = 'GET_STUDENT_INFO';
 export const GET_GROUP_FOR_ADD = 'GET_GROUP_FOR_ADD';
+export const GET_STUDENTS = 'GET_STUDENTS';
+export const ADD_STUDENT = 'ADD_STUDENT';
 
 // Subject Actions
 export const GET_SUBJECTS = 'GET_SUBJECTS';
 export const ADD_SUBJECT = 'ADD_SUBJECT';
 export const DELETE_SUBJECT = 'DELETE_SUBJECT';
 export const SUBJECT_DEL_ERROR = 'SUBJECT_DEL_ERROR';
+
+// Staff Actions
+export const GET_STAFF = 'GET_STAFF';
+export const ADD_STAFF = 'ADD_STAFF';

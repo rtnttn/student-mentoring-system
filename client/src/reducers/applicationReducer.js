@@ -4,6 +4,7 @@
 /* eslint-disable no-unused-vars */
 import {
   GET_APPLICATIONS,
+  GET_APPLICATIONS_BASIC,
   GET_APPLICATION,
   ADD_APPLICATION,
   UPDATE_APPLICATION,
@@ -18,6 +19,7 @@ import {
 
 const initialState = {
   applications: {},
+  basicApplications: [],
   application: {},
   loading: true,
   errors: {},
@@ -30,6 +32,12 @@ export default function applicationReducer(state = initialState, action) {
         ...state,
         applications: action.payload,
         // return the current state plus the new contacts array.
+        loading: false,
+      };
+    case GET_APPLICATIONS_BASIC:
+      return {
+        ...state,
+        basicApplications: action.payload,
         loading: false,
       };
     case GET_APPLICATION:
@@ -79,11 +87,11 @@ export default function applicationReducer(state = initialState, action) {
       };
 
     case ADD_APPLICATION_BY_STUDENT:
-        return {
-          ...state,
-          applications: action.payload,
-          loading: false
-        };
+      return {
+        ...state,
+        applications: action.payload,
+        loading: false,
+      };
     case APPLICATION_DEL_ERROR:
       return {
         ...state,
