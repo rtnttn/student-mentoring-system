@@ -16,8 +16,11 @@ import StudentLogin from './components/auth/StudentLogin';
 import StaffLogin from './components/auth/StaffLogin';
 import Alert from './components/layouts/Alert';
 import AdminLayout from './components/layouts/AdminLayout';
+import AdminApplicationCreate from './components/applications/AdminApplicationCreate';
 import AdminStudentProfile from './components/students/AdminStudentProfile';
+import AdminStudentCreate from './components/students/AdminStudentCreate';
 import AdminGroupProfile from './components/groups/AdminGroupProfile';
+import AdminStaffCreate from './components/staff/AdminStaffCreate';
 
 import StudentLayout from './components/layouts/StudentLayout';
 import StudentDashboard from './components/studentView/StudentDashboard';
@@ -38,7 +41,10 @@ const App = () => {
           <Routes>
             <Route path="/" element={<AdminLayout />}>
               <Route path="/" element={<Dashboard />} />
+              <Route path="/application/add" element={<AdminApplicationCreate />} />
+              <Route path="/student/add" element={<AdminStudentCreate />} />
               <Route path="/student/:id" element={<AdminStudentProfile />} />
+              <Route path="/teacher/add" element={<AdminStaffCreate />} />
               <Route path="/group/:id" element={<AdminGroupProfile />} />
               <Route path="/group/add/:id" element={<AdminGroupCreate />} />
               <Route path="/subjects" element={<Subjects />} />

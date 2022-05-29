@@ -1,3 +1,4 @@
+/* eslint-disable react/jsx-curly-brace-presence */
 /* eslint-disable no-prototype-builtins */
 /* eslint-disable prefer-const */
 /* eslint-disable prefer-template */
@@ -52,11 +53,6 @@ const DashboardUsers = ({ getUsers, loading, users }) => {
   useEffect(() => {
     getUsers();
   }, [getUsers]);
-
-  useEffect(() => {
-    console.log('subUsers');
-    console.log(subUsers);
-  }, [subUsers]);
 
   // Hidden List logic
   const [showMenteeInfo, setShowMenteeInfo] = useState(false);
@@ -121,7 +117,7 @@ const DashboardUsers = ({ getUsers, loading, users }) => {
       useSubUsers: true,
     });
 
-    console.log(subUsers);
+    // console.log(subUsers);
   }; // End of onSubmit
 
   // return loading while gathering users list
@@ -131,6 +127,18 @@ const DashboardUsers = ({ getUsers, loading, users }) => {
     <div>
       {/* <div className="col-md card m-1 columnColor"> */}
       <h3 className="text-center mt-2">Users</h3>
+      <div className="text-center mb-2">
+        <Link to={`/student/add`}>
+          <button type="submit" className="btn btn-primary justify-content-center me-1">
+            Create Student
+          </button>
+        </Link>
+        <Link to={`/teacher/add`}>
+          <button type="submit" className="btn btn-primary justify-content-center ms-1">
+            Create Teacher
+          </button>
+        </Link>
+      </div>
       {/* SEARCH FORM */}
       <form onSubmit={(e) => onSubmit(e)}>
         <div className="row g-2 mb-1">

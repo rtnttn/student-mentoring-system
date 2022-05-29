@@ -47,6 +47,21 @@ const StaffHeader = ({ staffLogout }) => {
                 </Link>
               </li>
               <li className="nav-item ps-2 pe-2">
+                <Link className="nav-link text-primary" to="/applications/add">
+                  Create Application
+                </Link>
+              </li>
+              <li className="nav-item ps-2 pe-2">
+                <Link className="nav-link text-primary" to="/student/add">
+                  Create Student
+                </Link>
+              </li>
+              <li className="nav-item ps-2 pe-2">
+                <Link className="nav-link text-primary" to="/teacher/add">
+                  Create Teacher
+                </Link>
+              </li>
+              <li className="nav-item ps-2 pe-2">
                 <Link className="nav-link text-primary" to="/subjects">
                   Subjects
                 </Link>

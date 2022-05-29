@@ -1,3 +1,4 @@
+/* eslint-disable react/jsx-curly-brace-presence */
 /* eslint-disable no-prototype-builtins */
 /* eslint-disable prefer-const */
 /* eslint-disable prefer-template */
@@ -387,6 +388,13 @@ const DashboardApplications = ({
     <div>
       {/* <div className="col-md card m-1 columnColor"> */}
       <h3 className="text-center mt-2">Applications</h3>
+      <div className="text-center mb-2">
+        <Link to={`/application/add`}>
+          <button type="submit" className="btn btn-primary justify-content-center">
+            Create Application
+          </button>
+        </Link>
+      </div>
       {/* SEARCH FORM */}
       <form onSubmit={(e) => onSubmit(e)}>
         <div className="row g-2 mb-1">
