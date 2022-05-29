@@ -64,3 +64,8 @@ export const SUBJECT_DEL_ERROR = 'SUBJECT_DEL_ERROR';
 // Staff Actions
 export const GET_STAFF = 'GET_STAFF';
 export const ADD_STAFF = 'ADD_STAFF';
+
+// Availability (and timeslot) Actions
+export const GET_AVAILABILITIES_FOR_STUDENT = 'GET_AVAILABILITIES_FOR_STUDENT';
+export const EDIT_AVAILABILITIES = 'EDIT_AVAILABILITIES';
+export const GET_TIMESLOTS = 'GET_TIMESLOTS';

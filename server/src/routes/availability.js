@@ -62,6 +62,28 @@ module.exports = () => {
     // res.send(studentAvailability);
   });
 
+  // Edit availability (Delete and add new);
+  router.put('/edit', async (req, res) => {
+    console.log('/availability/edit - PUT');
+    console.log(req.body);
+    let { studentId, timeslotIds } = req.body;
+    studentId = parseInt(studentId);
+    Availability.destroy({ where: { studentId } });
+    let studentAvailability = [];
+    for (let i = 0; i < timeslotIds.length; i++) {
+      let timeslotId = parseInt(timeslotIds[i]);
+      let timeslot = {
+        studentId,
+        timeslotId,
+      };
+      console.log(timeslot);
+      studentAvailability.push(timeslot);
+    }
+    const availability = await Availability.bulkCreate(studentAvailability);
+    console.log(availability);
+    res.send(availability);
+  });
+
   // Delete availability
   router.delete('/:id', (req, res) => {
     console.log('/availabilities/:id - delete');
