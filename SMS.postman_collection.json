@@ -2,7 +2,8 @@
 	"info": {
 		"_postman_id": "08bcd103-39cf-4aac-9562-39f8cb2726da",
 		"name": "SMS",
-		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "18463881"
 	},
 	"item": [
 		{
@@ -320,17 +321,17 @@
 							"urlencoded": [
 								{
 									"key": "staffName",
-									"value": "reroute",
+									"value": "test-coord",
 									"type": "text"
 								},
 								{
-									"key": "email",
-									"value": "re@rout.e",
+									"key": "staffEmail",
+									"value": "123",
 									"type": "text"
 								},
 								{
-									"key": "password",
-									"value": "1",
+									"key": "staffPassword",
+									"value": "123",
 									"type": "text"
 								}
 							]
@@ -1626,6 +1627,50 @@
 							"path": [
 								"availability",
 								"add"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Edit (delete and add new)",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "urlencoded",
+							"urlencoded": [
+								{
+									"key": "timeslotIds[0]",
+									"value": "1",
+									"type": "text"
+								},
+								{
+									"key": "timeslotIds[1]",
+									"value": "2",
+									"type": "text"
+								},
+								{
+									"key": "timeslotIds[2]",
+									"value": "3",
+									"type": "text"
+								},
+								{
+									"key": "studentId",
+									"value": "25",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "localhost:5000/availability/edit",
+							"host": [
+								"localhost"
+							],
+							"port": "5000",
+							"path": [
+								"availability",
+								"edit"
 							]
 						}
 					},
