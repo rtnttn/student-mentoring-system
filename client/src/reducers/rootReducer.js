@@ -8,6 +8,7 @@ import studentReducer from './studentReducer';
 import staffReducer from './staffReducer';
 import subjectReducer from './subjectReducer';
 import alertReducer from './alertReducer';
+import availabilityReducer from './availabilityReducer';
 
 export default combineReducers({
   auth: authReducer,
@@ -18,4 +19,5 @@ export default combineReducers({
   student: studentReducer,
   staff: staffReducer,
   alert: alertReducer,
+  availability: availabilityReducer,
 });
