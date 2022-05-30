@@ -12,6 +12,7 @@ import {
   DELETE_GROUP,
   GROUP_DEL_ERROR,
 } from './types';
+import { setAlert } from './alertActions';
 // import axios
 import axios from 'axios';
 
@@ -60,6 +61,8 @@ export const addGroup = (group) => async (dispatch) => {
     type: ADD_GROUP,
     payload: res.data,
   });
+
+  dispatch(setAlert('Group created ', 'success'));
 };
 
 export const addMenteeToGroup = (students, groupId) => async (dispatch) => {
@@ -72,4 +75,6 @@ export const addMenteeToGroup = (students, groupId) => async (dispatch) => {
     type: ADD_MENTEE_TO_GROUP,
     payload: res.data,
   });
+
+  dispatch(setAlert('Group member added ', 'success'));
 };

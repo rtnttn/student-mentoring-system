@@ -3,6 +3,7 @@
 /* eslint-disable no-unused-vars */
 
 import { GET_SUBJECTS, ADD_SUBJECT, DELETE_SUBJECT, SUBJECT_DEL_ERROR } from './types';
+import { setAlert } from './alertActions';
 // import axios
 import axios from 'axios';
 
@@ -29,6 +30,8 @@ export const addSubject = (subject) => async (dispatch) => {
     type: ADD_SUBJECT,
     payload: res.data,
   });
+
+  dispatch(setAlert('Subject created', 'success'));
 };
 
 export const deleteSubject = (id) => async (dispatch) => {
@@ -41,6 +44,7 @@ export const deleteSubject = (id) => async (dispatch) => {
       payload: id,
     });
     // console.log('second');
+    dispatch(setAlert('Subject deleted', 'success'));
   } catch (error) {
     // console.log(error);
     dispatch({
@@ -49,4 +53,3 @@ export const deleteSubject = (id) => async (dispatch) => {
     });
   }
 };
-

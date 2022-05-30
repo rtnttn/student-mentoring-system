@@ -15,6 +15,7 @@ import {
   GET_APPLICATIONS_BY_STUDENT,
   ADD_APPLICATION_BY_STUDENT,
 } from './types';
+import { setAlert } from './alertActions';
 // import axios
 import axios from 'axios';
 
@@ -56,6 +57,8 @@ export const addApplication = (application) => async (dispatch) => {
   dispatch({
     type: ADD_APPLICATION,
   });
+
+  dispatch(setAlert('Application posted', 'success'));
 };
 
 export const approveMentorship = (id) => async (dispatch) => {
@@ -67,6 +70,8 @@ export const approveMentorship = (id) => async (dispatch) => {
 
     payload: res.data,
   });
+
+  dispatch(setAlert('Mentorship granted', 'success'));
 };
 
 // Add Application by student
@@ -81,6 +86,8 @@ export const addApplicationByStudent = (application) => async (dispatch) => {
     type: ADD_APPLICATION_BY_STUDENT,
     payload: res.data,
   });
+
+  dispatch(setAlert('Application posted', 'success'));
 };
 
 // Get Applications by student
@@ -105,6 +112,8 @@ export const approveMentorSubject = (id) => async (dispatch) => {
     type: APPROVE_MENTOR_SUBJECT,
     payload: res.data,
   });
+
+  dispatch(setAlert('Mentor application approved', 'success'));
 };
 
 export const deleteApplication = (id) => async (dispatch) => {
@@ -116,6 +125,7 @@ export const deleteApplication = (id) => async (dispatch) => {
       type: DELETE_APPLICATION,
       payload: id,
     });
+    dispatch(setAlert('Application deleted', 'success'));
     // console.log('second');
   } catch (error) {
     // console.log(error);
