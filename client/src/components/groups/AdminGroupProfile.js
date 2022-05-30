@@ -23,7 +23,7 @@ import React, { useState, useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { FaSortDown, FaCaretUp, FaTrash } from 'react-icons/fa';
+import { FaSortDown, FaCaretUp, FaTrash, FaArrowLeft } from 'react-icons/fa';
 import { IoCheckmarkCircleOutline, IoCheckmarkCircle } from 'react-icons/io5';
 import { MdOutlinePersonSearch, MdOutlineGroupAdd, MdOutlineManageSearch } from 'react-icons/md';
 import { BsXLg, BsCheckLg } from 'react-icons/bs';
@@ -110,6 +110,13 @@ const AdminGroupProfile = ({ group, getGroupAdmin, loading }) => {
     <h1>Loading...</h1>
   ) : (
     <div className="col-md card columnColor shadow mt-2 mb-2" id="colBackground">
+      <h3 className="text-center m-2 fw-bold">Group Details</h3>
+      <Link to="/" style={{ textDecoration: 'none' }}>
+        <h4 className="text-primary">
+          <FaArrowLeft className="m-1" />
+          Back
+        </h4>
+      </Link>
       <div className="container ps-5 pe-5 pt-3">
         <table className="table table-borderless mt-2">
           <tbody>

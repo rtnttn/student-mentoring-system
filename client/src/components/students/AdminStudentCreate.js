@@ -22,6 +22,8 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
+import { FaArrowLeft } from 'react-icons/fa';
 import classnames from 'classnames';
 import { addStudent, getStudents } from '../../actions/studentActions';
 
@@ -96,6 +98,12 @@ const AdminStudentCreate = ({ students, addStudent, getStudents, loading }) => {
       <div className="container ps-5 pe-5 pt-3">
         <div className="ps-5 pe-5">
           <h4 className="text-center">Add a Student</h4>
+          <Link to="/" style={{ textDecoration: 'none' }}>
+            <h4 className="text-primary">
+              <FaArrowLeft className="m-1" />
+              Back
+            </h4>
+          </Link>
           <form onSubmit={(e) => onSubmit(e)}>
             <div className="row g-2 mb-1">
               <div className="col-sm-2">
