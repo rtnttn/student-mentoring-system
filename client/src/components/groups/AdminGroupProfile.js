@@ -23,7 +23,7 @@ import React, { useState, useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { FaSortDown, FaCaretUp, FaTrash, FaArrowLeft } from 'react-icons/fa';
+import { FaSortDown, FaCaretUp, FaTrash, FaArrowLeft, FaEnvelope } from 'react-icons/fa';
 import { IoCheckmarkCircleOutline, IoCheckmarkCircle } from 'react-icons/io5';
 import { MdOutlinePersonSearch, MdOutlineGroupAdd, MdOutlineManageSearch } from 'react-icons/md';
 import { BsXLg, BsCheckLg } from 'react-icons/bs';
@@ -106,11 +106,40 @@ const AdminGroupProfile = ({ group, getGroupAdmin, loading }) => {
 
   console.log(groupData);
 
+  // Email
+  let addresses = '';
+  let mentorNames = '';
+  // const emailString = '';
+  const { mentors, mentees, subjectName } = groupData;
+
+  for (let i = 0; i < mentors.length; i += 1) {
+    let mentorEmail = mentors[i].Student.studentEmail;
+    addresses += mentorEmail;
+    addresses += ';';
+    mentorNames += mentors[i].Student.studentName;
+    if (i !== mentors.length - 1) {
+      mentorNames += ', ';
+    }
+  }
+  for (let i = 0; i < mentees.length; i += 1) {
+    let email = mentees[i].Student.studentEmail;
+    addresses += email;
+    if (i !== mentees.length - 1) {
+      addresses += ';';
+    }
+  }
+  const emailString = `mailto:${addresses}?subject=SMS - ${subjectName} with ${mentorNames}`;
+
   return groupData.loading ? (
     <h1>Loading...</h1>
   ) : (
     <div className="col-md card columnColor shadow mt-2 mb-2" id="colBackground">
       <h3 className="text-center m-2 fw-bold">Group Details</h3>
+      <h3 className="text-center">
+        <a href={emailString}>
+          <FaEnvelope title="Email group" style={{ 'text-decoration': 'none' }} />
+        </a>
+      </h3>
       <Link to="/" style={{ textDecoration: 'none' }}>
         <h4 className="text-primary">
           <FaArrowLeft className="m-1" />

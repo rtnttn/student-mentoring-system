@@ -23,7 +23,7 @@ import React, { useState, useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { FaSortDown, FaCaretUp, FaTrash, FaArrowLeft } from 'react-icons/fa';
+import { FaSortDown, FaCaretUp, FaTrash, FaArrowLeft, FaEnvelope } from 'react-icons/fa';
 import { IoCheckmarkCircleOutline, IoCheckmarkCircle } from 'react-icons/io5';
 import { MdOutlinePersonSearch, MdOutlineGroupAdd, MdOutlineManageSearch } from 'react-icons/md';
 import { getStudentAdmin } from '../../actions/userActions';
@@ -121,6 +121,8 @@ const AdminStudentProfile = ({
     });
   }, [availabilities]);
 
+  const emailString = `mailto:${studentData.studentEmail}?subject=SMS`;
+
   const onDelete = async (applicationId) => {
     // deleteApplication(applicationId);
 
@@ -200,6 +202,11 @@ const AdminStudentProfile = ({
   ) : (
     <div className="col-md card columnColor shadow mt-2 mb-2" id="colBackground">
       <h3 className="text-center m-2 fw-bold">Student Details</h3>
+      <h3 className="text-center">
+        <a href={emailString}>
+          <FaEnvelope title="Email student" style={{ 'text-decoration': 'none' }} />
+        </a>
+      </h3>
       <Link to="/" style={{ textDecoration: 'none' }}>
         <h4 className="text-primary">
           <FaArrowLeft className="m-1" />
