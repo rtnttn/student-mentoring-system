@@ -120,6 +120,13 @@ const DashboardGroups = ({ getGroups, loading, groups }) => {
     <div>
       {/* <div className="col-md card m-1 columnColor"> */}
       <h3 className="text-center mt-2">Groups</h3>
+      <div className="text-center mb-2">
+        <Link to="/subjects">
+          <button type="submit" className="btn btn-primary justify-content-center me-1">
+            Manage Subjects
+          </button>
+        </Link>
+      </div>
       {/* SEARCH FORM */}
       <form onSubmit={(e) => onSubmit(e)}>
         <div className="row g-2 mb-1">
