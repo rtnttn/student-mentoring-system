@@ -489,9 +489,17 @@ const DashboardApplications = ({
           <h5 className="text-center">
             Mentee
             {showMenteeInfo ? (
-              <FaCaretUp onClick={(e) => onShowClickMentee(e)} style={{ cursor: 'pointer' }} />
+              <FaCaretUp
+                onClick={(e) => onShowClickMentee(e)}
+                title="Hide"
+                style={{ cursor: 'pointer' }}
+              />
             ) : (
-              <FaSortDown onClick={(e) => onShowClickMentee(e)} style={{ cursor: 'pointer' }} />
+              <FaSortDown
+                onClick={(e) => onShowClickMentee(e)}
+                title="Show"
+                style={{ cursor: 'pointer' }}
+              />
             )}
           </h5>
           {showMenteeInfo ? (
@@ -524,6 +532,7 @@ const DashboardApplications = ({
                             <td colSpan="2">
                               <FaTrash
                                 onClick={(e) => onDelete(mentee.applicationId)}
+                                title="Delete application"
                                 style={{
                                   cursor: 'pointer',
                                   float: 'right',
@@ -534,6 +543,7 @@ const DashboardApplications = ({
                               />
                               <Link to={`/student/${mentee.studentId}`}>
                                 <MdOutlinePersonSearch
+                                  title="Student Details"
                                   style={{
                                     cursor: 'pointer',
                                     float: 'left',
@@ -545,6 +555,7 @@ const DashboardApplications = ({
                               </Link>
                               <Link to={`/group/add/${mentee.applicationId}`}>
                                 <MdOutlineGroupAdd
+                                  title="Fill application"
                                   style={{
                                     cursor: 'pointer',
                                     float: 'left',
@@ -585,6 +596,7 @@ const DashboardApplications = ({
                           <td colSpan="2">
                             <FaTrash
                               onClick={(e) => onDelete(mentee.applicationId)}
+                              title="Delete Application"
                               style={{
                                 cursor: 'pointer',
                                 float: 'right',
@@ -595,6 +607,7 @@ const DashboardApplications = ({
                             />
                             <Link to={`/student/${mentee.studentId}`}>
                               <MdOutlinePersonSearch
+                                title="Student Details"
                                 style={{
                                   cursor: 'pointer',
                                   float: 'left',
@@ -606,6 +619,7 @@ const DashboardApplications = ({
                             </Link>
                             <Link to={`/group/add/${mentee.applicationId}`}>
                               <MdOutlineGroupAdd
+                                title="Process Application"
                                 style={{
                                   cursor: 'pointer',
                                   float: 'left',
@@ -631,11 +645,13 @@ const DashboardApplications = ({
             {showMentorUniversalInfo ? (
               <FaCaretUp
                 onClick={(e) => onShowClickMentorUniversal(e)}
+                title="Hide"
                 style={{ cursor: 'pointer' }}
               />
             ) : (
               <FaSortDown
                 onClick={(e) => onShowClickMentorUniversal(e)}
+                title="Show"
                 style={{ cursor: 'pointer' }}
               />
             )}
@@ -664,6 +680,7 @@ const DashboardApplications = ({
                             <td colSpan="2">
                               <FaTrash
                                 onClick={(e) => onDelete(mentor.applicationId)}
+                                title="Delete Application"
                                 style={{
                                   cursor: 'pointer',
                                   float: 'right',
@@ -674,6 +691,7 @@ const DashboardApplications = ({
                               />
                               <Link to={`/student/${mentor.studentId}`}>
                                 <MdOutlinePersonSearch
+                                  title="Student Details"
                                   style={{
                                     cursor: 'pointer',
                                     float: 'left',
@@ -687,6 +705,7 @@ const DashboardApplications = ({
                                 (id) => id === mentor.applicationId
                               ) ? (
                                 <IoCheckmarkCircle
+                                  title="Approve Application"
                                   style={{
                                     float: 'left',
                                     color: 'green',
@@ -699,6 +718,7 @@ const DashboardApplications = ({
                                   onClick={(e) =>
                                     onApproveMentorship(mentor.studentId, mentor.applicationId)
                                   }
+                                  title="Grant Mentorship"
                                   style={{
                                     cursor: 'pointer',
                                     float: 'left',
@@ -733,6 +753,7 @@ const DashboardApplications = ({
                           <td colSpan="2">
                             <FaTrash
                               onClick={(e) => onDelete(mentor.applicationId)}
+                              title="Delete Application"
                               style={{
                                 cursor: 'pointer',
                                 float: 'right',
@@ -743,6 +764,7 @@ const DashboardApplications = ({
                             />
                             <Link to={`/student/${mentor.studentId}`}>
                               <MdOutlinePersonSearch
+                                title="Student Details"
                                 style={{
                                   cursor: 'pointer',
                                   float: 'left',
@@ -756,6 +778,7 @@ const DashboardApplications = ({
                               (id) => id === mentor.applicationId
                             ) ? (
                               <IoCheckmarkCircle
+                                title="Grant Mentorship"
                                 style={{
                                   float: 'left',
                                   color: 'green',
@@ -768,6 +791,7 @@ const DashboardApplications = ({
                                 onClick={(e) =>
                                   onApproveMentorship(mentor.studentId, mentor.applicationId)
                                 }
+                                title="Grant Mentorship"
                                 style={{
                                   cursor: 'pointer',
                                   float: 'left',
@@ -790,9 +814,17 @@ const DashboardApplications = ({
           <h5 className="text-center">
             Mentor Subjects
             {showMentorInfo ? (
-              <FaCaretUp onClick={(e) => onShowClickMentor(e)} style={{ cursor: 'pointer' }} />
+              <FaCaretUp
+                onClick={(e) => onShowClickMentor(e)}
+                title="Hide"
+                style={{ cursor: 'pointer' }}
+              />
             ) : (
-              <FaSortDown onClick={(e) => onShowClickMentor(e)} style={{ cursor: 'pointer' }} />
+              <FaSortDown
+                onClick={(e) => onShowClickMentor(e)}
+                title="Show"
+                style={{ cursor: 'pointer' }}
+              />
             )}
           </h5>
           {showMentorInfo ? (
@@ -858,6 +890,7 @@ const DashboardApplications = ({
                               ) : (
                                 <IoCheckmarkCircleOutline
                                   onClick={(e) => onApproveMentorSubject(mentor.applicationId)}
+                                  title="Approve Application"
                                   style={{
                                     cursor: 'pointer',
                                     float: 'left',
@@ -900,6 +933,7 @@ const DashboardApplications = ({
                             <td colSpan="2">
                               <FaTrash
                                 onClick={(e) => onDelete(mentor.applicationId)}
+                                title="Delete Application"
                                 style={{
                                   cursor: 'pointer',
                                   float: 'right',
@@ -910,6 +944,7 @@ const DashboardApplications = ({
                               />
                               <Link to={`/student/${mentor.studentId}`}>
                                 <MdOutlinePersonSearch
+                                  title="Student Details"
                                   style={{
                                     cursor: 'pointer',
                                     float: 'left',
@@ -923,6 +958,7 @@ const DashboardApplications = ({
                                 (id) => id === mentor.applicationId
                               ) ? (
                                 <IoCheckmarkCircle
+                                  title="Approve Application"
                                   style={{
                                     float: 'left',
                                     color: 'green',
@@ -933,6 +969,7 @@ const DashboardApplications = ({
                               ) : (
                                 <IoCheckmarkCircleOutline
                                   onClick={(e) => onApproveMentorSubject(mentor.applicationId)}
+                                  title="Approve Application"
                                   style={{
                                     cursor: 'pointer',
                                     float: 'left',
@@ -957,11 +994,13 @@ const DashboardApplications = ({
             {showApprovedMentorInfo ? (
               <FaCaretUp
                 onClick={(e) => onShowClickApprovedMentor(e)}
+                title="Hide"
                 style={{ cursor: 'pointer' }}
               />
             ) : (
               <FaSortDown
                 onClick={(e) => onShowClickApprovedMentor(e)}
+                title="Show"
                 style={{ cursor: 'pointer' }}
               />
             )}
@@ -1044,6 +1083,7 @@ const DashboardApplications = ({
                             <td colSpan="2">
                               <FaTrash
                                 onClick={(e) => onDelete(mentor.applicationId)}
+                                title="Delete Application"
                                 style={{
                                   cursor: 'pointer',
                                   float: 'right',
@@ -1054,6 +1094,7 @@ const DashboardApplications = ({
                               />
                               <Link to={`/student/${mentor.studentId}`}>
                                 <MdOutlinePersonSearch
+                                  title="Student Details"
                                   style={{
                                     cursor: 'pointer',
                                     float: 'left',

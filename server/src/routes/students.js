@@ -51,7 +51,8 @@ module.exports = () => {
     console.log('/students/add - post');
     console.log(req.body);
     // isMentor left out: default to false, change within UI
-    const { studentName, studentEmail, studentPassword, courseName, courseStage } = req.body;
+    const { studentName, studentEmail, studentPassword, courseName, courseStage, isMentor } =
+      req.body;
     try {
       const student = await Student.findOne({ where: { studentEmail } });
       if (student) {
@@ -64,6 +65,7 @@ module.exports = () => {
         studentPassword,
         courseName,
         courseStage,
+        isMentor,
       };
 
       const salt = await bcrypt.genSalt(10);
@@ -78,6 +80,7 @@ module.exports = () => {
         studentPassword: newStudent.studentPassword,
         courseName: newStudent.courseName,
         courseStage: newStudent.courseStage,
+        isMentor: newStudent.isMentor,
       });
 
       // Send a token

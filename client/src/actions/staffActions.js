@@ -2,6 +2,7 @@
 /* eslint-disable import/order */
 /* eslint-disable no-unused-vars */
 import { GET_STAFF, ADD_STAFF } from './types';
+import { setAlert } from './alertActions';
 // import axios
 import axios from 'axios';
 
@@ -25,4 +26,6 @@ export const addStaff = (staff) => async (dispatch) => {
     type: ADD_STAFF,
     payload: res.data,
   });
+
+  dispatch(setAlert('Staff account created', 'success'));
 };

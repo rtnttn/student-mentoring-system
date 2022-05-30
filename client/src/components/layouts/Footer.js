@@ -18,6 +18,16 @@ const Footer = () => {
               Staff Login
             </Link>
           </li>
+          <li className="nav-item">
+            <a
+              href="https://rentry.co/4zuf3"
+              className="nav-link py-2 ml-3 text-black"
+              target="_blank"
+              rel="noreferrer"
+            >
+              Documentation
+            </a>
+          </li>
         </ul>
         <ul className="nav justify-content-center">
           <li className="nav-item py-2 ml-3 text-black">

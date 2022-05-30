@@ -2,6 +2,7 @@
 /* eslint-disable import/order */
 /* eslint-disable no-unused-vars */
 import { GET_STUDENT_INFO, GET_STUDENTS, ADD_STUDENT } from './types';
+import { setAlert } from './alertActions';
 // import axios
 import axios from 'axios';
 
@@ -36,4 +37,5 @@ export const addStudent = (student) => async (dispatch) => {
     type: ADD_STUDENT,
     payload: res.data,
   });
+  dispatch(setAlert('Student account created successfully', 'success'));
 };

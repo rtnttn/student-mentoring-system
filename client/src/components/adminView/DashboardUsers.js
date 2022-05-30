@@ -240,9 +240,17 @@ const DashboardUsers = ({ getUsers, loading, users }) => {
           <h5 className="text-center">
             Mentee
             {showMenteeInfo ? (
-              <FaCaretUp onClick={(e) => onShowClickMentee(e)} style={{ cursor: 'pointer' }} />
+              <FaCaretUp
+                onClick={(e) => onShowClickMentee(e)}
+                title="Hide"
+                style={{ cursor: 'pointer' }}
+              />
             ) : (
-              <FaSortDown onClick={(e) => onShowClickMentee(e)} style={{ cursor: 'pointer' }} />
+              <FaSortDown
+                onClick={(e) => onShowClickMentee(e)}
+                title="Show"
+                style={{ cursor: 'pointer' }}
+              />
             )}
           </h5>
           {showMenteeInfo ? (
@@ -318,6 +326,7 @@ const DashboardUsers = ({ getUsers, loading, users }) => {
                             <Link to={`/student/${mentee.studentId}`}>
                               <MdOutlinePersonSearch
                                 // onClick={(e) => userProfile(e)}
+                                title="Student Details"
                                 style={{
                                   cursor: 'pointer',
                                   float: 'left',
@@ -341,9 +350,17 @@ const DashboardUsers = ({ getUsers, loading, users }) => {
           <h5 className="text-center">
             Mentor
             {showMentorInfo ? (
-              <FaCaretUp onClick={(e) => onShowClickMentor(e)} style={{ cursor: 'pointer' }} />
+              <FaCaretUp
+                onClick={(e) => onShowClickMentor(e)}
+                title="Hide"
+                style={{ cursor: 'pointer' }}
+              />
             ) : (
-              <FaSortDown onClick={(e) => onShowClickMentor(e)} style={{ cursor: 'pointer' }} />
+              <FaSortDown
+                onClick={(e) => onShowClickMentor(e)}
+                title="Show"
+                style={{ cursor: 'pointer' }}
+              />
             )}
           </h5>
           {showMentorInfo ? (
@@ -427,6 +444,7 @@ const DashboardUsers = ({ getUsers, loading, users }) => {
                             <Link to={`/student/${mentor.studentId}`}>
                               <MdOutlinePersonSearch
                                 // onClick={(e) => userProfile(e)}
+                                title="Student Details"
                                 style={{
                                   cursor: 'pointer',
                                   float: 'left',
@@ -450,9 +468,17 @@ const DashboardUsers = ({ getUsers, loading, users }) => {
           <h5 className="text-center">
             Staff
             {showStaffInfo ? (
-              <FaCaretUp onClick={(e) => onShowClickStaff(e)} style={{ cursor: 'pointer' }} />
+              <FaCaretUp
+                onClick={(e) => onShowClickStaff(e)}
+                title="Hide"
+                style={{ cursor: 'pointer' }}
+              />
             ) : (
-              <FaSortDown onClick={(e) => onShowClickStaff(e)} style={{ cursor: 'pointer' }} />
+              <FaSortDown
+                onClick={(e) => onShowClickStaff(e)}
+                title="Show"
+                style={{ cursor: 'pointer' }}
+              />
             )}
           </h5>
           {showStaffInfo ? (
@@ -509,6 +535,7 @@ const DashboardUsers = ({ getUsers, loading, users }) => {
                           <td colSpan="2">
                             <MdOutlinePersonSearch
                               // onClick={(e) => userProfile(e)}
+                              title="Staff Details (not yet implemented)"
                               style={{
                                 cursor: 'pointer',
                                 float: 'left',

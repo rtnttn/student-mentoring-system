@@ -44,7 +44,7 @@ module.exports = () => {
           include: [
             {
               model: Student,
-              attributes: ['studentName'],
+              attributes: ['studentName', 'studentEmail'],
             },
           ],
         },
@@ -88,7 +88,7 @@ module.exports = () => {
                 },
                 {
                   model: Student,
-                  attributes: ['studentName'],
+                  attributes: ['studentName', 'studentEmail'],
                 },
               ],
             },
@@ -103,7 +103,7 @@ module.exports = () => {
 
     // Staff data
     const staff = await Staff.findAll({
-      attributes: ['staffName', 'staffId'],
+      attributes: ['staffName', 'staffId', 'staffEmail'],
     });
     console.log(staff);
 
@@ -112,7 +112,7 @@ module.exports = () => {
       include: [
         {
           model: Staff,
-          attributes: ['staffName', 'staffId'],
+          attributes: ['staffName', 'staffId', 'staffEmail'],
         },
         {
           model: Subject,
@@ -126,7 +126,7 @@ module.exports = () => {
           include: [
             {
               model: Student,
-              attributes: ['studentName'],
+              attributes: ['studentName', 'studentEmail'],
               include: [
                 {
                   model: Availability,

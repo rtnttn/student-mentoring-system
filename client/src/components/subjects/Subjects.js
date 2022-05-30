@@ -22,8 +22,9 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { FaTrash } from 'react-icons/fa';
+import { FaTrash, FaArrowLeft } from 'react-icons/fa';
 import classnames from 'classnames';
+import { Link } from 'react-router-dom';
 import { getSubjects, addSubject, deleteSubject } from '../../actions/subjectActions';
 
 const Subjects = ({ subjects, getSubjects, addSubject, deleteSubject, loading }) => {
@@ -70,6 +71,12 @@ const Subjects = ({ subjects, getSubjects, addSubject, deleteSubject, loading })
       <div className="container ps-5 pe-5 pt-3">
         <div className="ps-5 pe-5">
           <h4 className="text-center">Add a Subject</h4>
+          <Link to="/" style={{ textDecoration: 'none' }}>
+            <h4 className="text-primary">
+              <FaArrowLeft className="m-1" />
+              Back
+            </h4>
+          </Link>
           <form onSubmit={(e) => onSubmit(e)}>
             <div className="row g-2 mb-1">
               <div className="col-sm-2">
@@ -118,6 +125,7 @@ const Subjects = ({ subjects, getSubjects, addSubject, deleteSubject, loading })
                     {subject.subjectName !== 'Mentor Application' ? (
                       <FaTrash
                         onClick={(e) =>
+                          // eslint-disable-next-line no-alert
                           window.confirm(
                             'WARNING!\nYou are about to delete ' +
                               subject.subjectName +
@@ -126,6 +134,7 @@ const Subjects = ({ subjects, getSubjects, addSubject, deleteSubject, loading })
                             ? onDelete(subject.subjectId)
                             : null
                         }
+                        title="Delete Subject"
                         style={{
                           cursor: 'pointer',
                           float: 'left',

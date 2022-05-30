@@ -9,7 +9,7 @@ const PubHeader = ({ branding }) => {
       <div className="container-fluid justify-content-center">
         <ul className="nav">
           <li className="nav-item">
-            <Link className="navbar-brand" to="/">
+            <Link className="navbar-brand" title="Home" to="/">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 className="icon icon-tabler icon-tabler-school"

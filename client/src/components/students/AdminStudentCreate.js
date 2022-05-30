@@ -22,6 +22,8 @@
 import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+import { Link } from 'react-router-dom';
+import { FaArrowLeft } from 'react-icons/fa';
 import classnames from 'classnames';
 import { addStudent, getStudents } from '../../actions/studentActions';
 
@@ -32,9 +34,11 @@ const AdminStudentCreate = ({ students, addStudent, getStudents, loading }) => {
     studentPassword: 'password',
     courseName: 'BIS17 Bachelor of Information Systems',
     courseStage: '1',
+    isMentor: false,
     errors: {},
   });
-  const { studentName, studentEmail, studentPassword, courseName, courseStage, errors } = formData; // destructuring
+  const { studentName, studentEmail, studentPassword, courseName, courseStage, isMentor, errors } =
+    formData; // destructuring
 
   const onChange = (e) => setFormData({ ...formData, [e.target.name]: e.target.value });
 
@@ -73,6 +77,7 @@ const AdminStudentCreate = ({ students, addStudent, getStudents, loading }) => {
       studentPassword,
       courseName,
       courseStage,
+      isMentor,
     };
 
     // console.log(newStudent);
@@ -96,6 +101,12 @@ const AdminStudentCreate = ({ students, addStudent, getStudents, loading }) => {
       <div className="container ps-5 pe-5 pt-3">
         <div className="ps-5 pe-5">
           <h4 className="text-center">Add a Student</h4>
+          <Link to="/" style={{ textDecoration: 'none' }}>
+            <h4 className="text-primary">
+              <FaArrowLeft className="m-1" />
+              Back
+            </h4>
+          </Link>
           <form onSubmit={(e) => onSubmit(e)}>
             <div className="row g-2 mb-1">
               <div className="col-sm-2">
@@ -179,6 +190,38 @@ const AdminStudentCreate = ({ students, addStudent, getStudents, loading }) => {
                   onChange={(e) => onChange(e)}
                 />
                 {errors.courseName && <div className="invalid-feedback">{errors.courseName}</div>}
+              </div>
+            </div>
+            <div className="row g-2 mb-1">
+              <div className="col-sm-2">
+                <label htmlFor="isMentor" className="col-form-label">
+                  Privileges:
+                </label>
+              </div>
+              <div className="col-sm-10">
+                <input
+                  type="radio"
+                  className="m-1"
+                  id="mentee"
+                  name="isMentor"
+                  value="false"
+                  checked="true"
+                  onChange={(e) => onChange(e)}
+                />
+                <label htmlFor="mentee" className="m-1">
+                  Mentee
+                </label>
+                <input
+                  type="radio"
+                  className="m-1"
+                  id="mentor"
+                  name="isMentor"
+                  value="true"
+                  onChange={(e) => onChange(e)}
+                />
+                <label htmlFor="mentor" className="m-1">
+                  Mentor
+                </label>
               </div>
             </div>
             <div className="text-center mb-2">

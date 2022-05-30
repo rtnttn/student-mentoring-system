@@ -23,7 +23,7 @@ import React, { useState, useEffect } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import { FaSortDown, FaCaretUp, FaTrash } from 'react-icons/fa';
+import { FaSortDown, FaCaretUp, FaTrash, FaArrowLeft, FaEnvelope } from 'react-icons/fa';
 import { IoCheckmarkCircleOutline, IoCheckmarkCircle } from 'react-icons/io5';
 import { MdOutlinePersonSearch, MdOutlineGroupAdd, MdOutlineManageSearch } from 'react-icons/md';
 import { getStudentAdmin } from '../../actions/userActions';
@@ -121,6 +121,8 @@ const AdminStudentProfile = ({
     });
   }, [availabilities]);
 
+  const emailString = `mailto:${studentData.studentEmail}?subject=SMS`;
+
   const onDelete = async (applicationId) => {
     // deleteApplication(applicationId);
 
@@ -199,6 +201,18 @@ const AdminStudentProfile = ({
     <h1>Loading...</h1>
   ) : (
     <div className="col-md card columnColor shadow mt-2 mb-2" id="colBackground">
+      <h3 className="text-center m-2 fw-bold">Student Details</h3>
+      <h3 className="text-center">
+        <a href={emailString}>
+          <FaEnvelope title="Email student" style={{ 'text-decoration': 'none' }} />
+        </a>
+      </h3>
+      <Link to="/" style={{ textDecoration: 'none' }}>
+        <h4 className="text-primary">
+          <FaArrowLeft className="m-1" />
+          Back
+        </h4>
+      </Link>
       <div className="container ps-5 pe-5 pt-3">
         <table className="table table-borderless mt-2">
           <tbody>
@@ -508,6 +522,7 @@ const AdminStudentProfile = ({
                               <td colSpan="2">
                                 <FaTrash
                                   onClick={(e) => onDelete(app.applicationId)}
+                                  title="Delete Application"
                                   style={{
                                     cursor: 'pointer',
                                     float: 'right',
@@ -518,6 +533,7 @@ const AdminStudentProfile = ({
                                 />
                                 <Link to={`/group/add/${app.applicationId}`}>
                                   <MdOutlineGroupAdd
+                                    title="Process Application"
                                     style={{
                                       cursor: 'pointer',
                                       float: 'left',
@@ -554,6 +570,7 @@ const AdminStudentProfile = ({
                               <td colSpan="2">
                                 <FaTrash
                                   onClick={(e) => onDelete(app.applicationId)}
+                                  title="Delete Application"
                                   style={{
                                     cursor: 'pointer',
                                     float: 'right',
@@ -565,6 +582,7 @@ const AdminStudentProfile = ({
 
                                 <IoCheckmarkCircleOutline
                                   onClick={(e) => onApproveMentorship(app.applicationId)}
+                                  title="Grant Mentorship"
                                   style={{
                                     cursor: 'pointer',
                                     float: 'left',
@@ -600,6 +618,7 @@ const AdminStudentProfile = ({
                               <td colSpan="2">
                                 <FaTrash
                                   onClick={(e) => onDelete(app.applicationId)}
+                                  title="Delete Application"
                                   style={{
                                     cursor: 'pointer',
                                     float: 'right',
@@ -610,6 +629,7 @@ const AdminStudentProfile = ({
                                 />
                                 <IoCheckmarkCircleOutline
                                   onClick={(e) => onApproveMentorSubject(app.applicationId)}
+                                  title="Approve Application"
                                   style={{
                                     cursor: 'pointer',
                                     float: 'left',
@@ -659,6 +679,7 @@ const AdminStudentProfile = ({
                           <Link to={`/group/${group.groupId}`}>
                             <MdOutlineManageSearch
                               // onClick={(e) => userProfile(e)}
+                              title="Group Details"
                               style={{
                                 cursor: 'pointer',
                                 float: 'left',
@@ -700,6 +721,7 @@ const AdminStudentProfile = ({
                           <Link to={`/group/${group.groupId}`}>
                             <MdOutlineManageSearch
                               // onClick={(e) => userProfile(e)}
+                              title="Group Details"
                               style={{
                                 cursor: 'pointer',
                                 float: 'left',

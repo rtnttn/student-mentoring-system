@@ -120,6 +120,13 @@ const DashboardGroups = ({ getGroups, loading, groups }) => {
     <div>
       {/* <div className="col-md card m-1 columnColor"> */}
       <h3 className="text-center mt-2">Groups</h3>
+      <div className="text-center mb-2">
+        <Link to="/subjects">
+          <button type="submit" className="btn btn-primary justify-content-center me-1">
+            Manage Subjects
+          </button>
+        </Link>
+      </div>
       {/* SEARCH FORM */}
       <form onSubmit={(e) => onSubmit(e)}>
         <div className="row g-2 mb-1">
@@ -225,9 +232,17 @@ const DashboardGroups = ({ getGroups, loading, groups }) => {
           <h5 className="text-center">
             Groups
             {showGroupInfo ? (
-              <FaCaretUp onClick={(e) => onShowClickGroup(e)} style={{ cursor: 'pointer' }} />
+              <FaCaretUp
+                onClick={(e) => onShowClickGroup(e)}
+                title="Hide"
+                style={{ cursor: 'pointer' }}
+              />
             ) : (
-              <FaSortDown onClick={(e) => onShowClickGroup(e)} style={{ cursor: 'pointer' }} />
+              <FaSortDown
+                onClick={(e) => onShowClickGroup(e)}
+                title="Show"
+                style={{ cursor: 'pointer' }}
+              />
             )}
           </h5>
           {showGroupInfo ? (
@@ -662,6 +677,7 @@ const DashboardGroups = ({ getGroups, loading, groups }) => {
                             <Link to={`/group/${group.groupId}`}>
                               <MdOutlineManageSearch
                                 // onClick={(e) => userProfile(e)}
+                                title="Group Details"
                                 style={{
                                   cursor: 'pointer',
                                   float: 'left',

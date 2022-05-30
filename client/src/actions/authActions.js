@@ -66,6 +66,8 @@ export const register = (user) => async (dispatch) => {
       type: REGISTER_SUCCESS,
       payload: res.data,
     });
+
+    dispatch(setAlert('Account created successfully', 'success'));
   } catch (error) {
     const errors = error.response.data.errors;
     // display each error.

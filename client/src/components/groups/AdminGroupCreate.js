@@ -26,7 +26,7 @@ import PropTypes from 'prop-types';
 import { useParams, Link, useNavigate } from 'react-router-dom';
 import { connect } from 'react-redux';
 import classnames from 'classnames';
-import { FaSortDown, FaCaretUp, FaTrash } from 'react-icons/fa';
+import { FaSortDown, FaCaretUp, FaTrash, FaArrowLeft, FaEnvelope } from 'react-icons/fa';
 import { IoCheckmarkCircleOutline, IoCheckmarkCircle } from 'react-icons/io5';
 import { MdOutlinePersonSearch, MdOutlineGroupAdd, MdOutlineManageSearch } from 'react-icons/md';
 import { BsXLg, BsCheckLg, BsCloudLightning } from 'react-icons/bs';
@@ -218,12 +218,24 @@ const AdminGroupProfile = ({ infoForAdd, getGroupForAdd, addMenteeToGroup, addGr
     navigate('/');
   };
 
+  let addresses = '';
+  let subjectName = '';
+  let mentorNames = '';
+  const emailString = `mailto:${addresses}?subject=SMS - ${subjectName} with ${mentorNames}`;
+
   // console.log(selectData.mentorApplications.find((mentor) => mentor.studentId === mentorId));
 
   return selectData.loading ? (
     <h1>Loading...</h1>
   ) : (
     <div className="col-md card columnColor shadow mt-2 mb-2" id="colBackground">
+      <h3 className="text-center m-2 fw-bold">Fill Application</h3>
+      <Link to="/" style={{ textDecoration: 'none' }}>
+        <h4 className="text-primary">
+          <FaArrowLeft className="m-1" />
+          Back
+        </h4>
+      </Link>
       <div className="container ps-5 pe-5 pt-3">
         <h4 className="fw-bold">Subject: {selectData.subjectName}</h4>
         <form onSubmit={(e) => onSubmit(e)}>
@@ -308,6 +320,7 @@ const AdminGroupProfile = ({ infoForAdd, getGroupForAdd, addMenteeToGroup, addGr
                     <Link to={`/student/${mentorId}`}>
                       <MdOutlinePersonSearch
                         // onClick={(e) => userProfile(e)}
+                        title="Student Details"
                         style={{
                           cursor: 'pointer',
                           float: 'left',
@@ -406,6 +419,7 @@ const AdminGroupProfile = ({ infoForAdd, getGroupForAdd, addMenteeToGroup, addGr
                     <Link to={`/student/${mentees.menteeId1}`}>
                       <MdOutlinePersonSearch
                         // onClick={(e) => userProfile(e)}
+                        title="Student Details"
                         style={{
                           cursor: 'pointer',
                           float: 'left',
@@ -479,6 +493,7 @@ const AdminGroupProfile = ({ infoForAdd, getGroupForAdd, addMenteeToGroup, addGr
                     <Link to={`/student/${mentees.menteeId2}`}>
                       <MdOutlinePersonSearch
                         // onClick={(e) => userProfile(e)}
+                        title="Student Details"
                         style={{
                           cursor: 'pointer',
                           float: 'left',
@@ -552,6 +567,7 @@ const AdminGroupProfile = ({ infoForAdd, getGroupForAdd, addMenteeToGroup, addGr
                     <Link to={`/student/${mentees.menteeId3}`}>
                       <MdOutlinePersonSearch
                         // onClick={(e) => userProfile(e)}
+                        title="Student Details"
                         style={{
                           cursor: 'pointer',
                           float: 'left',
@@ -625,6 +641,7 @@ const AdminGroupProfile = ({ infoForAdd, getGroupForAdd, addMenteeToGroup, addGr
                     <Link to={`/student/${mentees.menteeId4}`}>
                       <MdOutlinePersonSearch
                         // onClick={(e) => userProfile(e)}
+                        title="Student Details"
                         style={{
                           cursor: 'pointer',
                           float: 'left',
@@ -699,6 +716,7 @@ const AdminGroupProfile = ({ infoForAdd, getGroupForAdd, addMenteeToGroup, addGr
                     <Link to={`/student/${mentees.menteeId5}`}>
                       <MdOutlinePersonSearch
                         // onClick={(e) => userProfile(e)}
+                        title="Student Details"
                         style={{
                           cursor: 'pointer',
                           float: 'left',
@@ -720,6 +738,11 @@ const AdminGroupProfile = ({ infoForAdd, getGroupForAdd, addMenteeToGroup, addGr
             </button>
           </div>
         </form>
+        <h3 className="text-center">
+          <a href={emailString}>
+            <FaEnvelope title="Send email notification" style={{ 'text-decoration': 'none' }} />
+          </a>
+        </h3>
 
         <br />
 
@@ -819,6 +842,14 @@ const AdminGroupProfile = ({ infoForAdd, getGroupForAdd, addMenteeToGroup, addGr
                               >
                                 Add to Group
                               </button>
+                              <h3 className="text-center">
+                                <a href={emailString}>
+                                  <FaEnvelope
+                                    title="Send email notification"
+                                    style={{ 'text-decoration': 'none' }}
+                                  />
+                                </a>
+                              </h3>
                             </div>
                           </td>
                         </tr>
