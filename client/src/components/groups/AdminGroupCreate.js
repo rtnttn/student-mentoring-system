@@ -26,7 +26,7 @@ import PropTypes from 'prop-types';
 import { useParams, Link, useNavigate } from 'react-router-dom';
 import { connect } from 'react-redux';
 import classnames from 'classnames';
-import { FaSortDown, FaCaretUp, FaTrash, FaArrowLeft } from 'react-icons/fa';
+import { FaSortDown, FaCaretUp, FaTrash, FaArrowLeft, FaEnvelope } from 'react-icons/fa';
 import { IoCheckmarkCircleOutline, IoCheckmarkCircle } from 'react-icons/io5';
 import { MdOutlinePersonSearch, MdOutlineGroupAdd, MdOutlineManageSearch } from 'react-icons/md';
 import { BsXLg, BsCheckLg, BsCloudLightning } from 'react-icons/bs';
@@ -217,6 +217,11 @@ const AdminGroupProfile = ({ infoForAdd, getGroupForAdd, addMenteeToGroup, addGr
     addMenteeToGroup(newMember, groupId);
     navigate('/');
   };
+
+  let addresses = '';
+  let subjectName = '';
+  let mentorNames = '';
+  const emailString = `mailto:${addresses}?subject=SMS - ${subjectName} with ${mentorNames}`;
 
   // console.log(selectData.mentorApplications.find((mentor) => mentor.studentId === mentorId));
 
@@ -733,6 +738,11 @@ const AdminGroupProfile = ({ infoForAdd, getGroupForAdd, addMenteeToGroup, addGr
             </button>
           </div>
         </form>
+        <h3 className="text-center">
+          <a href={emailString}>
+            <FaEnvelope title="Send email notification" style={{ 'text-decoration': 'none' }} />
+          </a>
+        </h3>
 
         <br />
 
@@ -832,6 +842,14 @@ const AdminGroupProfile = ({ infoForAdd, getGroupForAdd, addMenteeToGroup, addGr
                               >
                                 Add to Group
                               </button>
+                              <h3 className="text-center">
+                                <a href={emailString}>
+                                  <FaEnvelope
+                                    title="Send email notification"
+                                    style={{ 'text-decoration': 'none' }}
+                                  />
+                                </a>
+                              </h3>
                             </div>
                           </td>
                         </tr>
