@@ -34,9 +34,11 @@ const AdminStudentCreate = ({ students, addStudent, getStudents, loading }) => {
     studentPassword: 'password',
     courseName: 'BIS17 Bachelor of Information Systems',
     courseStage: '1',
+    isMentor: false,
     errors: {},
   });
-  const { studentName, studentEmail, studentPassword, courseName, courseStage, errors } = formData; // destructuring
+  const { studentName, studentEmail, studentPassword, courseName, courseStage, isMentor, errors } =
+    formData; // destructuring
 
   const onChange = (e) => setFormData({ ...formData, [e.target.name]: e.target.value });
 
@@ -75,6 +77,7 @@ const AdminStudentCreate = ({ students, addStudent, getStudents, loading }) => {
       studentPassword,
       courseName,
       courseStage,
+      isMentor,
     };
 
     // console.log(newStudent);
@@ -187,6 +190,38 @@ const AdminStudentCreate = ({ students, addStudent, getStudents, loading }) => {
                   onChange={(e) => onChange(e)}
                 />
                 {errors.courseName && <div className="invalid-feedback">{errors.courseName}</div>}
+              </div>
+            </div>
+            <div className="row g-2 mb-1">
+              <div className="col-sm-2">
+                <label htmlFor="isMentor" className="col-form-label">
+                  Privileges:
+                </label>
+              </div>
+              <div className="col-sm-10">
+                <input
+                  type="radio"
+                  className="m-1"
+                  id="mentee"
+                  name="isMentor"
+                  value="false"
+                  checked="true"
+                  onChange={(e) => onChange(e)}
+                />
+                <label htmlFor="mentee" className="m-1">
+                  Mentee
+                </label>
+                <input
+                  type="radio"
+                  className="m-1"
+                  id="mentor"
+                  name="isMentor"
+                  value="true"
+                  onChange={(e) => onChange(e)}
+                />
+                <label htmlFor="mentor" className="m-1">
+                  Mentor
+                </label>
               </div>
             </div>
             <div className="text-center mb-2">
