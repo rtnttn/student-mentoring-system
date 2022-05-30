@@ -125,6 +125,7 @@ const Subjects = ({ subjects, getSubjects, addSubject, deleteSubject, loading })
                     {subject.subjectName !== 'Mentor Application' ? (
                       <FaTrash
                         onClick={(e) =>
+                          // eslint-disable-next-line no-alert
                           window.confirm(
                             'WARNING!\nYou are about to delete ' +
                               subject.subjectName +

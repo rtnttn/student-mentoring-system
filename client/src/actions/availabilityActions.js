@@ -2,6 +2,7 @@
 /* eslint-disable import/order */
 /* eslint-disable no-unused-vars */
 import { GET_AVAILABILITIES_FOR_STUDENT, EDIT_AVAILABILITIES, GET_TIMESLOTS } from './types';
+import { setAlert } from './alertActions';
 // import axios
 import axios from 'axios';
 
@@ -28,6 +29,8 @@ export const editAvailabilities = (availabilities) => async (dispatch) => {
     type: EDIT_AVAILABILITIES,
     payload: res.data,
   });
+
+  dispatch(setAlert('Availability updated', 'success'));
 };
 
 export const getTimeslots = () => async (dispatch) => {
