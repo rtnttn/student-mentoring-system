@@ -515,6 +515,7 @@ const AdminStudentProfile = ({
                               <td colSpan="2">
                                 <FaTrash
                                   onClick={(e) => onDelete(app.applicationId)}
+                                  title="Delete Application"
                                   style={{
                                     cursor: 'pointer',
                                     float: 'right',
@@ -525,6 +526,7 @@ const AdminStudentProfile = ({
                                 />
                                 <Link to={`/group/add/${app.applicationId}`}>
                                   <MdOutlineGroupAdd
+                                    title="Process Application"
                                     style={{
                                       cursor: 'pointer',
                                       float: 'left',
@@ -561,6 +563,7 @@ const AdminStudentProfile = ({
                               <td colSpan="2">
                                 <FaTrash
                                   onClick={(e) => onDelete(app.applicationId)}
+                                  title="Delete Application"
                                   style={{
                                     cursor: 'pointer',
                                     float: 'right',
@@ -572,6 +575,7 @@ const AdminStudentProfile = ({
 
                                 <IoCheckmarkCircleOutline
                                   onClick={(e) => onApproveMentorship(app.applicationId)}
+                                  title="Grant Mentorship"
                                   style={{
                                     cursor: 'pointer',
                                     float: 'left',
@@ -607,6 +611,7 @@ const AdminStudentProfile = ({
                               <td colSpan="2">
                                 <FaTrash
                                   onClick={(e) => onDelete(app.applicationId)}
+                                  title="Delete Application"
                                   style={{
                                     cursor: 'pointer',
                                     float: 'right',
@@ -617,6 +622,7 @@ const AdminStudentProfile = ({
                                 />
                                 <IoCheckmarkCircleOutline
                                   onClick={(e) => onApproveMentorSubject(app.applicationId)}
+                                  title="Approve Application"
                                   style={{
                                     cursor: 'pointer',
                                     float: 'left',
@@ -666,6 +672,7 @@ const AdminStudentProfile = ({
                           <Link to={`/group/${group.groupId}`}>
                             <MdOutlineManageSearch
                               // onClick={(e) => userProfile(e)}
+                              title="Group Details"
                               style={{
                                 cursor: 'pointer',
                                 float: 'left',
@@ -707,6 +714,7 @@ const AdminStudentProfile = ({
                           <Link to={`/group/${group.groupId}`}>
                             <MdOutlineManageSearch
                               // onClick={(e) => userProfile(e)}
+                              title="Group Details"
                               style={{
                                 cursor: 'pointer',
                                 float: 'left',

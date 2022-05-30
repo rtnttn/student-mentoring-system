@@ -232,9 +232,17 @@ const DashboardGroups = ({ getGroups, loading, groups }) => {
           <h5 className="text-center">
             Groups
             {showGroupInfo ? (
-              <FaCaretUp onClick={(e) => onShowClickGroup(e)} style={{ cursor: 'pointer' }} />
+              <FaCaretUp
+                onClick={(e) => onShowClickGroup(e)}
+                title="Hide"
+                style={{ cursor: 'pointer' }}
+              />
             ) : (
-              <FaSortDown onClick={(e) => onShowClickGroup(e)} style={{ cursor: 'pointer' }} />
+              <FaSortDown
+                onClick={(e) => onShowClickGroup(e)}
+                title="Show"
+                style={{ cursor: 'pointer' }}
+              />
             )}
           </h5>
           {showGroupInfo ? (
@@ -669,6 +677,7 @@ const DashboardGroups = ({ getGroups, loading, groups }) => {
                             <Link to={`/group/${group.groupId}`}>
                               <MdOutlineManageSearch
                                 // onClick={(e) => userProfile(e)}
+                                title="Group Details"
                                 style={{
                                   cursor: 'pointer',
                                   float: 'left',

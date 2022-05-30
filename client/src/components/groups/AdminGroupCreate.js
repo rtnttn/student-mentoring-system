@@ -315,6 +315,7 @@ const AdminGroupProfile = ({ infoForAdd, getGroupForAdd, addMenteeToGroup, addGr
                     <Link to={`/student/${mentorId}`}>
                       <MdOutlinePersonSearch
                         // onClick={(e) => userProfile(e)}
+                        title="Student Details"
                         style={{
                           cursor: 'pointer',
                           float: 'left',
@@ -413,6 +414,7 @@ const AdminGroupProfile = ({ infoForAdd, getGroupForAdd, addMenteeToGroup, addGr
                     <Link to={`/student/${mentees.menteeId1}`}>
                       <MdOutlinePersonSearch
                         // onClick={(e) => userProfile(e)}
+                        title="Student Details"
                         style={{
                           cursor: 'pointer',
                           float: 'left',
@@ -486,6 +488,7 @@ const AdminGroupProfile = ({ infoForAdd, getGroupForAdd, addMenteeToGroup, addGr
                     <Link to={`/student/${mentees.menteeId2}`}>
                       <MdOutlinePersonSearch
                         // onClick={(e) => userProfile(e)}
+                        title="Student Details"
                         style={{
                           cursor: 'pointer',
                           float: 'left',
@@ -559,6 +562,7 @@ const AdminGroupProfile = ({ infoForAdd, getGroupForAdd, addMenteeToGroup, addGr
                     <Link to={`/student/${mentees.menteeId3}`}>
                       <MdOutlinePersonSearch
                         // onClick={(e) => userProfile(e)}
+                        title="Student Details"
                         style={{
                           cursor: 'pointer',
                           float: 'left',
@@ -632,6 +636,7 @@ const AdminGroupProfile = ({ infoForAdd, getGroupForAdd, addMenteeToGroup, addGr
                     <Link to={`/student/${mentees.menteeId4}`}>
                       <MdOutlinePersonSearch
                         // onClick={(e) => userProfile(e)}
+                        title="Student Details"
                         style={{
                           cursor: 'pointer',
                           float: 'left',
@@ -706,6 +711,7 @@ const AdminGroupProfile = ({ infoForAdd, getGroupForAdd, addMenteeToGroup, addGr
                     <Link to={`/student/${mentees.menteeId5}`}>
                       <MdOutlinePersonSearch
                         // onClick={(e) => userProfile(e)}
+                        title="Student Details"
                         style={{
                           cursor: 'pointer',
                           float: 'left',
