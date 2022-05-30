@@ -79,6 +79,19 @@ const AdminApplicationCreate = ({
     };
 
     if (
+      subjectId !== 5 &&
+      newApplication.forMentor &&
+      !sortedData.students.find((student) => student.studentId === newApplication.studentId)
+        .isMentor
+    ) {
+      setFormData({
+        ...formData,
+        errors: { appType: 'This student has not been approved for mentorship' },
+      });
+      return; // stop the onSumbit running.
+    }
+
+    if (
       basicApplications.find(
         (app) =>
           app.studentId === studentId &&
