@@ -146,6 +146,7 @@ const AdminGroupProfile = ({ group, getGroupAdmin, loading }) => {
                 <td className="text-center" style={{ width: '5%' }} id="borderless">
                   <Link to={`/student/${mentor.studentId}`}>
                     <MdOutlinePersonSearch
+                      title="Student Details"
                       style={{
                         cursor: 'pointer',
                         color: 'blue',
@@ -167,6 +168,7 @@ const AdminGroupProfile = ({ group, getGroupAdmin, loading }) => {
                 <td className="text-center" style={{ width: '5%' }} id="borderless">
                   <Link to={`/student/${mentee.studentId}`}>
                     <MdOutlinePersonSearch
+                      title="Student Details"
                       style={{
                         cursor: 'pointer',
                         color: 'blue',
@@ -210,6 +212,7 @@ const AdminGroupProfile = ({ group, getGroupAdmin, loading }) => {
                       (element) => element.date === date.date && element.confirmed
                     ) ? (
                       <BsCheckLg
+                        title="Attendance Confirmed"
                         style={{
                           color: 'green',
                           transform: 'scale(1.6)',
@@ -217,6 +220,7 @@ const AdminGroupProfile = ({ group, getGroupAdmin, loading }) => {
                       />
                     ) : (
                       <BsXLg
+                        title="Attendance Not Confirmed"
                         style={{
                           color: 'red',
                           transform: 'scale(1.6)',
@@ -231,6 +235,7 @@ const AdminGroupProfile = ({ group, getGroupAdmin, loading }) => {
                       (element) => element.date === date.date && element.confirmed
                     ) ? (
                       <BsCheckLg
+                        title="Attendance Confirmed"
                         style={{
                           color: 'green',
                           transform: 'scale(1.6)',
@@ -238,6 +243,7 @@ const AdminGroupProfile = ({ group, getGroupAdmin, loading }) => {
                       />
                     ) : (
                       <BsXLg
+                        title="Attendance Not Confirmed"
                         style={{
                           color: 'red',
                           transform: 'scale(1.6)',

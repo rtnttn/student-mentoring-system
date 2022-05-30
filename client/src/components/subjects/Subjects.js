@@ -133,6 +133,7 @@ const Subjects = ({ subjects, getSubjects, addSubject, deleteSubject, loading })
                             ? onDelete(subject.subjectId)
                             : null
                         }
+                        title="Delete Subject"
                         style={{
                           cursor: 'pointer',
                           float: 'left',
