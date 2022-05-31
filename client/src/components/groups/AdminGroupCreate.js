@@ -32,6 +32,11 @@ import { MdOutlinePersonSearch, MdOutlineGroupAdd, MdOutlineManageSearch } from 
 import { BsXLg, BsCheckLg, BsCloudLightning } from 'react-icons/bs';
 import { getGroupForAdd, addGroup, addMenteeToGroup } from '../../actions/groupActions';
 
+let addresses = '';
+let subjectName = '';
+let mentorNames = '';
+let emailString = `mailto:${addresses}?subject=SMS - ${subjectName} with ${mentorNames}`;
+
 const AdminGroupProfile = ({ infoForAdd, getGroupForAdd, addMenteeToGroup, addGroup, loading }) => {
   const navigate = useNavigate();
 
@@ -217,11 +222,6 @@ const AdminGroupProfile = ({ infoForAdd, getGroupForAdd, addMenteeToGroup, addGr
     addMenteeToGroup(newMember, groupId);
     navigate('/');
   };
-
-  let addresses = '';
-  let subjectName = '';
-  let mentorNames = '';
-  let emailString = `mailto:${addresses}?subject=SMS - ${subjectName} with ${mentorNames}`;
 
   useEffect(() => {
     // console.log(mentorId);
@@ -787,7 +787,7 @@ const AdminGroupProfile = ({ infoForAdd, getGroupForAdd, addMenteeToGroup, addGr
           </div>
         </form>
         <h3 className="text-center">
-          <a href={emailString}>
+          <a target="_blank" href={emailString} rel="noreferrer">
             <FaEnvelope title="Send email notification" style={{ 'text-decoration': 'none' }} />
           </a>
         </h3>
