@@ -221,10 +221,16 @@ const AdminGroupProfile = ({ infoForAdd, getGroupForAdd, addMenteeToGroup, addGr
   let addresses = '';
   let subjectName = '';
   let mentorNames = '';
-  const emailString = `mailto:${addresses}?subject=SMS - ${subjectName} with ${mentorNames}`;
+  let emailString = `mailto:${addresses}?subject=SMS - ${subjectName} with ${mentorNames}`;
 
   useEffect(() => {
-    if (!mentorId === 0 && !mentees.menteeId1 === 0) {
+    // console.log(mentorId);
+    // console.log(mentees.menteeId1);
+    if (mentorId !== 0 && mentees.menteeId1 !== 0) {
+      // console.log(selectData);
+      console.log(
+        selectData.mentorApplications.find((app) => app.studentId === mentorId).Student.studentEmail
+      );
       addresses = '';
       // mentor
       addresses += selectData.mentorApplications.find((app) => app.studentId === mentorId).Student
@@ -232,25 +238,25 @@ const AdminGroupProfile = ({ infoForAdd, getGroupForAdd, addMenteeToGroup, addGr
       addresses += ';';
       addresses += selectData.menteeApplications.find((app) => app.studentId === mentees.menteeId1)
         .Student.studentEmail;
-      if (!mentees.menteeId2 === 0) {
+      if (mentees.menteeId2 !== 0) {
         addresses += ';';
         addresses += selectData.menteeApplications.find(
           (app) => app.studentId === mentees.menteeId2
         ).Student.studentEmail;
       }
-      if (!mentees.menteeId3 === 0) {
+      if (mentees.menteeId3 !== 0) {
         addresses += ';';
         addresses += selectData.menteeApplications.find(
           (app) => app.studentId === mentees.menteeId3
         ).Student.studentEmail;
       }
-      if (!mentees.menteeId4 === 0) {
+      if (mentees.menteeId4 !== 0) {
         addresses += ';';
         addresses += selectData.menteeApplications.find(
           (app) => app.studentId === mentees.menteeId4
         ).Student.studentEmail;
       }
-      if (!mentees.menteeId5 === 0) {
+      if (mentees.menteeId5 !== 0) {
         addresses += ';';
         addresses += selectData.menteeApplications.find(
           (app) => app.studentId === mentees.menteeId5
@@ -260,6 +266,8 @@ const AdminGroupProfile = ({ infoForAdd, getGroupForAdd, addMenteeToGroup, addGr
       subjectName = selectData.subjectName;
       mentorNames = selectData.mentorApplications.find((app) => app.studentId === mentorId).Student
         .studentName;
+      emailString = `mailto:${addresses}?subject=SMS - ${subjectName} with ${mentorNames}`;
+      console.log(emailString);
     }
   }, [formData]);
 
