@@ -1,3 +1,4 @@
+/* eslint-disable no-self-assign */
 /* eslint-disable object-shorthand */
 /* eslint-disable no-useless-return */
 /* eslint-disable no-prototype-builtins */
@@ -31,11 +32,6 @@ import { IoCheckmarkCircleOutline, IoCheckmarkCircle } from 'react-icons/io5';
 import { MdOutlinePersonSearch, MdOutlineGroupAdd, MdOutlineManageSearch } from 'react-icons/md';
 import { BsXLg, BsCheckLg, BsCloudLightning } from 'react-icons/bs';
 import { getGroupForAdd, addGroup, addMenteeToGroup } from '../../actions/groupActions';
-
-let addresses = '';
-let subjectName = '';
-let mentorNames = '';
-let emailString = `mailto:${addresses}?subject=SMS - ${subjectName} with ${mentorNames}`;
 
 const AdminGroupProfile = ({ infoForAdd, getGroupForAdd, addMenteeToGroup, addGroup, loading }) => {
   const navigate = useNavigate();
@@ -227,54 +223,6 @@ const AdminGroupProfile = ({ infoForAdd, getGroupForAdd, addMenteeToGroup, addGr
     addMenteeToGroup(newMember, groupId);
     navigate('/');
   };
-
-  useEffect(() => {
-    // console.log(mentorId);
-    // console.log(mentees.menteeId1);
-    if (mentorId !== 0 && mentees.menteeId1 !== 0) {
-      // console.log(selectData);
-      console.log(
-        selectData.mentorApplications.find((app) => app.studentId === mentorId).Student.studentEmail
-      );
-      addresses = '';
-      // mentor
-      addresses += selectData.mentorApplications.find((app) => app.studentId === mentorId).Student
-        .studentEmail;
-      addresses += ';';
-      addresses += selectData.menteeApplications.find((app) => app.studentId === mentees.menteeId1)
-        .Student.studentEmail;
-      if (mentees.menteeId2 !== 0) {
-        addresses += ';';
-        addresses += selectData.menteeApplications.find(
-          (app) => app.studentId === mentees.menteeId2
-        ).Student.studentEmail;
-      }
-      if (mentees.menteeId3 !== 0) {
-        addresses += ';';
-        addresses += selectData.menteeApplications.find(
-          (app) => app.studentId === mentees.menteeId3
-        ).Student.studentEmail;
-      }
-      if (mentees.menteeId4 !== 0) {
-        addresses += ';';
-        addresses += selectData.menteeApplications.find(
-          (app) => app.studentId === mentees.menteeId4
-        ).Student.studentEmail;
-      }
-      if (mentees.menteeId5 !== 0) {
-        addresses += ';';
-        addresses += selectData.menteeApplications.find(
-          (app) => app.studentId === mentees.menteeId5
-        ).Student.studentEmail;
-      }
-
-      subjectName = selectData.subjectName;
-      mentorNames = selectData.mentorApplications.find((app) => app.studentId === mentorId).Student
-        .studentName;
-      emailString = `mailto:${addresses}?subject=SMS - ${subjectName} with ${mentorNames}`;
-      console.log(emailString);
-    }
-  }, [formData]);
 
   // console.log(selectData.mentorApplications.find((mentor) => mentor.studentId === mentorId));
 
@@ -792,7 +740,51 @@ const AdminGroupProfile = ({ infoForAdd, getGroupForAdd, addMenteeToGroup, addGr
           </div>
         </form>
         <h3 className="text-center">
-          <a target="_blank" href={emailString} rel="noreferrer">
+          <a
+            target="_blank"
+            href={`mailto:${
+              selectData.mentorApplications.find((app) => app.studentId === mentorId)
+                ? selectData.mentorApplications.find((app) => app.studentId === mentorId).Student
+                    .studentEmail
+                : ''
+            }${
+              selectData.menteeApplications.find((app) => app.studentId === mentees.menteeId1)
+                ? ';' +
+                  selectData.menteeApplications.find((app) => app.studentId === mentees.menteeId1)
+                    .Student.studentEmail
+                : ''
+            }${
+              selectData.menteeApplications.find((app) => app.studentId === mentees.menteeId2)
+                ? ';' +
+                  selectData.menteeApplications.find((app) => app.studentId === mentees.menteeId2)
+                    .Student.studentEmail
+                : ''
+            }${
+              selectData.menteeApplications.find((app) => app.studentId === mentees.menteeId3)
+                ? ';' +
+                  selectData.menteeApplications.find((app) => app.studentId === mentees.menteeId3)
+                    .Student.studentEmail
+                : ''
+            }${
+              selectData.menteeApplications.find((app) => app.studentId === mentees.menteeId4)
+                ? ';' +
+                  selectData.menteeApplications.find((app) => app.studentId === mentees.menteeId4)
+                    .Student.studentEmail
+                : ''
+            }${
+              selectData.menteeApplications.find((app) => app.studentId === mentees.menteeId5)
+                ? ';' +
+                  selectData.menteeApplications.find((app) => app.studentId === mentees.menteeId5)
+                    .Student.studentEmail
+                : ''
+            }?subject=SMS - ${selectData.subjectName} with ${
+              selectData.mentorApplications.find((app) => app.studentId === mentorId)
+                ? selectData.mentorApplications.find((app) => app.studentId === mentorId).Student
+                    .studentName
+                : ''
+            }`}
+            rel="noreferrer"
+          >
             <FaEnvelope title="Send email notification" style={{ 'text-decoration': 'none' }} />
           </a>
         </h3>
@@ -934,12 +926,6 @@ const AdminGroupProfile = ({ infoForAdd, getGroupForAdd, addMenteeToGroup, addGr
     </div>
   );
 };
-
-<h3 className="text-center">
-  <a target="_blank" href={emailString} rel="noreferrer">
-    <FaEnvelope title="Send email notification" style={{ 'text-decoration': 'none' }} />
-  </a>
-</h3>;
 
 // Create our propTypes
 AdminGroupProfile.propTypes = {
