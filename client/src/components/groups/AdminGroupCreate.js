@@ -112,6 +112,11 @@ const AdminGroupProfile = ({ infoForAdd, getGroupForAdd, addMenteeToGroup, addGr
           ),
         },
       });
+      // console.log(id);
+      // console.log(selectData);
+      // console.log(
+      //   selectData.menteeApplications.find((app) => app.applicationId === id).Student.studentEmail
+      // );
     }
   }, [infoForAdd]);
 
@@ -881,7 +886,7 @@ const AdminGroupProfile = ({ infoForAdd, getGroupForAdd, addMenteeToGroup, addGr
 
                         <tr>
                           <td colSpan="2">
-                            <div className="text-center mb-2 mt-2">
+                            <div className="text-center mt-2">
                               <button
                                 // value={group.groupId}
                                 type="submit"
@@ -890,8 +895,25 @@ const AdminGroupProfile = ({ infoForAdd, getGroupForAdd, addMenteeToGroup, addGr
                               >
                                 Add to Group
                               </button>
+                            </div>
+                            <div className="text-center mb-2">
                               <h3 className="text-center">
-                                <a href={emailString}>
+                                <a
+                                  target="_blank"
+                                  rel="noreferrer"
+                                  href={`mailto:${
+                                    group.Members.find((mem) => mem.isMentor).Student.studentEmail
+                                  };${
+                                    selectData.menteeApplications.length !== 0
+                                      ? selectData.menteeApplications.find(
+                                          (app) => app.applicationId === parseInt(id, 10)
+                                        ).Student.studentEmail
+                                      : ''
+                                  }?subject=SMS - ${selectData.subjectName} with ${
+                                    group.Members.find((mem) => mem.isMentor).Student.studentName
+                                  }
+                                      `}
+                                >
                                   <FaEnvelope
                                     title="Send email notification"
                                     style={{ 'text-decoration': 'none' }}
@@ -912,6 +934,12 @@ const AdminGroupProfile = ({ infoForAdd, getGroupForAdd, addMenteeToGroup, addGr
     </div>
   );
 };
+
+<h3 className="text-center">
+  <a target="_blank" href={emailString} rel="noreferrer">
+    <FaEnvelope title="Send email notification" style={{ 'text-decoration': 'none' }} />
+  </a>
+</h3>;
 
 // Create our propTypes
 AdminGroupProfile.propTypes = {
