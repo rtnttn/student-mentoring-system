@@ -1,13 +1,13 @@
 # Student Mentoring System - Docs
 
-[TOC2]
 
-##Introduction
+
+## Introduction
 
 Welcome to the Student Mentoring System (SMS) documentation.
 This page is intended to serve as a reference for onboarding and completing common use-cases, as well as shedding light on design decisions where appropriate.
 
-##Key Concepts
+## Key Concepts
 
 ### Users
 
@@ -19,11 +19,11 @@ The SMS was designed to allow students to create their own accounts. During regi
 
 Once enrolled, students would be responsible for submitting applications and availability, as well as logging their attendance throughout semester. Mentors are additionally responsible for setting session dates ahead of time.
 
-!!! note Mentors can also apply to be mentees
+> !!! note Mentors can also apply to be mentees
 
 Staff accounts, on the other hand, are created by the course coordinator. A staff member should change their password when they log in for the first time. Having the coordinator create staff accounts is an easy means of preventing unauthorized access. Staff accounts require a name, email and password.
 
-###Applications
+### Applications
 
 Once authenticated, students can submit applications. There are 3 types of applications: applications to run a mentor group (mentor applications), applications to join a mentor group (mentee applications) and applications to become a mentor (mentorship applications).
 
@@ -33,24 +33,24 @@ Once mentor applications are approved by a coordinator, that application can be 
 
 Mentee applications are deleted once the student is assigned to a group for that subject, but mentor applications remain so that other groups may be created.
 
-###Groups
+### Groups
 
 A group consists of two or more students (one mentor and up to five mentees), with a staff member assigned as a supervisor. The scope of a group is one subject, and they are expected to meet once a week for at least an hour.
 
 Groups are created by the coordinator by pairing mentor and mentee applications. Existing groups can also have mentees added to them.
 
-!!! Students should act as a mentor for no more than 2 groups concurrently. Group sessions should have 5 mentees max
+> !!! Students should act as a mentor for no more than 2 groups concurrently. Group sessions should have 5 mentees max
 
 Mentors can see the names of mentees in their group, but mentees
 
 
-##Getting Started
+## Getting Started
 
 There are a few steps to complete before students can be paired up into groups. Students and staff will need accounts to be created, subjects will need to be entered into the database and the timeslot table needs to be populated.
 
-!!! These steps detail workflows for the coordinator only
+> !!! These steps detail workflows for the coordinator only
 
-###Creating User Accounts
+### Creating User Accounts
 
 Staff and student accounts can be created by following links from the dashboard
 ->![User creation links](https://i.imgur.com/DAgqgVP.png)<-
@@ -61,7 +61,7 @@ Coordinators can grant students mentor privileges on account creation. By defaul
 Staff registration allows staff members to be allocated to groups as supervisors
 ![Staff account registration](https://i.imgur.com/DQhuT4J.png)
 
-###Creating Subjects
+### Creating Subjects
 
 The subjects page can be reached from the group panel in the dashboard.
 ->![Manage Subjects link](https://i.imgur.com/XWnzxwD.png)<-
@@ -72,11 +72,11 @@ This page contains a page to add new subjects
 As well as a dynamically generated list of existing subjects, with links to delete them
 ![Subjects list](https://i.imgur.com/p5yphEq.png)
 
-!!! danger A subject named 'Mentor Application' is used for students to apply for mentorship. The database should contain one subject with this name to function properly, which is why it doesn't show a delete link.
+> !!! danger A subject named 'Mentor Application' is used for students to apply for mentorship. The database should contain one subject with this name to function properly, which is why it doesn't show a delete link.
 
-###Timeslot Seed Data
+### Timeslot Seed Data
 
-!!! This step is important when working with a new database file, but can otherwise be ignored
+> !!! This step is important when working with a new database file, but can otherwise be ignored
 
 In order for student availabilities to function properly, the database needs to be seeded with timeslot data. This can be done while the server is running by sending an API request. Note that the request points to the port the server is running on, which differs from the client.
 
@@ -87,7 +87,7 @@ Sending a post request with flag: true in the body will populate the timeslots t
 ->![Timeslots data](https://i.imgur.com/7CY710I.png)<-
 
 
-###Creating Applications
+### Creating Applications
 
 With the initial setup completed we can work on the core functionality of the SMS -- Applications. The form to create them can be reached directly from the dash.
 
@@ -97,13 +97,13 @@ For expressions of interest in mentoring/being mentored for a particular subject
 
 
 
-###Filling Applications
+### Filling Applications
 
 ->![Application example](https://i.imgur.com/gF1R2Mb.png)<-
 
 There are links to fill applications in both the coordinator dashboard and student detail pages (also accessible from the dashboard)
 
-!!! note Hover over an icon for a description of its function
+> !!! note Hover over an icon for a description of its function
 
 The Fill Application form is split into two halves. The top will allow creating a new group, displaying a list of mentors that are approved to run sessions for that subject. Multiple mentees can be added upon creation.
 
@@ -115,7 +115,7 @@ If there are existing groups for that subject with space for another mentor, the
 
 ![Add to existing group](https://i.imgur.com/KEkXMUc.png)
 
-##Installation Guide
+## Installation Guide
 - Install node.js https://nodejs.org/en/
 - Clone the repository from https://github.com/rtnttn/student-mentoring-system
 - Open the server folder
@@ -129,4 +129,4 @@ If there are existing groups for that subject with space for another mentor, the
 - A browser window should open and display the program
 - Create staff, student and subject records before creating applications as detailed in the sections above
 
-!!! info The INIT database provides only timeslot data and a 'Mentor Application' subject to ensure smooth operation
+> !!! info The INIT database provides only timeslot data and a 'Mentor Application' subject to ensure smooth operation
